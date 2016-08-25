@@ -1,0 +1,2 @@
+INSERT INTO settings(name, value) VALUES ('base_cashback', '50');
+INSERT INTO settings(name, value) VALUES ('auto_delivered_complete', '300');

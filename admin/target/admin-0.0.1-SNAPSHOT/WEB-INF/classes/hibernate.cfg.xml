@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="entity.Product" />
+		<mapping class="entity.Sail" />
+		<mapping class="entity.Buyer" />
+		<mapping class="entity.BuyerInfo" />
+		<mapping class="entity.PictureProduct" />
+		<mapping class="entity.Chat" />
+		<mapping class="entity.Discount" />
+		<mapping class="entity.Role" />
+		<mapping class="entity.Settings" />
+		<mapping class="entity.User" />
+	</session-factory>
+</hibernate-configuration>

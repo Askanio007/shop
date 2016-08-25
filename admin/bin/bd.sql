@@ -1,0 +1,218 @@
+-- Table: buyer
+
+-- DROP TABLE buyer;
+
+CREATE SEQUENCE products_id_seq START 1;
+CREATE SEQUENCE sail_id_seq START 1;
+CREATE SEQUENCE user_id_seq START 1;
+CREATE SEQUENCE buyer_info_id_seq START 1;
+CREATE SEQUENCE pic_id_seq START 1;
+
+CREATE TABLE buyer
+(
+  name text,
+  password text,
+  buyer_id bigint NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+  enable boolean,
+  role_id bigint,
+  reg_date timestamp without time zone,
+  CONSTRAINT user_pkey PRIMARY KEY (buyer_id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+-- DROP TABLE buyer_info;
+
+CREATE TABLE buyer_info
+(
+  second_name text,
+  age integer,
+  phone text,
+  info_id bigserial NOT NULL,
+  ava_path text,
+  CONSTRAINT buyer_info_pkey PRIMARY KEY (info_id)
+)
+WITH (
+  OIDS=FALSE
+); 
+  -- Table: product
+
+-- DROP TABLE product;
+
+CREATE TABLE product
+(
+  product_id bigint NOT NULL DEFAULT nextval('products_id_seq'::regclass),
+  name text,
+  cost double precision,
+  CONSTRAINT prim PRIMARY KEY (product_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE product
+  OWNER TO postgres;
+
+
+  
+  -- Table: sail
+
+-- DROP TABLE sail;
+
+CREATE TABLE sail
+(
+  sail_id bigint NOT NULL DEFAULT nextval('sail_id_seq'::regclass),
+  amount integer,
+  discount smallint,
+  date date,
+  totalsum double precision,
+  CONSTRAINT "prim key" PRIMARY KEY (sail_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE sail
+  OWNER TO postgres;
+
+  
+  -- Table: sail_by_buyer
+
+-- DROP TABLE sail_by_buyer;
+
+CREATE TABLE sail_by_buyer
+(
+  sail_id bigint,
+  buyer_id bigint
+)
+WITH (
+  OIDS=FALSE
+);
+
+  
+  
+CREATE TABLE product_by_sail
+(
+  product_id bigint,
+  sail_id bigint
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE picture_product
+(
+  pic_id bigint NOT NULL DEFAULT nextval('pic_id_seq'::regclass),
+  path text,
+  product_id bigint,
+  
+  CONSTRAINT picture_product_pkey PRIMARY KEY (pic_id)
+  
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE chat
+(
+  id bigserial NOT NULL,
+  frm text,
+  tt text,
+  text text,
+  date timestamp without time zone,
+  CONSTRAINT chat_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE chat
+  OWNER TO postgres;
+
+  CREATE TABLE discount
+(
+  id bigserial NOT NULL,
+  discoun smallint,
+  product_id bigint,
+  buyer_name text,
+  active boolean,
+  CONSTRAINT discount_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE discount
+  OWNER TO postgres;
+  
+  CREATE TABLE settings
+(
+  name text,
+  value text
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE settings
+  OWNER TO postgres;
+
+
+CREATE TABLE user_role
+(
+  role text,
+  role_id bigserial NOT NULL,
+  CONSTRAINT user_role_pkey PRIMARY KEY (role_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE user_role
+  OWNER TO postgres;
+
+  CREATE INDEX fki_w
+  ON buyer
+  USING btree
+  (role_id);
+  
+  CREATE INDEX "fki_SA"
+  ON picture_product
+  USING btree
+  (product_id);
+
+
+
+ALTER TABLE buyer
+  OWNER TO postgres,
+  ADD FOREIGN KEY (role_id) REFERENCES user_role (role_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE buyer_info
+  OWNER TO postgres,
+   ADD FOREIGN KEY (info_id) REFERENCES buyer (buyer_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE product_by_sail
+  OWNER TO postgres,
+  ADD FOREIGN KEY (product_id) REFERENCES product (product_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD FOREIGN KEY (sail_id) REFERENCES sail (sail_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+  
+  ALTER TABLE sail_by_buyer
+  OWNER TO postgres,
+  ADD FOREIGN KEY (sail_id) REFERENCES sail (sail_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD FOREIGN KEY (buyer_id) REFERENCES buyer (buyer_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+  
+  ALTER TABLE picture_product
+  OWNER TO postgres,
+  ADD FOREIGN KEY (product_id) REFERENCES product (product_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+
+INSERT INTO user_role(role, role_id) VALUES ('ROLE_ADMIN', 1);
+INSERT INTO user_role(role, role_id) VALUES ('ROLE_USER', 2);
+  
+INSERT INTO buyer(name, password, buyer_id, enable, role_id, reg_date) VALUES ('admin', '5f4dcc3b5aa765d61d8327deb882cf99', 1, true, 1, '2016-01-01 00:00:00');   
+INSERT INTO buyer_info(info_id) VALUES (1);
+
+INSERT INTO settings(name, value) VALUES ('time_general_discount', '300000');
+INSERT INTO settings(name, value) VALUES ('time_disactive_discount', '600000');
+INSERT INTO settings(name, value) VALUES ('path_upload_avatar', 'D://');
+INSERT INTO settings(name, value) VALUES ('path_upload_pic_product', 'D://');
+
+INSERT INTO discount(id, discoun, active) VALUES (1, 50, true);
+
+  
