@@ -26,9 +26,9 @@ public class CashController {
 
     @RequestMapping(value = "/user/deposit", method = RequestMethod.POST)
     public String deposit(@RequestParam("sum") Integer summa, HttpServletRequest request) {
-        Buyer b = serviceBuyer.getBuyer(CurrentUser.getName());
+        Buyer b = serviceBuyer.get(CurrentUser.getName());
         b.setBalance(summa + b.getBalance());
-        serviceBuyer.editBuyer(b);
+        serviceBuyer.edit(b);
         return "redirect:/user/profile";
     }
 }

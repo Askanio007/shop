@@ -13,6 +13,6 @@ public interface ProductDAO extends GeneralDAO<Product> {
 	
 	String getPicturePath(Long picId);
 	
-	List<Product> getAllProductBySail(Long sailid);
+	List<Product> getAllBySail(Long sailid);
 
 }

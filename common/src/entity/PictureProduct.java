@@ -26,7 +26,7 @@ public class PictureProduct {
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product prod;
 
-	public PictureProduct() {
+	private PictureProduct() {
 	}
 
 	public PictureProduct(String path) {

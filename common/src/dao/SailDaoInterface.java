@@ -10,22 +10,20 @@ import utils.PaginationFilter;
 
 public interface SailDaoInterface extends GeneralDAO<Sail> {
 
-	int countSailsByReferral(Long referId, DateFilter dateSail);
+	int countByReferral(Long referId, DateFilter dateSail);
 
-	int countSailsByBuyer(Long buyerid);
+	int countByBuyer(Long buyerid);
 
-	List<Sail> getAllSailByBuyer(PaginationFilter dbFilter, Long buyerid);
+	List<Sail> getByBuyer(PaginationFilter dbFilter, Long buyerid);
 	
-	List<Sail> getAllSailByBuyer(Long buyerid);
+	List<Sail> getByBuyer(Long buyerid);
 
-	List<Sail> getOverDueSail(Long time);
+	List<Sail> getOverDue(Long time);
 
-	List<Sail> completeSailByDay(Long buyerId, Date date);
+	Double profitCompletedByDay(Long buyerId, Date date);
 
-	List<Sail> completeSailByDate(Long buyerId, DateFilter dateSail);
+	List<Sail> completedByDay(Long buyerId, Date date);
 
-	List<Sail> completeSailByDate(Long buyerId, PaginationFilter dbFilter, DateFilter dateSail);
-	
-	List<Sail> completeSailByDateOrder(Long buyerId, PaginationFilter dbFilter, DateFilter dateSail, String sort);
+	List<Sail> completedByDate(Long buyerId, PaginationFilter dbFilter, DateFilter dateSail, String sort);
 
 }

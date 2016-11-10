@@ -29,12 +29,12 @@ public class TotalSoldProductService {
 	private ProductService serviceProduct;
 
 	@Transactional
-	public void addProduct(Collection<SoldProduct> soldProducts) {
+	public void add(Collection<SoldProduct> soldProducts) {
 		for (SoldProduct sProduct : soldProducts) {
-			Product prod = serviceProduct.getProduct(sProduct.getProductId());
-			TotalSoldProduct totalProd = getProduct(prod.getId());
+			Product prod = serviceProduct.get(sProduct.getProductId());
+			TotalSoldProduct totalProd = get(prod.getId());
 			if (totalProd == null) {
-				totalProductDao.add(new TotalSoldProduct(sProduct, prod));
+				totalProductDao.save(new TotalSoldProduct(sProduct, prod));
 				return;
 			}
 			totalProd.addData(sProduct);
@@ -43,30 +43,8 @@ public class TotalSoldProductService {
 	}
 
 	@Transactional
-	public List<TotalSoldProduct> listTotalSoldProduct(PaginationFilter pagination, String sort, FilterTotalSoldProduct paramFilter) {
-		List<TotalSoldProduct> list = new ArrayList<>();
-		if (sort != null) {
-			switch (sort) {
-			case "priceUp":
-				list = totalProductDao.findSortPrice(pagination, "desc",paramFilter);
-				break;
-			case "amountUp":
-				list = totalProductDao.findSortAmount(pagination, "desc",paramFilter);
-				break;
-			case "priceDown":
-				list = totalProductDao.findSortPrice(pagination, "asc",paramFilter);
-				break;
-			case "amountDown":
-				list = totalProductDao.findSortAmount(pagination, "asc",paramFilter);
-				break;
-			case "":
-				list = totalProductDao.find(pagination,paramFilter);
-				break;
-			}
-		}
-		else
-			list = totalProductDao.find(pagination,paramFilter);
-		
+	public List<TotalSoldProduct> list(PaginationFilter pagination, String sort, FilterTotalSoldProduct paramFilter) {
+		List<TotalSoldProduct> list = totalProductDao.find(pagination,paramFilter,sort);
 		for (TotalSoldProduct t : list) {
 			Hibernate.initialize(t.getProduct());
 		}
@@ -74,13 +52,13 @@ public class TotalSoldProductService {
 	}
 
 	@Transactional
-	public Integer countTotalSoldProduct(FilterTotalSoldProduct paramFilter) {
+	public Integer count(FilterTotalSoldProduct paramFilter) {
 		return totalProductDao.countAll(paramFilter);
 	}
 
 	@Transactional
-	public TotalSoldProduct getProduct(Long productId) {
-		return totalProductDao.getProduct(productId);
+	public TotalSoldProduct get(Long productId) {
+		return totalProductDao.get(productId);
 	}
 
 }

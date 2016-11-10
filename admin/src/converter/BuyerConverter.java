@@ -15,7 +15,7 @@ public class BuyerConverter implements Converter<String, Buyer> {
 	
 	@Override
 	public Buyer convert(String arg0) {
-		return serviceBuyer.getBuyer(Long.parseLong(arg0));
+		return serviceBuyer.get(Long.parseLong(arg0));
 	}
 
 }

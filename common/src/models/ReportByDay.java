@@ -1,7 +1,6 @@
 package models;
 
-import entity.ClickByLink;
-import org.hibernate.annotations.Filter;
+import view.DateConverter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,8 +8,10 @@ import java.util.Date;
 
 public class ReportByDay {
 
-    private ThreadLocal<DateFormat> dfView = new ThreadLocal<DateFormat>();
-    private ThreadLocal<DateFormat> dfRequest = new ThreadLocal<DateFormat>();
+    // TODO: 16.10.2016 пора бы уже разобраться как это работает для чего нужно и так далее
+    // TODO: классы, объекты, статические бла бла бла и прочяя неинтересная фигня    :::
+    // я вынес отсюда все threadLocal, потому что у меня есть отдельный класс. DateConverter
+    // Но я так понял, проблема быда в том, что переменные были не static и каждый раз создавались с классом
 
     private Date date;
     private Long clickLinkAmount;
@@ -71,21 +72,11 @@ public class ReportByDay {
     }
 
     public DateFormat getFormatView() {
-        DateFormat format = dfView.get();
-        if (format == null) {
-            format = new SimpleDateFormat("yyyy-MM-dd");
-            dfView.set(format);
-        }
-        return format;
+        return DateConverter.getFormatView();
     }
 
     public DateFormat getFormatRequest() {
-        DateFormat format = dfRequest.get();
-        if (format == null) {
-            format = new SimpleDateFormat("yyyyMMdd");
-            dfRequest.set(format);
-        }
-        return format;
+        return DateConverter.getFormatRequest();
     }
 
     public String getDateView() {

@@ -9,22 +9,21 @@ import entity.Role;
 public class RoleDAOImpl extends GeneralDAOImpl<Role> implements RoleDAO{
 
 	@Override
-	public Role getRoleByUserName(String name) {
-		int id = asInt(createQuery("select id from User where name = :name")
-					.setString("name", name)
-					.uniqueResult());
-		return (Role) createQuery("from Role where id = :id").setInteger("id", id).uniqueResult();
+	public Role getByUserName(String name) {
+		return (Role) createQuery("select role from User as u inner join u.role as role where name = :name")
+				.setString("name", name)
+				.uniqueResult();
 	}
 	
 	@Override
-	public Role getUserRole(Long id) {
+	public Role get(Long id) {
 		return (Role) createQuery("from Role where id = :id")
 					.setLong("id", id)
 					.uniqueResult();
 	}
 
 	@Override
-	public List<Role> getAllRole() {
+	public List<Role> getAll() {
 		return find();
 	}
 }

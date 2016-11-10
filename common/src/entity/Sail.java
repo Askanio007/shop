@@ -44,7 +44,6 @@ public class Sail {
 	@NotNull
 	private Date dateChangeState;
 
-
 	@Column(name = "amount")
 	private Integer amount;
 
@@ -69,7 +68,7 @@ public class Sail {
 	@ManyToMany
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@NotNull
-	private Collection<Buyer> buyers;
+	private Collection<Buyer> buyers;// TODO: 16.10.2016 кто это? ::: Это список покупателей. Я изначально сделал так, что одна и та же покупка может быть у нескольких покупателей
 
 	public Sail() {
 

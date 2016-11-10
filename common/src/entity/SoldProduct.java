@@ -41,7 +41,7 @@ public class SoldProduct {
 	@JoinColumn(name = "sail_id", nullable = false)
 	private Sail sail;
 
-	public SoldProduct() {
+	private SoldProduct() {
 	}
 
 	public SoldProduct(ProductBasket product) {

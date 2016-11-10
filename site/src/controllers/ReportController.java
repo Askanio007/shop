@@ -17,8 +17,6 @@ import view.DateConverter;
 import view.ViewPagination;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -37,7 +35,7 @@ public class ReportController {
     private ReportService serviceReport;
 
     @Autowired
-    private ClickStatisticService serviceClickStatistic;
+    private StatisticReferralsService serviceClickStatistic;
 
     public boolean dateIsNull(Date from, Date to) {
         return from == null && to == null ? true : false;
@@ -46,9 +44,9 @@ public class ReportController {
     @RequestMapping(value = "/user/reports/referrals", method = RequestMethod.GET)
     public String referrals(Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
-        ViewPagination viewPagination = new ViewPagination("1", serviceReferal.countReferrals(CurrentUser.getName(), new DateFilter(null,null) ,""));
+        ViewPagination viewPagination = new ViewPagination("1", serviceReferal.count(CurrentUser.getName(), new DateFilter(null,null) ,""));
         model.addAttribute("pagination", viewPagination);
-        List<Referral> referrals = serviceReferal.find(CurrentUser.getName(), viewPagination.getDBPagination(), new DateFilter(null,null) , new DateFilter(null,null)  ,"");
+        List<Referral> referrals = serviceReferal.find(CurrentUser.getName(), viewPagination.getDBPagination(), new DateFilter(null,null) , new DateFilter(null,null)  ,"", null);
         model.addAttribute("referrals", referrals);
         return "user/reports/referrals";
     }
@@ -58,14 +56,14 @@ public class ReportController {
                                @RequestParam(required = false, value = "regTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date regTo,
                                @RequestParam(required = false, value = "sailFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailFrom,
                                @RequestParam(required = false, value = "sailTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailTo,
-                               @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
-                               @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
+                               @RequestParam(required = false, value = "tracker") String tracker,
+                               @RequestParam(required = false, value = "sort") String sort,
                                @RequestParam(required = false, value = "page", defaultValue = "1") String page,
                                Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
         DateFilter registrationDate = new DateFilter(regFrom,regTo);
         DateFilter sailDate = new DateFilter(sailFrom,sailTo);
-        ViewPagination viewPagination = new ViewPagination(page, serviceReferal.countReferrals(CurrentUser.getName(), registrationDate ,tracker));
+        ViewPagination viewPagination = new ViewPagination(page, serviceReferal.count(CurrentUser.getName(), registrationDate ,tracker));
         List<Referral> referrals = serviceReferal.find(CurrentUser.getName(),viewPagination.getDBPagination(), registrationDate, sailDate ,tracker, sort);
         model.addAttribute("referrals", referrals);
         model.addAttribute("tracker", tracker);
@@ -80,7 +78,7 @@ public class ReportController {
     public String referralStatisticDetail(@RequestParam("id") Long referId, Model model,HttpServletRequest request) {
         BuyController.setCountProductBasketInModel(request, model);
         DateFilter date = new DateFilter(null,null);
-        ViewPagination viewPagination = new ViewPagination("1", serviceSail.countReferralSail(referId,  date));
+        ViewPagination viewPagination = new ViewPagination("1", serviceSail.countByReferral(referId,  date));
         List<SailProfit> sailProfit = serviceReport.getProfitBySails(referId, viewPagination.getDBPagination(), date, "");
         model.addAttribute("referral", serviceReferal.find(referId));
         model.addAttribute("sails", sailProfit);
@@ -93,12 +91,12 @@ public class ReportController {
     public String referralStatisticDetail(@RequestParam("id") Long referId,
                                          @RequestParam(required = false, value = "sailFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailFrom,
                                          @RequestParam(required = false, value = "sailTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailTo,
-                                         @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
+                                         @RequestParam(required = false, value = "sort") String sort,
                                          @RequestParam(required = false, value = "page", defaultValue = "1") String page,
                                          Model model,HttpServletRequest request) {
         BuyController.setCountProductBasketInModel(request, model);
         DateFilter filter = new DateFilter(sailFrom,sailTo);
-        ViewPagination viewPagination = new ViewPagination(page, serviceSail.countReferralSail(referId, filter));
+        ViewPagination viewPagination = new ViewPagination(page, serviceSail.countByReferral(referId, filter));
         List<SailProfit> sailProfit = serviceReport.getProfitBySails(referId, viewPagination.getDBPagination(), filter, sort);
         model.addAttribute("referral", serviceReferal.find(referId));
         model.addAttribute("sails", sailProfit);
@@ -113,8 +111,8 @@ public class ReportController {
     public String referralsByDay(Model model, HttpServletRequest request) {
         DateFilter dateRegistration = new DateFilter(null, null);
         BuyController.setCountProductBasketInModel(request, model);
-        ViewPagination viewPagination = new ViewPagination("1", serviceClickStatistic.countClickStatisticByDate(CurrentUser.getName(), dateRegistration, ""), 50);
-        model.addAttribute("days",serviceReport.getReportByDay(CurrentUser.getName(), viewPagination.getDBPagination(), dateRegistration, ""));
+        ViewPagination viewPagination = new ViewPagination("1", serviceClickStatistic.countByDate(CurrentUser.getName(), dateRegistration, ""), 50);
+        model.addAttribute("days",serviceReport.getReportByDay(CurrentUser.getName(), viewPagination.getDBPagination(), dateRegistration, "", null));
         model.addAttribute("pagination", viewPagination);
         return "user/reports/referralsByDay";
     }
@@ -122,13 +120,13 @@ public class ReportController {
     @RequestMapping(value = "/user/reports/referralsByDay", method = RequestMethod.POST)
     public String referralsByDay(@RequestParam(required = false, value = "regFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                                    @RequestParam(required = false, value = "regTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
-                                   @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
-                                   @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
+                                   @RequestParam(required = false, value = "tracker") String tracker,
+                                   @RequestParam(required = false, value = "sort") String sort,
                                    @RequestParam(required = false, value = "page", defaultValue = "1") String page,
                                    Model model, HttpServletRequest request) {
         DateFilter dateRegistration = new DateFilter(from,to);
         BuyController.setCountProductBasketInModel(request, model);
-        ViewPagination viewPagination = new ViewPagination(page, serviceClickStatistic.countClickStatisticByDate(CurrentUser.getName(), dateRegistration, ""), 50);
+        ViewPagination viewPagination = new ViewPagination(page, serviceClickStatistic.countByDate(CurrentUser.getName(), dateRegistration, ""), 50);
         model.addAttribute("days",serviceReport.getReportByDay(CurrentUser.getName(), viewPagination.getDBPagination(), dateRegistration, tracker, sort));
         model.addAttribute("tracker", tracker);
         model.addAttribute("sort", sort);
@@ -139,12 +137,12 @@ public class ReportController {
 
     @RequestMapping(value = "/user/reports/referralsByDayDetail", method = RequestMethod.GET)
     public String referralsByDayDetail(@RequestParam("date") @DateTimeFormat(pattern="yyyyMMdd") Date date,
-                                      @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
+                                      @RequestParam(required = false, value = "tracker") String tracker,
                                       Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
-        Buyer buyer = serviceBuyer.getBuyer(CurrentUser.getName());
-        ViewPagination viewPagination = new ViewPagination("1", serviceReferal.countActiveReferralByDay(buyer.getId(), date, tracker));
-        model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker));
+        Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+        ViewPagination viewPagination = new ViewPagination("1", serviceReferal.countActiveByDay(buyer.getId(), date, tracker));
+        model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker, null));
         model.addAttribute("tracker", tracker);
         model.addAttribute("day", DateConverter.getFormatView().format(date));
        model.addAttribute("pagination", viewPagination);
@@ -153,13 +151,13 @@ public class ReportController {
 
     @RequestMapping(value = "/user/reports/referralsByDayDetail", method = RequestMethod.POST)
     public String referralsByDayDetail(@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date,
-                                      @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
-                                      @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
+                                      @RequestParam(required = false, value = "tracker") String tracker,
+                                      @RequestParam(required = false, value = "sort") String sort,
                                       @RequestParam(required = false, value = "page", defaultValue = "1") String page,
                                       Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
-        Buyer buyer = serviceBuyer.getBuyer(CurrentUser.getName());
-        ViewPagination viewPagination = new ViewPagination(page,serviceReferal.countActiveReferralByDay(buyer.getId(), date, tracker));
+        Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+        ViewPagination viewPagination = new ViewPagination(page,serviceReferal.countActiveByDay(buyer.getId(), date, tracker));
         model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker, sort));
         model.addAttribute("sort", sort);
         model.addAttribute("tracker", tracker);

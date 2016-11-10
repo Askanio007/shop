@@ -51,32 +51,32 @@ public class ProductService {
 	}
 
 	@Transactional
-	public List<Product> listProduct(PaginationFilter dbPagination) {
+	public List<Product> list(PaginationFilter dbPagination) {
 		List<Product> products = productDao.find(dbPagination);
 		initialize(products);
 		return products;
 	}
 
 	@Transactional
-	public List<Product> listProduct() {
+	public List<Product> list() {
 		return productDao.find();
 	}
 
 	@Transactional
-	public void removeProduct(Product prod) {
+	public void remove(Product prod) {
 		deleteFromDisk(prod.getPicList());
 		productDao.delete(prod.getId());
 	}
 
 	@Transactional
-	public Product getProduct(Long id) {
+	public Product get(Long id) {
 		Product product = productDao.find(id);
 		Hibernate.initialize(product.getPicList());
 		return product;
 	}
 
 	@Transactional
-	public void editProduct(Product product) {
+	public void edit(Product product) {
 		productDao.update(product);
 		List<PictureProduct> list = getPicWithoutProductId();
 		for (PictureProduct pic : list) {
@@ -86,32 +86,10 @@ public class ProductService {
 	}
 
 	@Transactional
-	public Product getProductByNumber(int number) {
+	public Product getByNumber(int number) {
 		PaginationFilter filter = new PaginationFilter(number, 1);
 		productDao.find(filter);
 		return productDao.find(filter).get(0);
-	}
-
-	@Transactional
-	public void generateProducts() {
-		String[] firstWom = {"Прикольная", "Инновационная", "Уникальная", "Единственная в своём роде", "Всепознающая", "Исцеляющая", "Убийственная", "Фееричная", "Безмозглая" };
-		String[] secondWom = {"Накидка", "Голова", "Наковальня", "Палица", "Рукоятка", "Кружка", "Мышка", "Регистратура", "Почта России" };
-		String[] threeWom = {"Смертоносного гладиатора", "Кенарийской экспедиции", "Илидана, Ярости бурь", "Короля лича", "Псении Кобчак", "Цветка Декабриста", "Больницы №9", "Педро Паскаля", "Исаака Ньютона" };
-
-		String[] firstMan = {"Хвалёный", "Непреклонный", "Очень не очень", "Чуть-чуть отвратитльный очень сильно", "Волшебный", "Православный", "Переключающий", "Литературный", "Всепожирающий" };
-		String[] secondMan = {"Меч", "Мяч", "Скотч", "Мангал", "Балкон", "Замок", "Джим Карр", "Яндекс", "Ультиматум" };
-		String[] threeMan = {"Никого", "Винтерфела", "Харви Спектера", "Короля Бангладеша", "Борна", "Турецкого", "Оленя", "Петербурга", "'Кефирчик'" };
-
-		Random r = new Random();
-		for (int i = 0; i < 3000; i++) {
-			String name;
-			if (i % 2 == 0 )
-				name = firstWom[r.nextInt(3)] + " " + secondWom[r.nextInt(8)] + " " + threeWom[r.nextInt(8)];
-			else
-				name = firstMan[r.nextInt(3)] + " " + secondMan[r.nextInt(8)] + " " + threeMan[r.nextInt(8)];
-			double cost = ThreadLocalRandom.current().nextDouble(0, 30000);
-			addProduct(new Product(name, cost));
-		}
 	}
 
 	@Transactional
@@ -120,7 +98,7 @@ public class ProductService {
 	}
 
 	@Transactional
-	public int countAllProducts() {
+	public int countAll() {
 		return productDao.countAll();
 	}
 
@@ -130,8 +108,8 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void addProduct(Product product) {
-		productDao.add(product);
+	public void save(Product product) {
+		productDao.save(product);
 	}
 
 

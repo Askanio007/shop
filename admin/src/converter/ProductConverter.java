@@ -15,7 +15,7 @@ public class ProductConverter implements Converter<String, Product> {
 
 	@Override
 	public Product convert(String arg0) {
-		return serviceProduct.getProduct(Long.parseLong(arg0));
+		return serviceProduct.get(Long.parseLong(arg0));
 	}
 
 }

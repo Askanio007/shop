@@ -29,9 +29,9 @@ public class BuyerController {
 	private BuyerService serviceBuyer;	
 
 	@RequestMapping(value = "/buyer/all", method = RequestMethod.GET)
-	public String listBuyer(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceBuyer.getCountAllBuyers());
-		List<Buyer> list = serviceBuyer.listBuyer(viewPagination.getDBPagination());
+	public String list(HttpServletRequest request, Model model, SessionStatus status) {
+		ViewPagination viewPagination = new ViewPagination(request, serviceBuyer.countAll());
+		List<Buyer> list = serviceBuyer.list(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("buyerList", list);
 		status.setComplete();
@@ -39,27 +39,27 @@ public class BuyerController {
 	}
 
 	@RequestMapping("/buyer/delete")
-	public String deleteBuyer(HttpServletRequest request) {
-		serviceBuyer.removeBuyer(Long.parseLong(request.getParameter("id")));
+	public String delete(HttpServletRequest request) {
+		serviceBuyer.remove(Long.parseLong(request.getParameter("id")));
 		request.getSession().setAttribute("infoMessage", "Remove success");
 		return "redirect:/buyer/all";
 	}
 
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.GET)
-	public String editBuyerPage(@PathVariable("buyerId") Long buyerId, Model model) {
-		Buyer buyer = serviceBuyer.getBuyer(buyerId);
+	public String edit(@PathVariable("buyerId") Long buyerId, Model model) {
+		Buyer buyer = serviceBuyer.get(buyerId);
 		model.addAttribute("buyer", buyer);
 		model.addAttribute("buyerInfo", buyer.getInfo());
 		return "buyer/edit";
 	}
 
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.POST)
-	public String editBuyer(@ModelAttribute("buyerInfo") @Valid BuyerInfo buyerInfo,@PathVariable("buyerId") Long buyerId, HttpServletRequest request, BindingResult result, Model model) {
+	public String edit(@ModelAttribute("buyerInfo") @Valid BuyerInfo buyerInfo,@PathVariable("buyerId") Long buyerId, HttpServletRequest request, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "buyer/edit";
 		} else {
 			//todo Kirill
-			serviceBuyer.editBuyerByAdmin(buyerId, buyerInfo, request.getParameter("active") == null);
+			serviceBuyer.edit(buyerId, buyerInfo, request.getParameter("active") == null);
 			model.addAttribute("infoMessage", "Edit success");
 			return "redirect:/buyer/all";
 		}

@@ -19,9 +19,12 @@ public class CalculatorDiscount {
 	}
 	
 	public static void calculateGeneralDiscount(List<Product> products, Discount discount) {
-		if (discount.getProductId() != null) {
-			calculate(products, discount);
+		if (discount != null) {
+			if (discount.getProductId() != null) {
+				calculate(products, discount);
+			}
 		}
+
 	}
 
 	public static void calculatePrivateDiscount(List<Product> products, List<Discount> discounts) {

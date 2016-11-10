@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import entity.Discount;
 import entity.Product;
-import service.ChatService;
+import service.MessageService;
 import service.DiscountService;
 import service.ProductService;
 
@@ -21,34 +21,34 @@ public class GeneralDiscount implements Runnable {
 	private DiscountService serviceDisc;
 
 	@Autowired
-	private ChatService serviceChat;
+	private MessageService serviceChat;
 
 	Random rnd = new Random();
 
 	@Override
 	public void run() {
 		int numberProduct = 0;
-		int countProduct = serviceProduct.countAllProducts();
+		int countProduct = serviceProduct.countAll();
 		if (countProduct == 0) {
 			return;
 		}
 		while (numberProduct == 0) {
 			numberProduct = rnd.nextInt(countProduct);
 		}
-		Product product = serviceProduct.getProductByNumber(numberProduct);
-		Discount discount = serviceDisc.getGeneralDiscount();
+		Product product = serviceProduct.getByNumber(numberProduct);
+		Discount discount = serviceDisc.getGeneral();
 		try {
 			if (discount == null) {
 				discount = new Discount();
 				discount.setDiscount((byte) 50);
 				discount.setProductId(product.getId());
-				serviceDisc.addDiscount(discount);
+				serviceDisc.save(discount);
 			} else {
 				discount.setProductId(product.getId());
-				serviceDisc.editDiscount(discount);
+				serviceDisc.edit(discount);
 			}
 			String text = discount.getDiscount() + "% discount on the " + product.getName();
-			serviceChat.addMessageFromSystem(text, null);
+			serviceChat.addFromSystem(text, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

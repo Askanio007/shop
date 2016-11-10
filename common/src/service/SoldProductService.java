@@ -32,24 +32,17 @@ public class SoldProductService {
 			initialize(product);
 		}
 	}
-	
+
 	@Transactional
-	public List<SoldProduct> listSoldProduct(PaginationFilter dbPagination) {
-		List<SoldProduct> list = soldProduct.find(dbPagination);
-		initialize(list);
-		return list;
-	}
-	
-	@Transactional
-	public List<SoldProduct> listSoldProduct(Product product, PaginationFilter dbPagination) {
-		List<SoldProduct> list = soldProduct.listSoldProduct(product,dbPagination);
+	public List<SoldProduct> list(Product product, PaginationFilter dbPagination) {
+		List<SoldProduct> list = soldProduct.list(product,dbPagination);
 		initialize(list);
 		return list;
 	}
 
 	@Transactional
-	public Integer countSoldProduct(Product product) {
-		return soldProduct.countSoldProduct(product);
+	public Integer count(Product product) {
+		return soldProduct.count(product);
 	}
 
 }

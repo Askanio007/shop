@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import entity.Buyer;
-import entity.Chat;
 import service.BuyerService;
-import service.ChatService;
+import service.MessageService;
 import view.ChatView;
 import view.ViewPagination;
 
@@ -27,12 +26,12 @@ public class ChatController {
 	private BuyerService serviceBuyer;
 
 	@Autowired
-	private ChatService serviceChat;
+	private MessageService serviceChat;
 	
 	@RequestMapping(value = "/buyer/chat/{buyerName}", method = RequestMethod.GET)
-	public String chatBuyer(@PathVariable("buyerName") String name, Model model, HttpServletRequest request, SessionStatus status) {
-		Buyer buyer = serviceBuyer.getBuyer(name);
-		ViewPagination viewPagination = new ViewPagination(request, serviceChat.countRecordChat(buyer));
+	public String chat(@PathVariable("buyerName") String name, Model model, HttpServletRequest request) {
+		Buyer buyer = serviceBuyer.get(name);
+		ViewPagination viewPagination = new ViewPagination(request, serviceChat.count(buyer));
 		List<ChatView> list = serviceChat.getViewChat(viewPagination.getDBPagination(), buyer);
 		model.addAttribute("chatView", list);
 		model.addAttribute("pagination", viewPagination);
@@ -41,12 +40,12 @@ public class ChatController {
 	}
 
 	@RequestMapping(value = "/buyer/addMessage", method = RequestMethod.POST)
-	public String addMessageBuyer(@RequestParam("message") String text, HttpServletRequest request) {
-		//параметр name гарантировано существует?
+	public String addMessage(@RequestParam("message") String text, HttpServletRequest request) {
+		//параметр name гарантировано существует? TODO он передаётся как параметр, пропадёт, если стереть руками
 		String name = request.getParameter("name");
-		Buyer buyer = serviceBuyer.getBuyer(name);
-		//buyer точно найдется?
-		serviceChat.addMessageFromAdmin(text, buyer.getId());
+		Buyer buyer = serviceBuyer.get(name);
+		//buyer точно найдется? TODO точно, только если руками не изменить передаваемое name
+		serviceChat.addFromAdmin(text, buyer.getId());
 		return "redirect:/buyer/chat/" + name;
 	}
 

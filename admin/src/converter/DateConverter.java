@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class DateConverter implements Converter<String, Date> {
 
 	//todo Kirill wtf?
-	// C view сюда приходит дата строкой в формате "yyyy-MM-ddTHH:mm", поэтому и режется строка по символу Т, а потом конверируется в Date
+	// todo C view сюда приходит дата строкой в формате "yyyy-MM-ddTHH:mm", поэтому и режется строка по символу Т, а потом конверируется в Date
 	@Override
 	public Date convert(String arg0) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");

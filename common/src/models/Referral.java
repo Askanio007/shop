@@ -15,6 +15,7 @@ public class Referral {
     private BuyerInfo info;
     private String tracker;
     private Double profit;
+    private String viewProfit;
 
     public Referral(Buyer b) {
         this.id = b.getId();
@@ -27,9 +28,10 @@ public class Referral {
     public Referral(Buyer b, Double profit) {
         this(b);
         this.profit = profit;
+        viewProfit = String.format("%.2f", this.profit);
     }
     
-    public Referral() {
+    private Referral() {
     }
 
     public String sailsToString() {
@@ -48,7 +50,6 @@ public class Referral {
     public long getCountSails() {
         return this.sails.size();
     }
-
 
     public String getName() {
         return name;
@@ -100,6 +101,6 @@ public class Referral {
 
     public String getViewProfit()
     {
-        return String.format("%.2f", this.profit);
+        return viewProfit;
     }
 }

@@ -14,6 +14,9 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import utils.PaginationFilter;
+import utils.SortParameterParser;
+
+import static org.hibernate.criterion.Restrictions.eq;
 
 public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 
@@ -28,15 +31,18 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 	}
 
+	// TODO: 16.10.2016 add плохой вариант названия ::: исправил на save
+	//вообще вот на это погляди - session().saveOrUpdate() ----------------
 	@Override
-	public void add(T t) {
-		session().save(t);
+	public void save(T t) {
+		session().saveOrUpdate(t);
 	}
 
 	@Override
 	public void update(T t) {
 		session().merge(t);
 	}
+	//----------------------------------------------------------------------
 
 	@Override
 	public void delete(Long id) {
@@ -84,7 +90,7 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 		return session().createQuery(query);
 	}
 
-	protected Query setPagination(Query q, PaginationFilter filter) {
+	protected Query addPagination(Query q, PaginationFilter filter) {
 		return q.setFirstResult(filter.getOffset()).setMaxResults(filter.getLimit());
 	}
 
@@ -92,17 +98,42 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 		return sessionFactory.getCurrentSession();
 	}
 
-	 protected Criteria createCriteria() { return session().createCriteria(entityClass); }
+	protected Criteria createCriteria() { return session().createCriteria(entityClass); }
+
+
+	protected void addOrder(Criteria crit, String sort) {
+		if(sort != null && !"".equals(sort)) {
+			if (SortParameterParser.getTypeOrder(sort).equals("desc"))
+				crit.addOrder(Order.desc(SortParameterParser.getColumnName(sort)));
+			else
+				crit.addOrder(Order.asc(SortParameterParser.getColumnName(sort)));
+		}
+	}
+
+	protected void addPagination(Criteria crit, PaginationFilter filter) {
+		crit.setFirstResult(filter.getOffset()).setMaxResults(filter.getLimit());
+	}
 
 	protected Date endDay(Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.add(Calendar.DATE, 1);
 		c.set(Calendar.HOUR, 0);
+		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
 		c.set(Calendar.MILLISECOND, 0);
 		c.add(Calendar.MILLISECOND, -1);
 		return c.getTime();
+	}
+
+	public static Date getDateWithoutTime(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime();
 	}
 }

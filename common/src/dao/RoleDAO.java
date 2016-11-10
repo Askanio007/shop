@@ -6,8 +6,8 @@ import entity.Role;
 
 public interface RoleDAO extends GeneralDAO<Role> {
 	
-	Role getRoleByUserName(String name);
-	Role getUserRole(Long id);
-	List<Role> getAllRole();
+	Role getByUserName(String name);
+	Role get(Long id);
+	List<Role> getAll();
 
 }

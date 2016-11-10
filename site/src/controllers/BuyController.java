@@ -66,14 +66,11 @@ public class BuyController {
 	@RequestMapping(value = "/user/order", method = RequestMethod.GET)
 	public String order(HttpServletRequest request) {
 		Basket basket = (Basket) request.getSession().getAttribute("basket");
-		Buyer b = serviceBuyer.getBuyer(CurrentUser.getName());
-		Double balanceBuyer = b.getBalance() - basket.cost();
-		if (balanceBuyer < 0)
+		Buyer b = serviceBuyer.get(CurrentUser.getName());
+		if (b.getBalance() < basket.cost())
 			return "redirect:/user/deposit";
-		b.setBalance(balanceBuyer);
-		serviceSail.addUserSail(CurrentUser.getName(), basket);
-		serviceBuyer.editBuyer(b);
-		basket.clean();
+		serviceSail.save(b, basket);
+		basket.clear();
 		request.getSession().setAttribute("basket", basket);
 		return "redirect:/user/profile";
 	}
@@ -93,7 +90,7 @@ public class BuyController {
 	@RequestMapping(value = "/user/buy", method = RequestMethod.POST)
 	public String addProductInSailForUser(@RequestParam("amount") String count, HttpServletRequest request)
 			throws JsonProcessingException {
-		Product newProd = serviceProduct.getProduct(Long.parseLong(request.getParameter("id")));
+		Product newProd = serviceProduct.get(Long.parseLong(request.getParameter("id")));
 		int amount = Integer.parseInt(count);
 
 		Basket basket = (Basket)request.getSession().getAttribute("basket");
@@ -101,7 +98,7 @@ public class BuyController {
 			basket = new Basket();
         
 		byte discount = 0;
-		Discount disc = serviceDisc.getDiscountByProduct(newProd, serviceBuyer.getBuyer(CurrentUser.getName()).getId());
+		Discount disc = serviceDisc.availableDiscount(newProd, serviceBuyer.get(CurrentUser.getName()).getId());
 		if ( disc != null )
 			discount = disc.getDiscount();				
 		basket.addProduct(newProd, amount, discount);
@@ -111,11 +108,11 @@ public class BuyController {
 	
 	@RequestMapping(value = "/user/products", method = RequestMethod.GET)
 	public String productList(Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAllProducts(),
+		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAll(),
 				countRecordOnPage);
-		List<Product> productList = serviceProduct.listProduct(viewPagination.getDBPagination());
-		Discount discount = serviceDisc.getGeneralDiscount();
-		List<Discount> activeUserDiscount = serviceDisc.listActivePrivateDiscountByBuyerId(serviceBuyer.getBuyer(CurrentUser.getName()).getId());
+		List<Product> productList = serviceProduct.list(viewPagination.getDBPagination());
+		Discount discount = serviceDisc.getGeneral();
+		List<Discount> activeUserDiscount = serviceDisc.listActivePrivateByBuyerId(serviceBuyer.get(CurrentUser.getName()).getId());
 		CalculatorDiscount.calculateGeneralDiscount(productList, discount);
 		CalculatorDiscount.calculatePrivateDiscount(productList, activeUserDiscount);
 		model.addAttribute("discount", discount);

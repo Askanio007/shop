@@ -21,7 +21,7 @@ public class CashbackPercent implements Runnable {
     private BuyerService serviceBuyer;
 
     public void run() {
-        List<Buyer> buyers = serviceBuyer.listBuyer();
+        List<Buyer> buyers = serviceBuyer.list();
         for (Buyer buyer : buyers) {
             Double profit = serviceBuyer.getProfitByLastMonth(buyer.getId());
             if (profit > settings.minMonthProfit() && profit < settings.maxMonthProfit())
@@ -30,7 +30,7 @@ public class CashbackPercent implements Runnable {
                 buyer.setPercentCashback(buyer.getPercentCashback() - 1);
             if (profit > settings.maxMonthProfit() && buyer.getPercentCashback() < 100)
                 buyer.setPercentCashback(buyer.getPercentCashback() + 1);
-            serviceBuyer.editBuyer(buyer);
+            serviceBuyer.edit(buyer);
         }
     }
 }

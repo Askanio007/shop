@@ -43,12 +43,9 @@ public class BuyerInfo {
 		this.age = age;
 		this.phone = phone;
 	}
-	
-	public void editBuyerInfo(BuyerInfo info) {
-		this.secondName = info.getSecondName();
-		this.age = info.getAge();
-		this.phone = info.getPhone();
-	}
+
+	// TODO: 16.10.2016 суть - какая-то логика в ентити, не имеющая отношения к ентити. да еще и не правильная. ::: убрал логику, она не использовалась нигде, не знаю откуда она вообще
+	// полей больше, а присваевается только часть
 	
 	public BuyerInfo(Buyer buyer) {
 		this.buyer = buyer;

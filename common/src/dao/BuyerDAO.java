@@ -9,7 +9,7 @@ public interface BuyerDAO extends GeneralDAO<Buyer>{
 	
 	Buyer findByName(String name);
 	
-	BuyerInfo findInfoByBuyerId(Long buyerId);
+	BuyerInfo findInfoById(Long buyerId);
 	
 	String getRole(int id);
 	
@@ -17,6 +17,6 @@ public interface BuyerDAO extends GeneralDAO<Buyer>{
 	
 	List<Buyer> getAllBySail(Long sailId);
 
-	Long getBuyerIdByReferCode(String code);
+	Buyer getBuyerByReferCode(String code);
 
 }

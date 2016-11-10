@@ -50,7 +50,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/edit", method = RequestMethod.GET)
 	public String editBuyerPage(Model model, HttpServletRequest request) {
-		Buyer buyer = serviceBuyer.getBuyer(CurrentUser.getName());
+		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
 		model.addAttribute("info", buyer.getInfo());
 		model.addAttribute("newInfo", new BuyerInfo());
 		return "user/editPrivateData";
@@ -58,13 +58,13 @@ public class UserController {
 
 	@RequestMapping(value = "/user/profile", method = RequestMethod.GET)
 	public String cabinetUser(Model model, HttpServletRequest request) {
-		Buyer user = serviceBuyer.getBuyer(CurrentUser.getName());
+		Buyer user = serviceBuyer.get(CurrentUser.getName());
 		user.setInfo(serviceBuyer.getInfo(user.getId()));
-		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countSailsByBuyer(user.getId()),
+		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countByBuyer(user.getId()),
 				countRecordOnPage);
 		model.addAttribute("user", user);
 		model.addAttribute("pagination", viewPagination);
-		model.addAttribute("sails", serviceSail.allSailByBuyer(viewPagination.getDBPagination(), user.getId()));
+		model.addAttribute("sails", serviceSail.allByBuyer(viewPagination.getDBPagination(), user.getId()));
 		BuyController.setCountProductBasketInModel(request, model);
 		return "user/cabinet";
 	}
@@ -75,7 +75,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "user/editPrivateData";
 		}
-		serviceBuyer.editBuyer(serviceBuyer.getBuyer(CurrentUser.getName()), info);
+		serviceBuyer.editBuyer(serviceBuyer.get(CurrentUser.getName()), info);
 		return "redirect:/user/profile";
 	}
 
@@ -91,28 +91,28 @@ public class UserController {
 		valid.validate(password, result);
 		if (result.hasErrors())
 			return "user/changePassword";
-		if (!serviceBuyer.checkEqualsOldPasswords(serviceBuyer.getBuyer(CurrentUser.getName()).getPassword(), oldPass)) {
+		if (!serviceBuyer.checkEqualsOldPasswords(serviceBuyer.get(CurrentUser.getName()).getPassword(), oldPass)) {
 			request.setAttribute("validEq", "Not correct old password");
 			return "user/changePassword";
 		}
-		serviceBuyer.editPasswordBuyer(serviceBuyer.getBuyer(CurrentUser.getName()),
+		serviceBuyer.editPassword(serviceBuyer.get(CurrentUser.getName()),
 				password.getNewPassword());
 		return "redirect:/user/profile";
 	}
 
 	@RequestMapping(value = "/user/saveAva", method = RequestMethod.POST)
 	public String saveAva(Model model, HttpServletRequest request, SessionStatus status) {
-		Buyer user = serviceBuyer.getBuyer(CurrentUser.getName());
+		Buyer user = serviceBuyer.get(CurrentUser.getName());
 		String picName = (String) request.getSession().getAttribute("ava");
 		user.getInfo().setAva(setting.getPathUploadAva() + "\\" + picName);
-		serviceBuyer.editBuyer(user);
+		serviceBuyer.edit(user);
 		request.getSession().removeAttribute("ava");
 		return "redirect:/user/profile";
 	}
 
 	@RequestMapping(value = "/user/uploadAva", method = RequestMethod.GET)
 	public String uploadAvaGet(Model model, HttpServletRequest request) {
-		model.addAttribute("user", serviceBuyer.getBuyer(CurrentUser.getName()));
+		model.addAttribute("user", serviceBuyer.get(CurrentUser.getName()));
 		return "user/uploadAva";
 	}
 
@@ -135,7 +135,7 @@ public class UserController {
 	@RequestMapping(value = "/user/generateInviteLink", method = RequestMethod.POST)
 	public String generateLink(@RequestParam("ancor") String ancor,
 							   @RequestParam("tracker") String tracker, Model model,HttpServletRequest request) {
-		Buyer b  = serviceBuyer.getBuyer(CurrentUser.getName());
+		Buyer b  = serviceBuyer.get(CurrentUser.getName());
 		String link = "http://localhost:8080/site/reg/"+b.getRefCode() ;
 		if (tracker != "") link = link + "&tracker=" + tracker;
 		if (ancor != "") link = "&lt;a href=\""+link+"\"&gt;"+ancor+"&lt;/a&gt;";

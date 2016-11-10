@@ -26,7 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String name = authentication.getName();
 		String password = serviceBuyer.getHashPassword(authentication.getCredentials().toString());
-		Buyer buyer = serviceBuyer.getBuyer(name);
+		Buyer buyer = serviceBuyer.get(name);
 
 		if (buyer == null)
 			return null;

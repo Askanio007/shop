@@ -4,12 +4,14 @@ import dao.BuyerDAO;
 import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
+import entity.StatisticReferral;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import utils.DateFilter;
+import utils.EncryptionString;
 import utils.PaginationFilter;
 
 import java.math.BigInteger;
@@ -25,10 +27,57 @@ public class BuyerService {
 	private BuyerDAO buyerDao;
 
 	@Autowired
-	SettingsService settings;
+	private SettingsService settings;
 
 	@Autowired
 	private SailService sailService;
+
+	@Autowired
+	private StatisticReferralsService statisticService;
+
+
+	@Transactional
+	public void edit(Buyer buyer) {
+		buyerDao.update(buyer);
+	}
+
+	@Transactional
+	public void remove(Long id) {
+		buyerDao.delete(id);
+	}
+
+	@Transactional
+	public void save(Buyer buyer) {
+		buyerDao.save(buyer);
+	}
+
+	@Transactional
+	public int countAll() {
+		return buyerDao.countAll();
+	}
+
+	@Transactional
+	public Buyer get(String buyerName) {
+		return buyerDao.findByName(buyerName);
+	}
+
+	@Transactional
+	public BuyerInfo getInfo(Long buyerId) {
+		return buyerDao.findInfoById(buyerId);
+	}
+
+	@Transactional
+	public String getPathAva(Long buyerId) {
+		return buyerDao.getAvaPathById(buyerId);
+	}
+
+
+	@Transactional
+	public Buyer getByRefCode(String code) {
+		return buyerDao.getBuyerByReferCode(code);
+	}
+
+
 
 	public void initialize(List<Buyer> buyers) {
 		for (Buyer buyer : buyers) {
@@ -41,96 +90,51 @@ public class BuyerService {
 		Hibernate.initialize(buyer.getInfo());
 	}
 
-	public void initializeSail(Buyer buyer) {
-		Hibernate.initialize(buyer.getSails());
-	}
-
-	@Transactional
-	public int getCountAllBuyers() {
-		return buyerDao.countAll();
-	}
-
 	public boolean checkEqualsOldPasswords(String newPassword, String oldPassword) {
-		return newPassword.equals(getHashPassword(oldPassword)) ? true : false;
+		return newPassword.equals(EncryptionString.toMD5(oldPassword)); // TODO: 16.10.2016 facepalm :: исправил. И, по-моему, это теперь первое место))
 	}
 
-	public String getHashPassword(String password) {
-		MessageDigest messageDigest;
-		try {
-			messageDigest = MessageDigest.getInstance("MD5");
-			messageDigest.update(password.getBytes(), 0, password.length());
-			String hashedPass = new BigInteger(1, messageDigest.digest()).toString(16);
-			if (hashedPass.length() < 32) {
-				hashedPass = "0" + hashedPass;
-			}
-			return hashedPass;
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return null;
+
+	protected String randomReferCode() {
+		return UUID.randomUUID().toString();
+	}
+
+	@Transactional
+	public void registration(String name, String password, String referCode, String tracker) {
+		Long referId = null;
+		if (referCode != null && !"".equals(referCode)) {
+			referId = getByRefCode(referCode).getId();
+			statisticService.saveRegistrationStatistic(get(referId), tracker);
 		}
-	}
-
-	@Transactional
-	public void addBuyer(Buyer buyer) {
-		buyerDao.add(buyer);
-	}
-
-	@Transactional
-	public void regUser(String name, String password, String referCode, String tracker) {
-		Long referId = null;
-		if (referCode != null) referId = getBuyerIdByRefCode(referCode);
-		Random r = new Random();
-		String code = r.nextInt(999999999) + "" + r.nextInt(999999999);
+		String code = randomReferCode();// TODO: 16.10.2016 java.util.UUID ::: Добавил, почитал про него
 		Buyer buyer = new Buyer
-				.Builder(name, getHashPassword(password), code)
+				.Builder(name, EncryptionString.toMD5(password), code)
 				.percentCashback(settings.getBaseCashback())
 				.refId(referId)
 				.tracker(tracker)
 				.build();
-		addBuyer(buyer);
+		save(buyer);
 	}
 
-	@Transactional
-	public void regGenerateUser(String name, String password, String referCode, String tracker, Date dateReg) {
-		Long referId = null;
-		if (referCode != null) referId = getBuyerIdByRefCode(referCode);
-		Random r = new Random();
-		String code = r.nextInt(999999999) + "" + r.nextInt(999999999);
-		Buyer buyer = new Buyer
-				.Builder(name, getHashPassword(password), code, dateReg)
-				.percentCashback(settings.getBaseCashback())
-				.refId(referId)
-				.tracker(tracker)
-				.build();
-		addBuyer(buyer);
-	}
+
 
 	@Transactional
-	public Long getBuyerIdByRefCode(String code) {
-		return buyerDao.getBuyerIdByReferCode(code);
-	}
-
-	@Transactional
-	public List<Buyer> listBuyer(PaginationFilter dbPagination) {
+	public List<Buyer> list(PaginationFilter dbPagination) {
 		List<Buyer> buyers = buyerDao.find(dbPagination);
 		initialize(buyers);
 		return buyers;
 	}
 
 	@Transactional
-	public List<Buyer> listBuyer() {
+	public List<Buyer> list() {
 		List<Buyer> buyers = buyerDao.find();
-		initialize(buyers);
+		// TODO: 16.10.2016 да? ::: Если инициализировать, то получается, все покупатели подтягивают свои продажи. И это плохо, я праивльно понял?)
+		//initialize(buyers);
 		return buyers;
 	}
 
 	@Transactional
-	public void removeBuyer(Long id) {
-		buyerDao.delete(id);
-	}
-
-	@Transactional
-	public Buyer getBuyer(Long buyerId) {
+	public Buyer get(Long buyerId) {
 		Buyer buyer = buyerDao.find(buyerId);
 		initialize(buyer);
 		sailService.initialize(buyer.getSails());
@@ -138,83 +142,59 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public void editBuyer(Buyer buyer) {
-		buyerDao.update(buyer);
+	public void edit(Long buyerId, BuyerInfo buyerInfo, boolean active) {// TODO: 16.10.2016 вообще странно. надо обсудить
+		Buyer buyer = get(buyerId);
+		buyer.setEnable(active);// TODO: 16.10.2016 а если активный? ::: убрал проверку, она не нужна.
+		edit(buyer, buyerInfo);
 	}
 
 	@Transactional
-	public void editBuyerByAdmin(Long buyerId, BuyerInfo buyerInfo, boolean active) {
-		Buyer buyer = getBuyer(buyerId);
-		if (!active) {
-			buyer.setEnable(false);
-		}
-		editBuyer(buyer, buyerInfo);
+	public void editPassword(Buyer buyer, String newPass) {
+		buyer.setPassword(EncryptionString.toMD5(newPass));
+		edit(buyer);
 	}
 
 	@Transactional
-	public void editPasswordBuyer(Buyer buyer, String newPass) {
-		buyer.setPassword(getHashPassword(newPass));
-		editBuyer(buyer);
+	public void edit(Buyer buyer, BuyerInfo info) {
+		buyer.setInfo(info);
+		edit(buyer);
 	}
 
-	@Transactional
-	public void editBuyer(Buyer buyer, BuyerInfo info) {
-		buyer.getInfo().editBuyerInfo(info);
-		editBuyer(buyer);
+	public Double profitFromReferralBySail(Sail sail, int cashBack){
+		return sail.getTotalsum() * (cashBack * 1.0 / 100);
 	}
 
-	@Transactional
-	public Buyer getBuyer(String buyerName) {
-		return buyerDao.findByName(buyerName);
-	}
-
-	@Transactional
-	public BuyerInfo getInfo(Long buyerId) {
-		return buyerDao.findInfoByBuyerId(buyerId);
-	}
-
-	@Transactional
-	public String getPathAva(Long buyerId) {
-		return buyerDao.getAvaPathById(buyerId);
-	}
-	
     @Transactional
     public void calculateProfit(Sail sail) {
         Buyer buyer;
         for (Buyer refer : sail.getBuyers()) {
             if (refer.getRefId() != null) {
-            	buyer = getBuyer(refer.getRefId());
-            	buyer.setBalance(buyer.getBalance() + sail.getTotalsum() * (buyer.getPercentCashback() / 100));
-                editBuyer(buyer);
+            	buyer = get(refer.getRefId());
+				Double profit = profitFromReferralBySail(sail, buyer.getPercentCashback());
+            	buyer.setBalance(buyer.getBalance() + profit);
+				try{
+					statisticService.saveProfit(buyer, refer.getTracker(), profit);
+					edit(buyer);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
             }
         }
     }
 
 	@Transactional
 	public Double getProfitByLastMonth(Long buyerId) {
+		// TODO: 16.10.2016 вообще создаешь в методе календарь один и давай сним работать. ::: мне нужно передавать две даты, они же должны где-то храниться
 		Calendar from = Calendar.getInstance();
-		from.setTime(new Date());
 		from.add(Calendar.MONTH, - 1);
 		from.set(Calendar.HOUR, 0);
 		from.set(Calendar.MINUTE, 0);
 		from.set(Calendar.SECOND, 0);
 		from.set(Calendar.MILLISECOND, 0);
-
-		Calendar to = Calendar.getInstance();
-		to.setTime(new Date());
+		Calendar to = Calendar.getInstance(); // TODO: 16.10.2016 уже с датой ::: убрал setTime(new Date())
 		to.add(Calendar.DATE, -1);
-
-		List<Sail> sails = sailService.listCompleteSailByDate(buyerId, new DateFilter(from.getTime(), to.getTime()));
+		List<Sail> sails = sailService.listCompletedByDate(buyerId, new DateFilter(from.getTime(), to.getTime()));
 		return sailService.getProfit(sails);
 	}
-
-
-
-	@Transactional
-	public void generateBuyer() {
-		regGenerateUser("MainBuyer", "password", null, null, new GregorianCalendar(2013, 2, 12).getTime());
-	}
-
-
-
 }

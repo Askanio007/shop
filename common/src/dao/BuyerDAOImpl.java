@@ -20,7 +20,7 @@ public class BuyerDAOImpl extends GeneralDAOImpl<Buyer>implements BuyerDAO {
 	}
 
 	@Override
-	public BuyerInfo findInfoByBuyerId(Long buyerId) {
+	public BuyerInfo findInfoById(Long buyerId) {
 		return (BuyerInfo) createQuery("from BuyerInfo where id = :id")
 						.setLong("id", buyerId)
 						.uniqueResult();
@@ -49,9 +49,7 @@ public class BuyerDAOImpl extends GeneralDAOImpl<Buyer>implements BuyerDAO {
 
 
 	@Override
-	public Long getBuyerIdByReferCode(String code) {
-		return (Long) createQuery("select b.id from Buyer b where b.refCode = :code").setString("code", code).uniqueResult();
+	public Buyer getBuyerByReferCode(String code) {
+		return (Buyer) createQuery("select b from Buyer b where b.refCode = :code").setString("code", code).uniqueResult();
 	}
-
-
 }

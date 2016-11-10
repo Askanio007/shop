@@ -19,13 +19,13 @@ public class DiscountService {
 	private DiscountDAO discountDao;
 
 	@Autowired
-	private ChatService serviceChat;
+	private MessageService serviceChat;
 
 	@Transactional
-	public void addDiscount(Discount dsc, String notice) {
+	public void save(Discount dsc, String notice) {
 		try {
-			addDiscount(dsc);
-			serviceChat.addMessageFromSystem(notice, dsc.getBuyer().getId());
+			save(dsc);
+			serviceChat.addFromSystem(notice, dsc.getBuyer().getId());
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -33,17 +33,17 @@ public class DiscountService {
 	}
 
 	@Transactional
-	public void addDiscount(Discount dsc) {
+	public void save(Discount dsc) {
 		dsc.setActive(true);
-		discountDao.add(dsc);
+		discountDao.save(dsc);
 	}
 	
 	@Transactional
-	public Discount getDiscountByProduct(Product product, Long buyerId) {
-		Discount privateDiscount =  getPrivateDiscount(product, buyerId);
+	public Discount availableDiscount(Product product, Long buyerId) {
+		Discount privateDiscount =  getPrivate(product, buyerId);
 		if (privateDiscount != null)
 			return privateDiscount;
-		Discount generalDiscount =  getGeneralDiscount();
+		Discount generalDiscount =  getGeneral();
 		if (generalDiscount.getProductId() == product.getId())
 			return generalDiscount;
 		return null;
@@ -51,34 +51,34 @@ public class DiscountService {
 
 	@Transactional
 	public void deactivateAllPrivate() {
-		for (Discount disc : listActivePrivateDiscount()) {
+		for (Discount disc : listActivePrivate()) {
 			disc.setActive(false);
-			editDiscount(disc);
+			edit(disc);
 		}
 	}
 
 	@Transactional
-	public Discount getPrivateDiscount(Product product, Long buyerId) {
-		return discountDao.getPrivateDiscount(product, buyerId);
+	public Discount getPrivate(Product product, Long buyerId) {
+		return discountDao.getPrivate(product, buyerId);
 	}
 	
 	@Transactional
-	public List<Discount> listActivePrivateDiscountByBuyerId(Long id) {
-		return discountDao.getActivePrivateDiscByBuyerId(id);
+	public List<Discount> listActivePrivateByBuyerId(Long id) {
+		return discountDao.getActivePrivateByBuyerId(id);
 	}
 
 	@Transactional
-	public Discount getGeneralDiscount() {
-		return discountDao.getGeneralDisc();
+	public Discount getGeneral() {
+		return discountDao.getGeneral();
 	}
 
 	@Transactional
-	public void editDiscount(Discount dsc) {
+	public void edit(Discount dsc) {
 		discountDao.update(dsc);
 	}
 
 	@Transactional
-	public List<Discount> listActivePrivateDiscount() {
-		return discountDao.getActivePrivateDisc();
+	public List<Discount> listActivePrivate() {
+		return discountDao.getActivePrivate();
 	}
 }

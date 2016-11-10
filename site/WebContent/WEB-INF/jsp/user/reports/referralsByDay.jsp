@@ -51,8 +51,8 @@
     <tr>
         <th>
             Date
-            <a href="#" onclick="Go('click.date_up')">↑</a>
-            <a href="#" onclick="Go('click.date_down')">↓</a>
+            <a href="#" onclick="Go('date_up')">↑</a>
+            <a href="#" onclick="Go('date_down')">↓</a>
         </th>
         <th>
             Click

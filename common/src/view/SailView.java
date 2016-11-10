@@ -13,7 +13,6 @@ import entity.SoldProduct;
 
 public class SailView {
 
-	private ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>();
 	private Long id;
 	private String date;
 	private Integer amount;
@@ -23,7 +22,7 @@ public class SailView {
 
 
 	public SailView(Sail sail) {
-		this.date = getFormat().format(sail.getDate());
+		this.date = DateConverter.getFormatView().format(sail.getDate());
 		this.id = sail.getId();
 		this.amount = sail.getAmount();
 		this.buyers = sail.getBuyers();
@@ -46,22 +45,12 @@ public class SailView {
 	public Double getTotalsum() {
 		return totalsum;
 	}
-
 	public Collection<SoldProduct> getProducts() {
 		return products;
 	}
 
 	public Collection<Buyer> getBuyers() {
 		return buyers;
-	}
-
-	public DateFormat getFormat() {
-		DateFormat format = df.get();
-		if (format == null) {
-			format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-			df.set(format);
-		}
-		return format;
 	}
 	
 	public static List<SailView> convertSail(List<Sail> sails)

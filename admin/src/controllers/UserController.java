@@ -28,21 +28,12 @@ public class UserController {
 	
 	@Autowired
 	private UserService serviceUser;
-	
-	@Autowired
-	private ProductService serviceProduct;
-	
-	@Autowired
-	private BuyerService serviceBuyer;
-
-	@Autowired
-	private SailService serviceSail;
-
-	@Autowired
-	private ReferralService serviceReferal;
 
 	@Autowired
 	private RoleService serviceRole;
+
+	@Autowired
+	private GeneratorStatistic generatorService;
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String info(HttpServletRequest request, Model model) {
@@ -51,30 +42,30 @@ public class UserController {
 			return "info";
 		}
 		UserDetails detail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Role role = serviceRole.getRoleByUserName(detail.getUsername());
+		Role role = serviceRole.getByUserName(detail.getUsername());
 		model.addAttribute("user", role.getInfo());
 		return "info";
 	}
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
-	public String addUserPage(Model model) {
+	public String add(Model model) {
 		model.addAttribute("user", new User());
-		List<Role> list = serviceRole.getAllRole();
+		List<Role> list = serviceRole.getAll();
 		model.addAttribute("roles",list);
 	return "user/add";
 	}
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user,BindingResult result,HttpServletRequest request) {
+	public String add(@ModelAttribute("user") User user,BindingResult result,HttpServletRequest request) {
 		Long roleId = Long.parseLong(request.getParameter("role"));
-		serviceUser.addUser(user, roleId);
+		serviceUser.save(user, roleId);
 	return "redirect:/user/list";
 	}
 	
 	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
-	public String listUser(HttpServletRequest request, Model model,SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceUser.getCountAllUsers());
-		List<User> list = serviceUser.listUser(viewPagination.getDBPagination());
+	public String list(HttpServletRequest request, Model model,SessionStatus status) {
+		ViewPagination viewPagination = new ViewPagination(request, serviceUser.countAll());
+		List<User> list = serviceUser.list(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("userList", list);
 		status.setComplete();
@@ -82,43 +73,53 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/delete")
-	public String deleteBuyer(HttpServletRequest request) {
-		serviceUser.deleteUser(Long.parseLong(request.getParameter("id")));
+	public String delete(HttpServletRequest request) {
+		serviceUser.delete(Long.parseLong(request.getParameter("id")));
 		request.getSession().setAttribute("infoMessage", "Remove succes");
 		return "redirect:/user/list";
 	}
 	
 	@RequestMapping(value = "/user/listRole", method = RequestMethod.GET)
-	public String editRole(HttpServletRequest request, Model model) {
-		List<Role> roles = serviceRole.getAllRole();
+	public String edit(HttpServletRequest request, Model model) {
+		List<Role> roles = serviceRole.getAll();
 		model.addAttribute("roles", roles);
 	return "user/listRole";
 	}
 	
 	@RequestMapping(value = "/user/editRole", method = RequestMethod.GET)
-	public String editRole(@RequestParam("id") Long id, Model model) {
-		model.addAttribute("role", serviceRole.getRole(id));
+	public String edit(@RequestParam("id") Long id, Model model) {
+		model.addAttribute("role", serviceRole.get(id));
 	return "user/editRole";
 	}
 	
 	@RequestMapping(value = "/user/editRole", method = RequestMethod.POST)
-	public String editRole(@ModelAttribute("role") Role role, BindingResult result, Model model) {
-	role.setUsers(serviceUser.allUsersByRole(role));
-	serviceRole.editRole(role);
+	public String edit(@ModelAttribute("role") Role role, BindingResult result, Model model) {
+	role.setUsers(serviceUser.allByRole(role));
+	serviceRole.edit(role);
 	return "redirect:/user/listRole";
 	}
-	
-	@RequestMapping(value = "/generate", method = RequestMethod.GET)
-	public String generate() {
-		serviceBuyer.generateBuyer();
-		serviceReferal.generateReferral();
+
+	@RequestMapping(value = "/generateBuyer", method = RequestMethod.GET)
+	public String generateBuyer() {
+		generatorService.generateBuyer();
 	return "redirect:/info";
 	}
-	
+
+	@RequestMapping(value = "/generateRef", method = RequestMethod.GET)
+	public String generateReferrals() {
+		generatorService.generateReferral();
+		return "redirect:/info";
+	}
+
+	@RequestMapping(value = "/generateProd", method = RequestMethod.GET)
+	public String generateProd() {
+		generatorService.generateProducts();
+		return "redirect:/info";
+	}
+
 	@RequestMapping(value = "/generateSail", method = RequestMethod.GET)
 	public String generateSail() {
-		serviceProduct.generateProducts();
-		serviceSail.generateSail();
+		generatorService.generateSail();
 	return "redirect:/info";
 	}
 

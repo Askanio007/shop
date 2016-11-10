@@ -31,7 +31,7 @@ public class TotalSoldProduct {
 	@Column(name = "total_amount")
 	private Integer totalAmount;
 
-	public TotalSoldProduct() {
+	private TotalSoldProduct() {
 	}
 
 	public TotalSoldProduct(SoldProduct soldProduct, Product product) {

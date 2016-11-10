@@ -32,7 +32,7 @@ public class ProductDAOImpl extends GeneralDAOImpl<Product>implements ProductDAO
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Product> getAllProductBySail(Long sailid) {
+	public List<Product> getAllBySail(Long sailid) {
 		return createCriteria().createAlias("sailList", "sail").add(eq("sail.id", sailid)).list();
 	}
 

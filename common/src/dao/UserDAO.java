@@ -7,8 +7,7 @@ import entity.User;
 
 public interface UserDAO extends GeneralDAO<User>  {
 	
-	User getUser(String name);
-	User getAdmin();
-	List<User> allUserByRole(Role role);
+	User get(String name);
+	List<User> getByRole(Role role);
 
 }

@@ -51,26 +51,26 @@
     <tr>
         <th>
         	Id
-        	<a href="#" onclick="Go('sail.id_up')">↑</a>
-            <a href="#" onclick="Go('sail.id_down')">↓</a>
+        	<a href="#" onclick="Go('id_up')">↑</a>
+            <a href="#" onclick="Go('id_down')">↓</a>
         </th>
         <th>
         	Date
-        	<a href="#" onclick="Go('sail.date_up')">↑</a>
-            <a href="#" onclick="Go('sail.date_down')">↓</a>
+        	<a href="#" onclick="Go('date_up')">↑</a>
+            <a href="#" onclick="Go('date_down')">↓</a>
         </th>
         <th>
         	Products profit
         </th>
         <th>
         	Total cost
-        	<a href="#" onclick="Go('sail.totalsum_up')">↑</a>
-            <a href="#" onclick="Go('sail.totalsum_down')">↓</a>
+        	<a href="#" onclick="Go('totalsum_up')">↑</a>
+            <a href="#" onclick="Go('totalsum_down')">↓</a>
         </th>
         <th>
         	Cashback Percent
-        	<a href="#" onclick="Go('sail.cashbackPercent_up')">↑</a>
-            <a href="#" onclick="Go('sail.cashbackPercent_down')">↓</a>
+        	<a href="#" onclick="Go('cashbackPercent_up')">↑</a>
+            <a href="#" onclick="Go('cashbackPercent_down')">↓</a>
         </th>
         <th>
         	Total Profit

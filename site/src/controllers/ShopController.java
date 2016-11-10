@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Basket;
 import models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,8 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import service.BuyerService;
-import service.ClickStatisticService;
-import service.ProductService;
+import service.StatisticReferralsService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +30,7 @@ public class ShopController {
 	private BuyerService serviceBuyer;
 
 	@Autowired
-	private ClickStatisticService serviceClickStatistic;
+	private StatisticReferralsService serviceClickStatistic;
 
 	@Autowired
 	// @Qualifier("simplePassValid")
@@ -55,7 +53,7 @@ public class ShopController {
 			track.setMaxAge(86400);
 			response.addCookie(track);
 		}
-		serviceClickStatistic.setClickStatistic(params[0], new Date(), tracker);
+		serviceClickStatistic.saveClickByLink(params[0], new Date(), tracker);
 		return "redirect:/reg";
 	}
 
@@ -82,9 +80,8 @@ public class ShopController {
 			referCode = referCodeCookie;
 		else {
 			tracker =  null;
-			serviceClickStatistic.setEnterCode(referCode, new Date());
+			serviceClickStatistic.saveEnterCode(referCode, new Date());
 		}
-
 		serviceBuyer.regUser(nameBuyer,password.getNewPassword(),referCode, tracker);
 		List<GrantedAuthority> role = new ArrayList<GrantedAuthority>();
 		role.add(new GrantedAuthority() {

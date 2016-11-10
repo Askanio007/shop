@@ -22,7 +22,7 @@ public class ProductBasket{
 	@JsonIgnore
 	private byte discount;
 
-	public ProductBasket() {
+	private ProductBasket() {
 
 	}
 
@@ -50,7 +50,6 @@ public class ProductBasket{
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
-	
 
 	public void setDiscount(byte discount) {
 		this.discount = discount;

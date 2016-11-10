@@ -39,9 +39,9 @@ public class StatisticController {
 		if (filter == null)
 			filter = new FilterTotalSoldProduct();
 
-		ViewPagination viewPagination = new ViewPagination(request, serviceTotalSoldProduct.countTotalSoldProduct(filter));
+		ViewPagination viewPagination = new ViewPagination(request, serviceTotalSoldProduct.count(filter));
 		String sort = request.getParameter("sort");
-		List<TotalSoldProduct> totalDoldProducts = serviceTotalSoldProduct.listTotalSoldProduct(viewPagination.getDBPagination(), sort,filter);
+		List<TotalSoldProduct> totalDoldProducts = serviceTotalSoldProduct.list(viewPagination.getDBPagination(), sort,filter);
 		model.addAttribute("sort", sort);
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("soldProducts", totalDoldProducts);
@@ -52,9 +52,9 @@ public class StatisticController {
 	
 	@RequestMapping(value = "/statistic/buyersByProduct/{productId}", method = RequestMethod.GET)
 	public String productByBuyer(@PathVariable("productId") Long productId,  HttpServletRequest request, Model model) {
-		Product product = serviceProduct.getProduct(productId);
-		ViewPagination viewPagination = new ViewPagination(request, serviceSoldProduct.countSoldProduct(product));
-		List<SoldProduct> soldProducts = serviceSoldProduct.listSoldProduct(product, viewPagination.getDBPagination());
+		Product product = serviceProduct.get(productId);
+		ViewPagination viewPagination = new ViewPagination(request, serviceSoldProduct.count(product));
+		List<SoldProduct> soldProducts = serviceSoldProduct.list(product, viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("soldProducts", soldProducts);
 		model.addAttribute("product", product);

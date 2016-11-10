@@ -7,11 +7,11 @@ import entity.Product;
 
 public interface DiscountDAO extends GeneralDAO<Discount> {
 
-	List<Discount> getActivePrivateDisc();
+	List<Discount> getActivePrivate();
 	
-	Discount getGeneralDisc();
+	Discount getGeneral();
 	
-	List<Discount> getActivePrivateDiscByBuyerId(Long id);
+	List<Discount> getActivePrivateByBuyerId(Long id);
 	
-	Discount getPrivateDiscount(Product product,Long id);
+	Discount getPrivate(Product product,Long id);
 }

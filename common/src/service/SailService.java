@@ -19,6 +19,9 @@ import utils.PaginationFilter;
 import utils.StateSail;
 import view.SailView;
 
+// TODO: 16.10.2016 не Complete - Completed. Complete - завершать ::: исправил, принял к сведению
+// listCompleteSailByDate - завершить список продаж по дате
+// listCompletedSailByDate - список завершенных продаж по дате
 @Service
 public class SailService {
 
@@ -27,13 +30,10 @@ public class SailService {
 	private SailDaoInterface sailDao;
 
 	@Autowired
-	private ProductService serviceProduct;
-
-	@Autowired
 	private BuyerService serviceBuyer;
 
 	@Autowired
-	private ClickStatisticService serviceClick;
+	private StatisticReferralsService serviceStatistic;
 
 	@Autowired
 	private TotalSoldProductService serviceTotalSold;
@@ -52,7 +52,7 @@ public class SailService {
 	public Double getProfit(Collection <Sail> sails) {
 		Double profit = 0.0;
 		for (Sail s : sails) {
-			profit += s.getTotalsum() * (s.getCashbackPercent() * 1.0 / 100);
+			profit += serviceBuyer.profitFromReferralBySail(s, s.getCashbackPercent());
 		}
 		return profit;
 	}
@@ -67,52 +67,39 @@ public class SailService {
 	}
 
 	@Transactional
-	public void addSail(Sail sail, Basket basket) {
+	public void save(Sail sail, Basket basket) {
 		sail.setTotalsum(basket.cost());
 		sail.setAmount(basket.countProducts());
 		sail.setProducts(convertToSoldProduct(basket.getProducts()));
 		sail.setStateWithDate(StateSail.getState(StateSail.State.SENT));
-		addSail(sail);
+		save(sail);
 	}
 
 	@Transactional
-	public void addUserSail(List<Buyer> buyers, Basket basket) {
+	public void save(List<Buyer> buyers, Basket basket) {
 		Sail sail = new Sail(buyers, convertToSoldProduct(basket.getProducts()), basket);
 		for (Buyer buyer : buyers) {
 			if (buyer.getRefId() != null)
-				serviceClick.setSailStatistic(serviceBuyer.getBuyer(buyer.getRefId()));
+				serviceStatistic.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), new Date());
 		}
-		addSail(sail);
+		save(sail);
 	}
 
 	@Transactional
-	public void addGenericUserSail(List<Buyer> buyers, Basket basket, Date date) {
-		Sail sail = new Sail(buyers, convertToSoldProduct(basket.getProducts()), basket);
-		sail.setState(StateSail.getState(StateSail.State.COMPLETE));
-		sail.setDate(date);
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)+1);
-		sail.setDateChangeState(c.getTime());
-		for (Buyer buyer : buyers) {
-			if (buyer.getRefId() != null)
-				serviceClick.setSailStatistic(serviceBuyer.getBuyer(buyer.getRefId()), c.getTime());
-		}
-		addSail(sail);
+	public void save(Buyer buyer, Basket basket) {
+		buyer.setBalance(buyer.getBalance() - basket.cost());
+		Sail sail = new Sail(buyer, convertToSoldProduct(basket.getProducts()), basket);
+		serviceStatistic.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), new Date());
+		serviceBuyer.edit(buyer);
+		save(sail);
+	}
+
+	public void save(Sail sail) {
+		sailDao.save(sail);
 	}
 
 	@Transactional
-	public void addUserSail(String nameBuyer, Basket basket) {
-		Sail sail = new Sail(serviceBuyer.getBuyer(nameBuyer), convertToSoldProduct(basket.getProducts()), basket);
-		addSail(sail);
-	}
-
-	public void addSail(Sail sail) {
-		sailDao.add(sail);
-	}
-
-	@Transactional
-	public List<Sail> listSail(PaginationFilter dbFilter) {
+	public List<Sail> list(PaginationFilter dbFilter) {
 		List<Sail> sails = sailDao.find(dbFilter);
 		initialize(sails);
 		return sails;
@@ -120,20 +107,20 @@ public class SailService {
 
 	@Transactional
 	public List<SailView> listViewSail(PaginationFilter dbFilter) {
-		List<Sail> sails = listSail(dbFilter);
+		List<Sail> sails = list(dbFilter);
 		return SailView.convertSail(sails);
 	}
 
 	@Transactional
-	public List<Sail> allSailByBuyer(PaginationFilter dbFilter, Long buyerid) {
-		List<Sail> sails = sailDao.getAllSailByBuyer(dbFilter, buyerid);
+	public List<Sail> allByBuyer(PaginationFilter dbFilter, Long buyerid) {
+		List<Sail> sails = sailDao.getByBuyer(dbFilter, buyerid);
 		initialize(sails);
 		return sails;
 	}
 
 	@Transactional
 	public List<SailView> allViewSailByBuyer(PaginationFilter dbFilter, Long buyerid) {
-		List<Sail> sails = sailDao.getAllSailByBuyer(dbFilter, buyerid);
+		List<Sail> sails = sailDao.getByBuyer(dbFilter, buyerid);
 		initialize(sails);
 		return SailView.convertSail(sails);
 	}
@@ -149,9 +136,10 @@ public class SailService {
 	public void sailComplete(Long sailId) {
 		Sail s = find(sailId);
 		s.setStateWithDate(StateSail.getState(StateSail.State.COMPLETE));
+
 		serviceBuyer.calculateProfit(s);
 		update(s);
-		serviceTotalSold.addProduct(s.getProducts());
+		serviceTotalSold.add(s.getProducts());
 	}
 
 	@Transactional
@@ -161,61 +149,40 @@ public class SailService {
 		update(sail);
 	}
 
+
 	@Transactional
-	public void generateSail() {
-		Random r = new Random();
-		int countProduct = serviceProduct.countAllProducts();
-		int countBuyer = serviceBuyer.getCountAllBuyers();
-		List<ProductBasket> list = new ArrayList<>();
-		for(int j = 0; j<500;j++)
-		{
-			int amountProduct = r.nextInt(5);
-			Random c = new Random();
-			for (int i = 1; i < amountProduct+1; i++) {
-				list.add(new ProductBasket(serviceProduct.getProductByNumber(r.nextInt(countProduct)), c.nextInt(10)+1, (byte) 0));
-			}
-			Basket basket = new Basket(list);
-			PaginationFilter filter = new PaginationFilter(r.nextInt(countBuyer), 1);
-			List<Buyer> buyer = serviceBuyer.listBuyer(filter);
-			Calendar calendar = new GregorianCalendar(2015, c.nextInt(11), c.nextInt(28));
-			addGenericUserSail(buyer, basket, calendar.getTime());
-			list.clear();
-		}
+	public List<Sail> listCompletedByDay(Long buyerId, Date date) {
+		return sailDao.completedByDay(buyerId, date);
 	}
 
 	@Transactional
-	public List<Sail> listCompleteSailByDay(Long buyerId, Date date) {
-		return sailDao.completeSailByDay(buyerId, date);
+	public Double profitCompletedByDay(Long buyerId, Date date) {
+		return sailDao.profitCompletedByDay(buyerId, date);
 	}
 
 	@Transactional
-	public List<Sail> listCompleteSailByDate(Long buyerId,PaginationFilter pagination, DateFilter sailDate) {
-		return sailDao.completeSailByDate(buyerId, pagination, sailDate);
-	}
-
-	@Transactional
-	public List<Sail> listCompleteSailByDate(Long buyerId, DateFilter sailDate) {
-		return sailDao.completeSailByDate(buyerId, sailDate);
+	public List<Sail> listCompletedByDate(Long buyerId, DateFilter sailDate) {
+		return sailDao.completedByDate(buyerId, null, sailDate, null);
 	}
 	
 	@Transactional
-	public List<Sail> listCompleteSailByDateOrder(Long buyerId, PaginationFilter pagination, DateFilter sailDate, String sort) {
-		return sailDao.completeSailByDateOrder(buyerId, pagination, sailDate, sort);
+	public List<Sail> listCompletedByDate(Long buyerId, PaginationFilter pagination, DateFilter sailDate, String sort) {
+		return sailDao.completedByDate(buyerId, pagination, sailDate, sort);
 	}
 
 	@Transactional
-	public void removeSail(Long id) {
+	public void remove(Long id) {
 		sailDao.delete(id);
 	}
 
 	@Transactional
-	public int countAllSails() {
+	public int countAll() {
 		return sailDao.countAll();
 	}
 
 	@Transactional
-	public int countSailsByBuyer(Long buyerid) {
-		return sailDao.countSailsByBuyer(buyerid);
+	public int countByBuyer(Long buyerid) {
+		return sailDao.countByBuyer(buyerid);
 	}
 
 	@Transactional
@@ -225,11 +192,11 @@ public class SailService {
 
 	@Transactional
 	public List<Sail> getOverDueSails(Long time) {
-		return sailDao.getOverDueSail(time);
+		return sailDao.getOverDue(time);
 	}
 
 	@Transactional
-	public int countReferralSail(Long referalId, DateFilter dateSail) {
-		return sailDao.countSailsByReferral(referalId,dateSail);
+	public int countByReferral(Long referalId, DateFilter dateSail) {
+		return sailDao.countByReferral(referalId,dateSail);
 	}
 }

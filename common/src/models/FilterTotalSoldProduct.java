@@ -9,7 +9,11 @@ public class FilterTotalSoldProduct {
 	
 	private String name;
 
-	private Map<String, Object> params = new HashMap<>();;
+	private Map<String, Object> params = new HashMap<>();
+
+
+
+
 
 	public Long getId() {
 		return id;
@@ -44,7 +48,5 @@ public class FilterTotalSoldProduct {
 		if (name != "")
 			params.put("product.name", name);
 	}
-
-
 }
 

@@ -10,7 +10,9 @@
 <title>Info</title>
 </head>
 <body>
-<a href="generate">Create products and buyers</a><br>
+<a href="generateBuyer">Create buyer</a><br>
+<a href="generateRef">Create referrals</a><br>
+<a href="generateProd">Create products</a><br>
 <a href="generateSail">Create sails</a>
 <br>
  <c:if test="${user eq true }">

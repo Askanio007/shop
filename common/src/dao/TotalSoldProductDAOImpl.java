@@ -2,17 +2,20 @@ package dao;
 
 import java.util.*;
 
+import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import entity.TotalSoldProduct;
 import models.FilterTotalSoldProduct;
 import utils.PaginationFilter;
 
+import static org.hibernate.criterion.Restrictions.eq;
+
 @Repository("totalProductDao")
 public class TotalSoldProductDAOImpl extends GeneralDAOImpl<TotalSoldProduct>implements TotalSoldProductDAO {
 
 	@Override
-	public TotalSoldProduct getProduct(Long productId) {
+	public TotalSoldProduct get(Long productId) {
 		Object ob = createQuery("from TotalSoldProduct as sold where sold.product.id = :productId")
 				.setLong("productId", productId).uniqueResult();
 		return (TotalSoldProduct) ob;
@@ -20,76 +23,31 @@ public class TotalSoldProductDAOImpl extends GeneralDAOImpl<TotalSoldProduct>imp
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TotalSoldProduct> findSortPrice(PaginationFilter filter, String orderby) {
-		return setPagination(createQuery("from TotalSoldProduct as total order by total.totalCost " + orderby), filter)
-				.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TotalSoldProduct> findSortAmount(PaginationFilter filter, String orderby) {
-		return setPagination(createQuery("from TotalSoldProduct as total order by total.totalAmount " + orderby),
-				filter).list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TotalSoldProduct> findSortPrice(PaginationFilter filter, String orderBy,
-			FilterTotalSoldProduct paramFilter) {
-		String q = "from TotalSoldProduct as total ";
-		if (paramFilter.haveParam()) {
-			q = "from TotalSoldProduct where " + createHqlQuery(paramFilter.getParams()) + " order by totalCost "
-					+ orderBy;
-			return setPagination(createQuery(q), filter).list();
-		}
-		return findSortPrice(filter, orderBy);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TotalSoldProduct> find(PaginationFilter filter, FilterTotalSoldProduct paramFilter) {
-		if (paramFilter.haveParam())
-			return setPagination(createQuery("from TotalSoldProduct where " + createHqlQuery(paramFilter.getParams())),
-					filter).list();
-		return find(filter);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TotalSoldProduct> findSortAmount(PaginationFilter filter, String orderBy,
-			FilterTotalSoldProduct paramFilter) {
-		String q = "";
-		if (paramFilter.haveParam()) {
-			q = "from TotalSoldProduct where " + createHqlQuery(paramFilter.getParams()) + " order by totalAmount "
-					+ orderBy;
-			return setPagination(createQuery(q), filter).list();
-		}
-		return findSortAmount(filter, orderBy);
+	public List<TotalSoldProduct> find(PaginationFilter filter, FilterTotalSoldProduct paramFilter, String sort) {
+		Criteria crit = createCriteria();
+		addFilter(paramFilter.getParams(), crit);
+		if (sort != null)
+			addOrder(crit, sort);
+		addPagination(crit, filter);
+		return crit.list();
 	}
 
 	@Override
 	public int countAll(FilterTotalSoldProduct paramFilter) {
-		if (paramFilter.haveParam()) {
-			return asInt(
-					createQuery("select count(*) from TotalSoldProduct where " + createHqlQuery(paramFilter.getParams()))
-							.uniqueResult());
-		}
-		return countAll();
+		if (!paramFilter.haveParam())
+			return countAll();
+		Criteria crit = createCriteria();
+		addFilter(paramFilter.getParams(), crit);
+		return asInt(crit.uniqueResult());
 	}
 
-	public String createHqlQuery(Map<String, Object> params) {
-		String q = "";
+
+	public void addFilter(Map<String, Object> params, Criteria crit) {
 		if (params.isEmpty())
-			return q;
-		int i = 1;
+			return;
 		for (Map.Entry<String, Object> entry : params.entrySet()){
-			if (i == 1)
-				q = entry.getKey() + " = " + "'" + entry.getValue().toString() + "'";
-			else
-				q = q + " and " + entry.getKey() + " = " + "'" + entry.getValue().toString() + "'";
-			i++;
+			crit.add(eq(entry.getKey(),entry.getValue()));
 		}
-		return q;
 	}
 
 }

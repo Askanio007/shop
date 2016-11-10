@@ -56,23 +56,23 @@
     <tr>
         <th>
             Id&nbsp;
-            <a href="#" onclick="Go('buyer.id_up')">↑</a>
-            <a href="#" onclick="Go('buyer.id_down')">↓</a>
+            <a href="#" onclick="Go('id_up')">↑</a>
+            <a href="#" onclick="Go('id_down')">↓</a>
         </th>
         <th>
             Name&nbsp;
-            <a href="#" onclick="Go('buyer.name_up')">↑</a>
-            <a href="#" onclick="Go('buyer.name_down')">↓</a>
+            <a href="#" onclick="Go('name_up')">↑</a>
+            <a href="#" onclick="Go('name_down')">↓</a>
         </th>
         <th>
             SecondName&nbsp;
-            <a href="#" onclick="Go('buyer.info.secondName_up')">↑</a>
-            <a href="#" onclick="Go('buyer.info.secondName_down')">↓</a>
+            <a href="#" onclick="Go('this.info.secondName_up')">↑</a>
+            <a href="#" onclick="Go('this.info.secondName_down')">↓</a>
         </th>
         <th>
             Age&nbsp;
-            <a href="#" onclick="Go('buyer.info.age_up')">↑</a>
-            <a href="#" onclick="Go('buyer.info.age_down')">↓</a>
+            <a href="#" onclick="Go('this.info.age_up')">↑</a>
+            <a href="#" onclick="Go('this.info.age_down')">↓</a>
         </th>
         <th>
             Count sails&nbsp;
@@ -81,8 +81,8 @@
         </th>
         <th>
             Tracker&nbsp;
-            <a href="#" onclick="Go('buyer.tracker_up')">↑</a>
-            <a href="#" onclick="Go('buyer.tracker_down')">↓</a>
+            <a href="#" onclick="Go('tracker_up')">↑</a>
+            <a href="#" onclick="Go('tracker_down')">↓</a>
         </th>
         <th>
             Profit&nbsp;

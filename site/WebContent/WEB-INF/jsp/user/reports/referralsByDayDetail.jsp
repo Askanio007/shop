@@ -52,8 +52,8 @@
     <tr>
         <th>
             ID
-            <a href="#" onclick="Go('buyer.id_up')">↑</a>
-            <a href="#" onclick="Go('buyer.id_down')">↓</a>
+            <a href="#" onclick="Go('id_up')">↑</a>
+            <a href="#" onclick="Go('id_down')">↓</a>
         </th>
         <th>Sails</th>
         <th>

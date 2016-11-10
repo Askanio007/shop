@@ -24,7 +24,6 @@ import entity.Discount;
 import entity.PictureProduct;
 import entity.Product;
 import service.BuyerService;
-import service.ChatService;
 import service.DiscountService;
 import service.ProductService;
 import service.SettingsService;
@@ -44,9 +43,6 @@ public class ProductController {
 	private BuyerService serviceBuyer;
 
 	@Autowired
-	private ChatService serviceChat;
-
-	@Autowired
 	private SettingsService setting;
 
 	@Autowired
@@ -59,7 +55,7 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/upload", method = RequestMethod.POST)
-	public String uploadPicture(@RequestParam("file") MultipartFile file, HttpServletRequest request, SessionStatus status)
+	public String uploadPicture(@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws IllegalStateException, IOException {
 		String dir = setting.getPathUploadPicProduct();
 		List<PictureProduct> newListPic = new ArrayList<>();
@@ -94,9 +90,9 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/all", method = RequestMethod.GET)
-	public String listProduct(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAllProducts());
-		List<Product> list = serviceProduct.listProduct(viewPagination.getDBPagination());
+	public String list(HttpServletRequest request, Model model, SessionStatus status) {
+		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAll());
+		List<Product> list = serviceProduct.list(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("productList", list);
 		model.addAttribute("product", new Product());
@@ -105,14 +101,14 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
-	public String addProductPage(Model model, HttpServletRequest request) {
+	public String add(Model model, HttpServletRequest request) {
 		model.addAttribute("product", new Product());
 		return "product/addproduct";
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
+	public String add(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
 
 		if (result.hasErrors())
 			return "product/addproduct";
@@ -120,15 +116,15 @@ public class ProductController {
 		if (listPics != null) {
 			product.setPicList(listPics);
 		}
-		serviceProduct.addProduct(product);
+		serviceProduct.save(product);
 		request.getSession().setAttribute("infoMessage", "Add succes!");
 		return "redirect:/product/all";
 	}
 
 	@RequestMapping("/product/delete")
-	public String deleteProduct(HttpServletRequest request) {
-		Product prod = serviceProduct.getProduct(Long.parseLong(request.getParameter("id")));
-		serviceProduct.removeProduct(prod);
+	public String delete(HttpServletRequest request) {
+		Product prod = serviceProduct.get(Long.parseLong(request.getParameter("id")));
+		serviceProduct.remove(prod);
 		request.getSession().setAttribute("infoMessage", "Delete succes!");
 		return "redirect:/product/all";
 	}
@@ -136,7 +132,7 @@ public class ProductController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/edit/{productId}", method = RequestMethod.GET)
 	public String edit(@PathVariable("productId") Long productId, Model model, HttpServletRequest request) {
-		Product prod = serviceProduct.getProduct(productId);
+		Product prod = serviceProduct.get(productId);
 		Object pics = request.getSession().getAttribute("pics");
 		if (pics != null) {
 			prod.setPicList((List<PictureProduct>) pics);
@@ -148,27 +144,27 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/edit/{productId}", method = RequestMethod.POST)
-	public String editProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
+	public String edit(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
 
 		if (result.hasErrors())
 			return "product/edit";
 		
 		List<PictureProduct> pics = (List<PictureProduct>) request.getSession().getAttribute("pics");
 		if (pics == null) {
-			serviceProduct.editProduct(product);
+			serviceProduct.edit(product);
 			request.getSession().setAttribute("infoMessage", "Edit success!");
 			return "redirect:/product/all";
 		}
 		
 		product.setPicList(pics);
-		serviceProduct.editProduct(product);
+		serviceProduct.edit(product);
 		request.getSession().setAttribute("infoMessage", "Edit success!");
 		return "redirect:/product/all";
 	}
 
 	@RequestMapping(value = "/product/addDiscount", method = RequestMethod.GET)
 	public String addDiscount(Model model, HttpServletRequest request) {
-		model.addAttribute("buyers", serviceBuyer.listBuyer());
+		model.addAttribute("buyers", serviceBuyer.list());
 		model.addAttribute("product", Long.parseLong(request.getParameter("id")));
 		model.addAttribute("disc", new Discount());
 		return "product/addDiscount";
@@ -176,11 +172,11 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/addDiscount", method = RequestMethod.POST)
 	public String addDiscount(@ModelAttribute("disc") Discount disc, @RequestParam("buyerName") String name, HttpServletRequest request) {
-		Buyer buyer = serviceBuyer.getBuyer(name);
+		Buyer buyer = serviceBuyer.get(name);
 		disc.setBuyer(buyer);
-		String text = disc.getDiscount() + "% discount on the " + serviceProduct.getProduct(disc.getProductId()).getName() + " special for you, Mr. "
+		String text = disc.getDiscount() + "% discount on the " + serviceProduct.get(disc.getProductId()).getName() + " special for you, Mr. "
 				+ buyer.getName();
-		serviceDisc.addDiscount(disc, text);
+		serviceDisc.save(disc, text);
 		return "redirect:/product/all";
 	}
 }

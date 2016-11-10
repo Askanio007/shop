@@ -66,12 +66,12 @@ public class SailController {
 	}
 
 	@RequestMapping("/sail/all")
-	public String listSail(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countAllSails());
+	public String list(HttpServletRequest request, Model model, SessionStatus status) {
+		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countAll());
 		List<SailView> listSailView = serviceSail.listViewSail(viewPagination.getDBPagination());
 		status.setComplete();
 		UserDetails detail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Role role = serviceRole.getRoleByUserName(detail.getUsername());
+		Role role = serviceRole.getByUserName(detail.getUsername());
 		model.addAttribute("role", role);
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("sailView", listSailView);
@@ -79,49 +79,49 @@ public class SailController {
 	}
 
 	@RequestMapping(value = "/sail/add", method = RequestMethod.GET)
-	public String addSailPage(Model model) {
-		model.addAttribute("buyerList", serviceBuyer.listBuyer());
-		model.addAttribute("productList", serviceProduct.listProduct());
+	public String add(Model model) {
+		model.addAttribute("buyerList", serviceBuyer.list());
+		model.addAttribute("productList", serviceProduct.list());
 		model.addAttribute("sail", new Sail());
 		return "sail/addsail";
 	}
 
 	@RequestMapping(value = "/sail/add", method = RequestMethod.POST)
-	public String addSail(@ModelAttribute("sail") @Valid Sail sail, BindingResult result, Model model,HttpServletRequest request) {
+	public String add(@ModelAttribute("sail") @Valid Sail sail, BindingResult result, Model model,HttpServletRequest request) {
 		if (result.hasErrors()) {
-			model.addAttribute("buyerList", serviceBuyer.listBuyer());
-			model.addAttribute("productList", serviceProduct.listProduct());
+			model.addAttribute("buyerList", serviceBuyer.list());
+			model.addAttribute("productList", serviceProduct.list());
 			return "sail/addsail";
 		}
 		Basket buyerProdList = (Basket) request.getSession().getAttribute("buyerProdList");
-		serviceSail.addSail(sail, buyerProdList);
+		serviceSail.save(sail, buyerProdList);
 		request.getSession().setAttribute("infoMessage", "Add Success");
 		return "redirect:/sail/all";
 	}
 
 	@RequestMapping("/sail/delete")
-	public String deleteSail(HttpServletRequest request) {
+	public String delete(HttpServletRequest request) {
 		request.getSession().setAttribute("infoMessage", "Delete Success");
 		if (request.getParameter("prod") != null) {
-			serviceSail.removeSail(Long.parseLong(request.getParameter("id")));
+			serviceSail.remove(Long.parseLong(request.getParameter("id")));
 			return "redirect:/sail/product/" + request.getParameter("prod");
 		}
 		if (request.getParameter("buy") != null) {
-			serviceSail.removeSail(Long.parseLong(request.getParameter("id")));
+			serviceSail.remove(Long.parseLong(request.getParameter("id")));
 			return "redirect:/sail/buyer/" + request.getParameter("buy");
 		}
-		serviceSail.removeSail(Long.parseLong(request.getParameter("id")));
+		serviceSail.remove(Long.parseLong(request.getParameter("id")));
 		return "redirect:/sail/all";
 
 	}
 
 	@RequestMapping("/sail/buyer/{buyerId}")
 	public String allSailByBuyer(@PathVariable("buyerId") Long buyerId, Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countSailsByBuyer(buyerId));
+		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countByBuyer(buyerId));
 		List<SailView> listSailView = serviceSail.allViewSailByBuyer(viewPagination.getDBPagination(), buyerId);
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("sailview", listSailView);
-		model.addAttribute("buyer", serviceBuyer.getBuyer(buyerId));
+		model.addAttribute("buyer", serviceBuyer.get(buyerId));
 		return "sail/sailbybuyer";
 	}
 
@@ -132,7 +132,7 @@ public class SailController {
 			@RequestParam(value = "idprod") String idprod,
 			HttpServletRequest request
 	) throws JsonProcessingException {
-		Product newProd = serviceProduct.getProduct(Long.parseLong(idprod));
+		Product newProd = serviceProduct.get(Long.parseLong(idprod));
 		int amount = Integer.parseInt(count);
 		Basket basket = (Basket)request.getSession().getAttribute("buyerProdList");
 		if (basket == null)
@@ -144,7 +144,7 @@ public class SailController {
 	}
 
 	@RequestMapping(value = "/sail/removeBuy", method = RequestMethod.GET)
-	public @ResponseBody List<String> removeProductinSail(@RequestParam(value = "idprod") String idprod,
+	public @ResponseBody List<String> removeProductInSail(@RequestParam(value = "idprod") String idprod,
 			HttpServletRequest request) throws JsonProcessingException {
 		Basket buyerProdList = (Basket) request.getSession().getAttribute("buyerProdList");
 		buyerProdList.deleteProduct(Long.parseLong(idprod));

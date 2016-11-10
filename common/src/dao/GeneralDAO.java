@@ -6,7 +6,7 @@ import utils.PaginationFilter;
 
 public interface GeneralDAO<T> {
 	
-    void add(T t);
+    void save(T t);
 
     void delete(Object obj);
     

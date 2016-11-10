@@ -24,7 +24,7 @@ public class ReferralService {
     private SailService sailService;
 
     @Autowired
-    private ClickStatisticService clickService;
+    private StatisticReferralsService statisticService;
 
     @Autowired
     @Qualifier("referalDao")
@@ -69,58 +69,31 @@ public class ReferralService {
 
     public void setSails(List<Buyer> buyers, DateFilter date) {
         for (Buyer b : buyers) {
-            b.setSails(sailService.listCompleteSailByDate(b.getId(), date));
+            b.setSails(sailService.listCompletedByDate(b.getId(), date));
         }
     }
-
-    @Transactional
-    public Double calculateProfitByDay(Buyer buyer, Date date) {
-        List<Buyer> referals = referalDao.getReferalsById(buyer.getId());
-        for (Buyer ref : referals) {
-            ref.setSails(sailService.listCompleteSailByDay(ref.getId(), date));
-        }
-        Double profit = 0.0;
-        for (Buyer ref : referals) {
-            profit += sailService.getProfit(ref.getSails());
-        }
-        return profit;
-    }
-
-    @Transactional
-    public Referral findBySailDate(Long referId, PaginationFilter pagination, DateFilter date) {
-        Referral referral = new Referral(serviceBuyer.getBuyer(referId));
-        referral.setSails(sailService.listCompleteSailByDate(referId, pagination, date));
-        return referral;
-    }
-
 
     @Transactional
     public Referral findBySailDate(Long referId, PaginationFilter pagination, DateFilter date, String sort) {
-        Referral referral = new Referral(serviceBuyer.getBuyer(referId));
-        referral.setSails(sailService.listCompleteSailByDateOrder(referId, pagination, date, sort));
+        Referral referral = new Referral(serviceBuyer.get(referId));
+        referral.setSails(sailService.listCompletedByDate(referId, pagination, date, sort));
         return referral;
     }
 
     @Transactional
     public List<Referral> findDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
-        if ("".equals(sort) || sort == null)
-            return findDailyActive(buyerId, pagination, date, tracker);
-
-        if (SortParameterParser.getColumnName(sort).equals("profit"))
-            return sortByProfit(findDailyActive(buyerId, pagination, date, tracker), SortParameterParser.getTypeOrder(sort));
-
-        return findDailyActiveWithOrder(buyerId, pagination, date, tracker, sort);
+        if (sort != null) {
+            if (SortParameterParser.getColumnName(sort).equals("profit"))
+                return sortByProfit(getDailyActive(buyerId, pagination, date, tracker, null), SortParameterParser.getTypeOrder(sort));
+        }
+        return getDailyActive(buyerId, pagination, date, tracker, sort);
     }
 
     @Transactional
-    public List<Referral> findDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker) {
-        List<Buyer> buyers;
-        if ("".equals(tracker) || tracker == null)
-            buyers = referalDao.findActiveByDay(buyerId, pagination, date);
-        else
-            buyers = referalDao.findActiveByDayWithTracker(buyerId, pagination, date, tracker);
+    private List<Referral> getDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
+        List<Buyer> buyers = referalDao.findActiveByDay(buyerId, pagination, date, tracker, sort);
         for (Buyer buyer : buyers) {
-            List<Sail> sails = sailService.listCompleteSailByDay(buyer.getId(), date);
+            List<Sail> sails = sailService.listCompletedByDay(buyer.getId(), date);
             sailService.initialize(sails);
             buyer.setSails(sails);
         }
@@ -128,103 +101,42 @@ public class ReferralService {
     }
 
     @Transactional
-    public int countActiveReferralByDay(Long buyerId, Date date, String tracker) {
-        if ("".equals(tracker) || tracker == null)
-            return referalDao.countActiveReferralByDay(buyerId, date);
-        return referalDao.countActiveReferralByDay(buyerId, date, tracker);
-    }
-
-    public List<Referral> findDailyActiveWithOrder(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
-        List<Buyer> buyers;
-        if ("".equals(tracker) || tracker == null)
-            buyers = referalDao.findActiveByDayOrder(buyerId, pagination, date, sort);
-        else
-            buyers = referalDao.findActiveByDayWithTrackerOrder(buyerId, pagination, date, tracker, sort);
-        for (Buyer buyer : buyers) {
-            List<Sail> sails = sailService.listCompleteSailByDay(buyer.getId(), date);
-            sailService.initialize(sails);
-            buyer.setSails(sails);
-        }
-        return convertToReferral(buyers);
+    public int countActiveByDay(Long buyerId, Date date, String tracker) {
+        return referalDao.countActiveByDay(buyerId, date, tracker);
     }
 
     @Transactional
-    public int countReferrals(String buyerName, DateFilter dateRegistrationFilter, String tracker) {
-        Buyer buyer = serviceBuyer.getBuyer(buyerName);
-        if ("".equals(tracker) || tracker == null)
-            return referalDao.countReferrals(buyer, dateRegistrationFilter);
-        return referalDao.countReferrals(buyer, dateRegistrationFilter, tracker);
+    public int count(String buyerName, DateFilter dateRegistrationFilter, String tracker) {
+        Buyer buyer = serviceBuyer.get(buyerName);
+        return referalDao.count(buyer, dateRegistrationFilter, tracker);
     }
 
 
     @Transactional
     public List<Referral> find(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker, String sort) {
-        if ("".equals(sort) || sort == null)
-            return find(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker);
-
-        if (SortParameterParser.getColumnName(sort).equals("profit")) {
-            return sortByProfit(find(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker), SortParameterParser.getTypeOrder(sort));
+        if (sort != null) {
+            switch (SortParameterParser.getColumnName(sort)) {
+                case "profit":
+                    return sortByProfit(findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, null), SortParameterParser.getTypeOrder(sort));
+                case "countSail":
+                    return sortByCountSail(findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, null), SortParameterParser.getTypeOrder(sort));
+                default:
+                    break;
+            }
         }
-
-        if (SortParameterParser.getColumnName(sort).equals("countSail")) {
-            return sortByCountSail(find(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker), SortParameterParser.getTypeOrder(sort));
-        }
-
-        return findWithOrder(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, sort);
+        return findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, sort);
     }
 
     @Transactional
-    public List<Referral> find(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker) {
-        Buyer buyer = serviceBuyer.getBuyer(buyerName);
-        List<Buyer> list;
-        if ("".equals(tracker) || tracker == null)
-            list = referalDao.findByDateRegistration(buyer.getId(), pagination, dateRegistrationFilter);
-        else
-            list = referalDao.findByDateRegistrationWithTracker(buyer.getId(), pagination, dateRegistrationFilter, tracker);
+    private List<Referral> findReferrals(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker, String sort) {
+        Buyer buyer = serviceBuyer.get(buyerName);
+        List<Buyer> list = referalDao.findByDateRegistration(buyer.getId(), pagination, dateRegistrationFilter, tracker, sort);
         setSails(list, dateStatisticFilter);
         return convertToReferral(list);
-    }
-
-    @Transactional
-    public List<Referral> findWithOrder(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker, String sort) {
-        Buyer buyer = serviceBuyer.getBuyer(buyerName);
-        List<Buyer> list;
-        if ("".equals(tracker) || tracker == null)
-            list = referalDao.findByDateRegistrationOrder(buyer.getId(), pagination, dateRegistrationFilter, sort);
-        else
-            list = referalDao.findByDateRegistrationWithTrackerOrder(buyer.getId(), pagination, dateRegistrationFilter, tracker, sort);
-        setSails(list, dateStatisticFilter);
-        return convertToReferral(list);
-
     }
 
     @Transactional
     public Referral find(Long referralId) {
         return convertToReferral(referalDao.find(referralId));
-    }
-
-
-    @Transactional
-    public void generateReferral() {
-        String[] trackers = {"site", null, null, "World of Warcraft", "dota 2", null};
-
-        Random r = new Random();
-        List<Buyer> buyers = serviceBuyer.listBuyer();
-        Buyer b = buyers.get(0);
-        for (int i = 0; i < 50; i++) {
-            String track = trackers[r.nextInt(5)];
-            for (int j = 0; j < r.nextInt(10); j++) {
-                Calendar c = new GregorianCalendar(2015, r.nextInt(11), r.nextInt(28));
-                clickService.setClickStatistic(b.getRefCode(), c.getTime() , track);
-            }
-
-            Calendar dateRegByClick = new GregorianCalendar(2015, 0, r.nextInt(28));
-            clickService.setClickStatistic(b.getRefCode(), dateRegByClick.getTime() , track);
-            serviceBuyer.regGenerateUser("ReferralBuyerClick #" + i, "password", b.getRefCode(), track, dateRegByClick.getTime());
-
-            Calendar dateRegByCode = new GregorianCalendar(2015, 0, r.nextInt(28));
-            clickService.setEnterCode(b.getRefCode(),dateRegByCode.getTime());
-            serviceBuyer.regGenerateUser("ReferralBuyerCode #" + i, "password", b.getRefCode(), null, dateRegByCode.getTime());
-        }
     }
 }

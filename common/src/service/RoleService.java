@@ -18,22 +18,22 @@ public class RoleService {
 	private RoleDAO roleDao;
 	
 	@Transactional
-	public Role getRoleByUserName(String userName) {
-		return roleDao.getRoleByUserName(userName);
+	public Role getByUserName(String userName) {
+		return roleDao.getByUserName(userName);
 	}
 
 	@Transactional
-	public Role getRole(Long roleId) {
-		return roleDao.getUserRole(roleId);
+	public Role get(Long roleId) {
+		return roleDao.get(roleId);
 	}
 	
 	@Transactional
-	public List<Role> getAllRole() {
-		return roleDao.getAllRole();
+	public List<Role> getAll() {
+		return roleDao.getAll();
 	}
 	
 	@Transactional
-	public void editRole(Role r) {
+	public void edit(Role r) {
 		roleDao.update(r);
 	}
 }

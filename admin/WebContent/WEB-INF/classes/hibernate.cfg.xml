@@ -10,7 +10,7 @@
 		<mapping class="entity.Buyer" />
 		<mapping class="entity.BuyerInfo" />
 		<mapping class="entity.PictureProduct" />
-		<mapping class="entity.Chat" />
+		<mapping class="entity.Message" />
 		<mapping class="entity.Discount" />
 		<mapping class="entity.Role" />
 		<mapping class="entity.Settings" />

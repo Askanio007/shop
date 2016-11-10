@@ -10,7 +10,7 @@ import entity.User;
 public class UserDAOImpl extends GeneralDAOImpl<User> implements UserDAO {
 
 	@Override
-	public User getUser(String name) {
+	public User get(String name) {
 		return (User)createQuery("from User where name = :nameUser")
 					.setString("nameUser", name)
 					.uniqueResult();
@@ -18,15 +18,9 @@ public class UserDAOImpl extends GeneralDAOImpl<User> implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> allUserByRole(Role role) {
+	public List<User> getByRole(Role role) {
 		return createQuery("from User where role.id = :id")
 					.setLong("id", role.getId())
 					.list();
 	}
-
-	@Override
-	public User getAdmin() {
-		return (User) createQuery("from User where name = 'admin'").uniqueResult();
-	}
-
 }

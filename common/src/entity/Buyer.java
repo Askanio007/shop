@@ -1,5 +1,7 @@
 package entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -17,8 +19,8 @@ public class Buyer {
 	private Long id;
 
 	@Column(name = "name")
-	@Size(min = 2, max=30)
-	@NotNull
+	@Length(min = 2, max=30)
+	@NotNull 				// TODO: 16.10.2016 как соотносится с ограничениями в базе?
 	private String name;
 
 	@Column(name = "password")
@@ -50,26 +52,22 @@ public class Buyer {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "buyer_id")
-	private Collection<ClickByLink> clicks;
+	private Collection<StatisticReferral> clicks;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private BuyerInfo info;
-	
-	public Buyer(String name, String pass, BuyerInfo info) {
-		this.name = name;
-		this.password = pass;
-		this.info = info;
-	}
-	
-	public Buyer(String name, String pass, Date dateReg) {
-		this.name = name;
-		this.password = pass;
-		this.dateReg = dateReg;
-		this.enable = true;
-	}
-	
-	public Buyer(Builder builder) {
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "buyer_id")
+	private Collection<Buyer> referrals;
+
+	private Buyer()
+	{}
+
+	// TODO: 16.10.2016 в паттерне билдер конструктор с билдером обычно приватный ::: Исправил для этого и других классов
+	// другие конструкторы обычно тоже удаляются.  ::: Исправил для этого и других классов
+	private Buyer(Builder builder) {
 		this.name = builder.name;
 		this.password = builder.password;
 		this.dateReg = builder.dateReg;
@@ -83,9 +81,6 @@ public class Buyer {
 		this.info.setBuyer(this);
 	}
 
-	public Buyer() {
-
-	}
 	
 	public static class Builder {
 		private String name;
@@ -115,7 +110,7 @@ public class Buyer {
 			this.refCode = code;
 			this.info = new BuyerInfo();
 		}
-		
+
 		public Builder refId(Long id){
 			this.refId = id;
 			return this;
@@ -194,14 +189,14 @@ public class Buyer {
 		this.tracker = tracker;
 	}
 
-	public void setClicks(Collection<ClickByLink> clicks) {
+	public void setClicks(Collection<StatisticReferral> clicks) {
 		this.clicks = clicks;
 	}
 
 	//GET
 
 
-	public Collection<ClickByLink> getClicks() {
+	public Collection<StatisticReferral> getClicks() {
 		return clicks;
 	}
 
@@ -251,5 +246,13 @@ public class Buyer {
 
 	public String getRefCode() {
 		return refCode;
+	}
+
+	public Collection<Buyer> getReferrals() {
+		return referrals;
+	}
+
+	public void setReferrals(Collection<Buyer> referrals) {
+		this.referrals = referrals;
 	}
 }
