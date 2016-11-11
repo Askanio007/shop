@@ -24,7 +24,6 @@ public class CalculatorDiscount {
 				calculate(products, discount);
 			}
 		}
-
 	}
 
 	public static void calculatePrivateDiscount(List<Product> products, List<Discount> discounts) {

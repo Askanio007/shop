@@ -15,14 +15,8 @@ public interface SailDaoInterface extends GeneralDAO<Sail> {
 	int countByBuyer(Long buyerid);
 
 	List<Sail> getByBuyer(PaginationFilter dbFilter, Long buyerid);
-	
-	List<Sail> getByBuyer(Long buyerid);
 
 	List<Sail> getOverDue(Long time);
-
-	Double profitCompletedByDay(Long buyerId, Date date);
-
-	List<Sail> completedByDay(Long buyerId, Date date);
 
 	List<Sail> completedByDate(Long buyerId, PaginationFilter dbFilter, DateFilter dateSail, String sort);
 

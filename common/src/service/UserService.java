@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dao.UserDAO;
 import entity.Role;
 import entity.User;
+import utils.EncryptionString;
 import utils.PaginationFilter;
 
 @Service
@@ -31,7 +32,7 @@ public class UserService {
 		Role r = serviceRole.get(roleId);
 		user.setRole(r);
 		user.setEnable(true);
-		user.setPassword(serviceBuyer.getHashPassword(user.getPassword()));
+		user.setPassword(EncryptionString.toMD5(user.getPassword()));
 		r.setUser(user);
 		userDao.save(user);
 	}

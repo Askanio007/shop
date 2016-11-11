@@ -83,8 +83,8 @@ public class StatisticReferralsService {
 
     // TODO: 16.10.2016 Это жесть. расскажи в чем такая трудность что       ::::: исправил, выборки делаются через критерию, все парамеры подставляются тогда, когда они есть
     // при возможности писать что и как угодно, ты выбираешь этот вариант
-    public List<ReportByDay> byDate(Long buyerId, PaginationFilter pagination, DateFilter date, String tracker, String sort) {
-            return clickDao.listByDate(buyerId, pagination, date, tracker, sort);
+    public List<ReportByDay> byDate(Buyer buyer, PaginationFilter pagination, DateFilter date, String tracker, String sort) {
+            return clickDao.listByDate(buyer, pagination, date, tracker, sort);
     }
 
     public void saveProfit(Buyer buyer, String tracker, Double profit) {

@@ -28,15 +28,15 @@ public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> 
     @Override
     public StatisticReferral byDay(Buyer buyer, Date date, String tracker) {
         // TODO: 16.10.2016 это вообще отстой ::: исправил
-        Date dateFrom = getDateWithoutTime(date);
-        Date dateTo = endDay(date);
         Criteria crit = createCriteria()
-                    .add(between("date", dateFrom, dateTo))
+                    .add(between("date", getDateWithoutTime(date), endDay(date)))
                     .add(eq("buyer", buyer));
+
         if (tracker == null)
             crit.add(isNull("tracker"));
         else
             crit.add(eq("tracker", tracker));
+
         Object stat = crit.uniqueResult();
         if (stat != null)
             return (StatisticReferral) stat;
@@ -44,16 +44,11 @@ public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> 
     }
 
     @Override
-    public List<ReportByDay> listByDate(Long buyerId, PaginationFilter dbFilter, DateFilter date, String tracker, String sort) {
-        Criteria crit = session().createCriteria(StatisticReferral.class, "stat")
-                .createAlias("stat.buyer", "buyer")
-                    .add(eq("buyer.id", buyerId))
-                    .add(between("date",date.getFrom(), date.getTo()));
-        if (!"".equals(tracker))
-            crit.add(eq("tracker",tracker));
-        addOrder(crit,sort);
-        addPagination(crit, dbFilter);
-        crit.setProjection(Projections.projectionList()
+    public List<ReportByDay> listByDate(Buyer buyer, PaginationFilter dbFilter, DateFilter date, String tracker, String sort) {
+        Criteria crit = createCriteria()
+                    .add(eq("buyer", buyer))
+                    .add(between("date",date.getFrom(), date.getTo()))
+                .setProjection(Projections.projectionList()
                                 .add(Projections.property("date"), "date")
                                 .add(Projections.sum("regAmount"), "registrationAmount")
                                 .add(Projections.sum("clickLinkAmount"), "clickLinkAmount")
@@ -63,6 +58,10 @@ public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> 
                                 .add(groupProperty("date")))
                         .setResultTransformer(
                                         Transformers.aliasToBean(ReportByDay.class));
+        if (!"".equals(tracker))
+            crit.add(eq("tracker",tracker));
+        addOrder(crit,sort);
+        addPagination(crit, dbFilter);
         return crit.list();
     }
 
@@ -71,12 +70,13 @@ public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> 
     public int count(Buyer buyer, DateFilter date, String tracker) {
         Criteria crit = createCriteria()
                     .add(between("date", date.getFrom(), date.getTo()))
-                    .add(eq("buyer", buyer));
+                    .add(eq("buyer", buyer))
+            .setProjection(projectionList()
+                .add(Projections.countDistinct("date")));
+
         if (!"".equals(tracker))
-           crit.add(eq("tracker", tracker));
-        crit.setProjection(projectionList()
-                .add(Projections.countDistinct("date"))
-        );
+            crit.add(eq("tracker", tracker));
+
         Object count = crit.uniqueResult();
         return count != null ? asInt(count) : 0;
     }

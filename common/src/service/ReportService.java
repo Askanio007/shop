@@ -53,17 +53,14 @@ public class ReportService {
 
     @Transactional
     public List<SailProfit> getProfitBySails(Long referalId, PaginationFilter pagination, DateFilter dateSail, String sort) {
-        if ("profit".equals(SortParameterParser.getColumnName(sort))) {
+        if ("profit".equals(SortParameterParser.getColumnName(sort)))
             return sortBySailProfit(SailProfit.convertToSailProfit(serviceReferral.findBySailDate(referalId, pagination, dateSail, null).getSails()), sort);
-        }
         return SailProfit.convertToSailProfit(serviceReferral.findBySailDate(referalId, pagination, dateSail, sort).getSails());
     }
 
     @Transactional
     private List<ReportByDay> getStatisticByDay(String nameBuyer, PaginationFilter pagination, DateFilter dateRegistrationFilter, String tracker, String sort) {
-        Buyer buyer = serviceBuyer.get(nameBuyer);
-        List<ReportByDay> days = serviceReferralStatistic.byDate(buyer.getId(), pagination, dateRegistrationFilter, tracker, sort);
-        return days;
+        return serviceReferralStatistic.byDate(serviceBuyer.get(nameBuyer), pagination, dateRegistrationFilter, tracker, sort);
     }
     
     @Transactional

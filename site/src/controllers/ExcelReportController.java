@@ -38,7 +38,7 @@ public class ExcelReportController {
     private StatisticReferralsService serviceClickStatistic;
 
     @RequestMapping(value = "/user/reports/byDayExcel", method = RequestMethod.POST)
-    public ModelAndView satistic(@RequestParam(required = false, value = "regFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+    public ModelAndView statistic(@RequestParam(required = false, value = "regFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                                @RequestParam(required = false, value = "regTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
                                @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
                                @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
@@ -51,7 +51,7 @@ public class ExcelReportController {
 
 
     @RequestMapping(value = "/user/reports/referralsExcel", method = RequestMethod.POST)
-    public ModelAndView referals(@RequestParam(required = false, value = "regFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date regFrom,
+    public ModelAndView referrals(@RequestParam(required = false, value = "regFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date regFrom,
                                       @RequestParam(required = false, value = "regTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date regTo,
                                       @RequestParam(required = false, value = "sailFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailFrom,
                                       @RequestParam(required = false, value = "sailTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailTo,
@@ -66,7 +66,7 @@ public class ExcelReportController {
     }
 
     @RequestMapping(value = "/user/reports/byDayDetailExcel", method = RequestMethod.POST)
-    public ModelAndView referalsByDayDetail(@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date,
+    public ModelAndView referralsByDayDetail(@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date,
                                             @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
                                             @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
                                             @RequestParam(required = false, value = "page", defaultValue = "1") String page)  {
@@ -78,7 +78,7 @@ public class ExcelReportController {
 
 
     @RequestMapping(value = "/user/reports/referralDetailExcel", method = RequestMethod.POST)
-    public ModelAndView referalStatisticDetail(@RequestParam("id") Long referId,
+    public ModelAndView referralStatisticDetail(@RequestParam("id") Long referId,
                                          @RequestParam(required = false, value = "sailFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailFrom,
                                          @RequestParam(required = false, value = "sailTo") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sailTo,
                                          @RequestParam(required = false, value = "page", defaultValue = "1") String page,

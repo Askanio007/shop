@@ -9,10 +9,6 @@ public interface ProductDAO extends GeneralDAO<Product> {
 	
 	List<PictureProduct> getPictureWithoutProductId();
 	
-	List<PictureProduct> getPictureByProduct(Long id);
-	
 	String getPicturePath(Long picId);
-	
-	List<Product> getAllBySail(Long sailid);
 
 }

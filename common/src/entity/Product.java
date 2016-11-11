@@ -1,5 +1,7 @@
 package entity;
 
+import view.ViewFormat;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,6 +36,8 @@ public class Product {
 	@Min(1)
 	private Double cost;
 
+	private String costStr;
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
 	private List<PictureProduct> picList;
@@ -44,6 +48,7 @@ public class Product {
 	public Product(String name, Double cost) {
 		this.name = name;
 		this.cost = cost;
+		costStr = ViewFormat.money(this.cost);
 	}
 
 	public void setName(String newname) {
@@ -56,6 +61,7 @@ public class Product {
 
 	public void setCost(Double newcost) {
 		cost = newcost;
+		costStr = ViewFormat.money(this.cost);
 	}
 
 	public void setPicList(List<PictureProduct> list) {
@@ -81,7 +87,7 @@ public class Product {
 
 	public String getViewCost()
 	{
-		return String.format("%.2f", this.cost);
+		return costStr;
 	}
 
 }

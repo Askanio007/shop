@@ -5,6 +5,7 @@ import view.DateConverter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateFilter {
@@ -13,6 +14,8 @@ public class DateFilter {
     private Date to;
 
     public DateFilter() {
+        this.from = new Date(1);
+        this.to = new Date();
     }
 
     public DateFilter(Date from, Date to) {
@@ -50,4 +53,6 @@ public class DateFilter {
     public void setTo(Date to) {
         this.to = to;
     }
+
+
 }

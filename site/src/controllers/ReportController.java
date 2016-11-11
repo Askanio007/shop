@@ -44,9 +44,9 @@ public class ReportController {
     @RequestMapping(value = "/user/reports/referrals", method = RequestMethod.GET)
     public String referrals(Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
-        ViewPagination viewPagination = new ViewPagination("1", serviceReferal.count(CurrentUser.getName(), new DateFilter(null,null) ,""));
+        ViewPagination viewPagination = new ViewPagination("1", serviceReferal.count(CurrentUser.getName(), new DateFilter() ,""));
         model.addAttribute("pagination", viewPagination);
-        List<Referral> referrals = serviceReferal.find(CurrentUser.getName(), viewPagination.getDBPagination(), new DateFilter(null,null) , new DateFilter(null,null)  ,"", null);
+        List<Referral> referrals = serviceReferal.find(CurrentUser.getName(), viewPagination.getDBPagination(), new DateFilter() , new DateFilter()  ,"", null);
         model.addAttribute("referrals", referrals);
         return "user/reports/referrals";
     }
@@ -77,7 +77,7 @@ public class ReportController {
     @RequestMapping(value = "/user/reports/referralStatisticDetail", method = RequestMethod.GET)
     public String referralStatisticDetail(@RequestParam("id") Long referId, Model model,HttpServletRequest request) {
         BuyController.setCountProductBasketInModel(request, model);
-        DateFilter date = new DateFilter(null,null);
+        DateFilter date = new DateFilter();
         ViewPagination viewPagination = new ViewPagination("1", serviceSail.countByReferral(referId,  date));
         List<SailProfit> sailProfit = serviceReport.getProfitBySails(referId, viewPagination.getDBPagination(), date, "");
         model.addAttribute("referral", serviceReferal.find(referId));
@@ -109,7 +109,7 @@ public class ReportController {
 
     @RequestMapping(value = "/user/reports/referralsByDay", method = RequestMethod.GET)
     public String referralsByDay(Model model, HttpServletRequest request) {
-        DateFilter dateRegistration = new DateFilter(null, null);
+        DateFilter dateRegistration = new DateFilter();
         BuyController.setCountProductBasketInModel(request, model);
         ViewPagination viewPagination = new ViewPagination("1", serviceClickStatistic.countByDate(CurrentUser.getName(), dateRegistration, ""), 50);
         model.addAttribute("days",serviceReport.getReportByDay(CurrentUser.getName(), viewPagination.getDBPagination(), dateRegistration, "", null));

@@ -1,6 +1,7 @@
 package models;
 
 import view.DateConverter;
+import view.ViewFormat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,9 @@ public class ReportByDay {
     private Long sailAmount;
     private Long registrationAmount;
     private Double profit;
+    private String viewProfit;
+    private String viewDate;
+    private String requestDate;
 
     public ReportByDay() {
     }
@@ -29,6 +33,8 @@ public class ReportByDay {
 
     public void setDate(Date date) {
         this.date = date;
+        viewDate = DateConverter.getFormatView().format(date);
+        requestDate = DateConverter.getFormatRequest().format(date);
     }
 
     public Long getClickLinkAmount() {
@@ -61,6 +67,7 @@ public class ReportByDay {
 
     public void setProfit(Double profit) {
         this.profit = profit;
+        viewProfit = ViewFormat.money(this.profit);
     }
 
     public Long getSailAmount() {
@@ -71,24 +78,17 @@ public class ReportByDay {
         this.sailAmount = sailAmount;
     }
 
-    public DateFormat getFormatView() {
-        return DateConverter.getFormatView();
-    }
-
-    public DateFormat getFormatRequest() {
-        return DateConverter.getFormatRequest();
-    }
 
     public String getDateView() {
-        return getFormatView().format(date);
+        return viewDate;
     }
 
     public String getDateRequest() {
-        return getFormatRequest().format(date);
+        return requestDate;
     }
 
     public String getViewProfit()
     {
-        return String.format("%.2f", this.profit);
+        return viewProfit;
     }
 }

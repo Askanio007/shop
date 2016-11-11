@@ -49,8 +49,6 @@ public class ImageServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		
 		response.setContentType("image/jpeg");
 		if (request.getParameter("pic") != null) {
 			String pathPic = serviceProduct.getPathPicture(getParam(request, "pic"));
@@ -62,6 +60,7 @@ public class ImageServlet extends HttpServlet {
 			List<PictureProduct> list = (List<PictureProduct>) request.getSession().getAttribute("pics");
 			String path = list.get(Integer.parseInt(request.getParameter("tempPic"))).getPath();
 			write(path, response);
+			return;
 		}
 
 		if (request.getParameter("avaPic") != null) {

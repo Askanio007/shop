@@ -11,11 +11,7 @@ public interface BuyerDAO extends GeneralDAO<Buyer>{
 	
 	BuyerInfo findInfoById(Long buyerId);
 	
-	String getRole(int id);
-	
 	String getAvaPathById(Long buyerId);
-	
-	List<Buyer> getAllBySail(Long sailId);
 
 	Buyer getBuyerByReferCode(String code);
 

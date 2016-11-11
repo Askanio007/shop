@@ -75,7 +75,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "user/editPrivateData";
 		}
-		serviceBuyer.editBuyer(serviceBuyer.get(CurrentUser.getName()), info);
+		serviceBuyer.edit(serviceBuyer.get(CurrentUser.getName()), info);
 		return "redirect:/user/profile";
 	}
 

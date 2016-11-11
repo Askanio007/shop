@@ -15,6 +15,6 @@ public interface StatisticReferralDAO extends GeneralDAO<StatisticReferral> {
 
     StatisticReferral byDay(Buyer buyer, Date date, String tracker);
 
-    List<ReportByDay> listByDate(Long buyerId, PaginationFilter dbPagination, DateFilter date, String tracker, String sort);
+    List<ReportByDay> listByDate(Buyer buyer, PaginationFilter dbPagination, DateFilter date, String tracker, String sort);
 
 }

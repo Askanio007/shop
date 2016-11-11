@@ -21,7 +21,7 @@ public class Basket {
 	}
 
 	public int countProducts() {
-		// TODO: 16.10.2016 у тебя разве не 8ая джава в проекте? если так, то стримы тебе в руки ::: сейчас 7, обновлю до 8
+		// TODO: 16.10.2016 у тебя разве не 8ая джава в проекте? если так, то стримы тебе в руки ::: сейчас 7, обновлю до 8, поизучаю
 		int count = 0;
 		for (ProductBasket product : products) {
 			count = count + product.getAmount();
@@ -69,7 +69,6 @@ public class Basket {
 	public void clear() {
 		products.clear();
 	}
-
 
 	public Double cost() {
 		Double totalSum = 0.0;

@@ -28,7 +28,6 @@ public class RedirectAfterLogin implements AuthenticationSuccessHandler {
 			}
 		}
 		redirectStrategy.sendRedirect(request, response, targetUrl);
-
 	}
 
 }

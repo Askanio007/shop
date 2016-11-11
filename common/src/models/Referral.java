@@ -4,6 +4,7 @@ import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
 import entity.SoldProduct;
+import view.ViewFormat;
 
 import java.util.Collection;
 
@@ -28,7 +29,7 @@ public class Referral {
     public Referral(Buyer b, Double profit) {
         this(b);
         this.profit = profit;
-        viewProfit = String.format("%.2f", this.profit);
+        viewProfit = ViewFormat.money(profit);
     }
     
     private Referral() {
@@ -89,6 +90,7 @@ public class Referral {
 
     public void setProfit(Double profit) {
         this.profit = profit;
+        viewProfit = ViewFormat.money(profit);
     }
 
     public String getTracker() {

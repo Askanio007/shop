@@ -14,6 +14,8 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import service.BuyerService;
 import service.StatisticReferralsService;
+import utils.CookieBuilder;
+import utils.ReferralParametersParser;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -38,22 +40,13 @@ public class ShopController {
 	private Validator valid;
 
 	@RequestMapping(value = "/reg/{param}", method = RequestMethod.GET)
-	public String registrationParam(@PathVariable("param") String param, Model model, HttpServletRequest request, HttpServletResponse response) {
-		String [] params = param.trim().split("&");
-
-		Cookie code = new Cookie("code", params[0]);
-		String tracker = null;
-		code.setMaxAge(86400);
-		response.addCookie(code);
-		Cookie track;
-		for (int i = 1; i<params.length; i++) {
-			String[] nameAndValue = params[i].trim().split("=");
-			if ("tracker".equals(nameAndValue[0])) tracker = nameAndValue[1];
-			track = new Cookie(nameAndValue[0], nameAndValue[1]);
-			track.setMaxAge(86400);
-			response.addCookie(track);
+	public String registrationParam(@PathVariable("param") String param, HttpServletResponse response) {
+		response.addCookie(CookieBuilder.parentCode(param));
+		List<Cookie> cookies = CookieBuilder.referralParams(param);
+		for (Cookie cookie : cookies) {
+			response.addCookie(cookie);
 		}
-		serviceClickStatistic.saveClickByLink(params[0], new Date(), tracker);
+		serviceClickStatistic.saveClickByLink(ReferralParametersParser.getParentCode(param), new Date(), ReferralParametersParser.getTracker(param));
 		return "redirect:/reg";
 	}
 
@@ -82,7 +75,7 @@ public class ShopController {
 			tracker =  null;
 			serviceClickStatistic.saveEnterCode(referCode, new Date());
 		}
-		serviceBuyer.regUser(nameBuyer,password.getNewPassword(),referCode, tracker);
+		serviceBuyer.registration(nameBuyer,password.getNewPassword(),referCode, tracker);
 		List<GrantedAuthority> role = new ArrayList<GrantedAuthority>();
 		role.add(new GrantedAuthority() {
 			@Override

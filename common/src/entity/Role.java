@@ -33,6 +33,8 @@ public class Role {
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
 	private Collection<User> users;
 
+	private Role(){}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -46,12 +48,12 @@ public class Role {
 	}
 
 	public void setUser(User user) {
-		if (users != null)
+		if (users != null){
 			users.add(user);
-		else {
-			users = new ArrayList<User>();
-			users.add(user);
+			return;
 		}
+		users = new ArrayList<>();
+		users.add(user);
 	}
 
 	public void setInfo(boolean info) {

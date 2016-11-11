@@ -2,6 +2,7 @@ package models;
 
 import entity.Sail;
 import entity.SoldProduct;
+import view.ViewFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +21,7 @@ public class SailProfit {
     public SailProfit(Sail sail, List<ProductProfit> products) {
         this.sail = sail;
         this.profit = calculateProfit(products);
-        viewProfit = String.format("%.2f", this.profit);
+        viewProfit = ViewFormat.money(this.profit);
         strProducts = buildListProductsToStr(products);
 
     }

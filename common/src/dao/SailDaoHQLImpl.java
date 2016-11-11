@@ -29,15 +29,6 @@ public class SailDaoHQLImpl extends GeneralDAOImpl<Sail>implements SailDaoInterf
 					"sail.state = 'COMPLETE' and " +
 					"sail.dateChangeState between :date and :endDate";
 
-	private static final String COMPLETE_SAIL_BY_DATE =
-			"select sail " +
-					"from Sail sail inner join " +
-						"sail.buyers buyer " +
-					"where " +
-						"buyer.id = :id and " +
-						"sail.state = 'COMPLETE' and " +
-						"sail.dateChangeState between :date and :endDate";
-
 	@Override
 	public int countByBuyer(Long buyerId) {
 		return asInt(createQuery("select count(*) from Sail sail inner join sail.buyers as buy where buy.id = :buyerid")
@@ -53,41 +44,11 @@ public class SailDaoHQLImpl extends GeneralDAOImpl<Sail>implements SailDaoInterf
 		return addPagination(q, filter).list();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sail> getByBuyer(Long buyerid) {
-		return createQuery("from Sail as sail inner join fetch sail.buyers as buy where buy.id = :buyerid")
-				.setLong("buyerid", buyerid)
-				.list();
-	}
-
 	@Override
 	public List<Sail> getOverDue(Long time) {
 		Long newDate = new Date().getTime() - time*1000;
 		return createQuery("from Sail where state = 'SENT' and dateChangeState < :date")
 				.setTimestamp("date", new Date(newDate)).list();
-	}
-
-	@Override
-	public Double profitCompletedByDay(Long buyerId, Date date) {
-		Criteria crit = createCriteria()
-				.createAlias("this.buyers", "buyer")
-				.add(eq("buyer.id", buyerId))
-				.add(eq("state", StateSail.getState(StateSail.State.COMPLETE)))
-				.add(between("dateChangeState",getDateWithoutTime(date), endDay(date)))
-				.setProjection(Projections.projectionList()
-
-				);
-		return null;
-	}
-
-	@Override
-	public List<Sail> completedByDay(Long buyerId, Date date) {
-		return createQuery(COMPLETE_SAIL_BY_DATE)
-				.setDate("date", date)
-				.setTimestamp("endDate", endDay(date))
-				.setLong("id", buyerId)
-				.list();
 	}
 
 	@Override

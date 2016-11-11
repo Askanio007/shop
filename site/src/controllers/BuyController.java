@@ -92,14 +92,12 @@ public class BuyController {
 			throws JsonProcessingException {
 		Product newProd = serviceProduct.get(Long.parseLong(request.getParameter("id")));
 		int amount = Integer.parseInt(count);
-
 		Basket basket = (Basket)request.getSession().getAttribute("basket");
 		if (basket == null)
 			basket = new Basket();
-        
 		byte discount = 0;
 		Discount disc = serviceDisc.availableDiscount(newProd, serviceBuyer.get(CurrentUser.getName()).getId());
-		if ( disc != null )
+		if (disc != null)
 			discount = disc.getDiscount();				
 		basket.addProduct(newProd, amount, discount);
 		request.getSession().setAttribute("basket", basket);
@@ -108,8 +106,7 @@ public class BuyController {
 	
 	@RequestMapping(value = "/user/products", method = RequestMethod.GET)
 	public String productList(Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAll(),
-				countRecordOnPage);
+		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAll(), countRecordOnPage);
 		List<Product> productList = serviceProduct.list(viewPagination.getDBPagination());
 		Discount discount = serviceDisc.getGeneral();
 		List<Discount> activeUserDiscount = serviceDisc.listActivePrivateByBuyerId(serviceBuyer.get(CurrentUser.getName()).getId());

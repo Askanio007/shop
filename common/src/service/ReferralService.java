@@ -1,8 +1,7 @@
 package service;
 
-import dao.ReferalDAO;
+import dao.ReferralDAO;
 import entity.Buyer;
-import entity.Sail;
 import models.Referral;
 import utils.DateFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,8 @@ public class ReferralService {
     private SailService sailService;
 
     @Autowired
-    private StatisticReferralsService statisticService;
-
-    @Autowired
-    @Qualifier("referalDao")
-    private ReferalDAO referalDao;
+    @Qualifier("referralDao")
+    private ReferralDAO referralDao;
 
 
     public List<Referral> sortByProfit(List<Referral> referrals, final String typeSort) {
@@ -67,76 +63,51 @@ public class ReferralService {
         return new Referral(buyer, sailService.getProfit(buyer.getSails()));
     }
 
-    public void setSails(List<Buyer> buyers, DateFilter date) {
-        for (Buyer b : buyers) {
-            b.setSails(sailService.listCompletedByDate(b.getId(), date));
-        }
-    }
-
-    @Transactional
-    public Referral findBySailDate(Long referId, PaginationFilter pagination, DateFilter date, String sort) {
-        Referral referral = new Referral(serviceBuyer.get(referId));
-        referral.setSails(sailService.listCompletedByDate(referId, pagination, date, sort));
-        return referral;
-    }
-
     @Transactional
     public List<Referral> findDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
-        if (sort != null) {
-            if (SortParameterParser.getColumnName(sort).equals("profit"))
+        if ("profit".equals(SortParameterParser.getColumnName(sort)))
                 return sortByProfit(getDailyActive(buyerId, pagination, date, tracker, null), SortParameterParser.getTypeOrder(sort));
-        }
         return getDailyActive(buyerId, pagination, date, tracker, sort);
     }
 
     @Transactional
     private List<Referral> getDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
-        List<Buyer> buyers = referalDao.findActiveByDay(buyerId, pagination, date, tracker, sort);
-        for (Buyer buyer : buyers) {
-            List<Sail> sails = sailService.listCompletedByDay(buyer.getId(), date);
-            sailService.initialize(sails);
-            buyer.setSails(sails);
-        }
+        List<Buyer> buyers = referralDao.findActiveByDay(buyerId, pagination, date, tracker, sort);
         return convertToReferral(buyers);
     }
 
     @Transactional
     public int countActiveByDay(Long buyerId, Date date, String tracker) {
-        return referalDao.countActiveByDay(buyerId, date, tracker);
+        return referralDao.countActiveByDay(buyerId, date, tracker);
     }
 
     @Transactional
     public int count(String buyerName, DateFilter dateRegistrationFilter, String tracker) {
-        Buyer buyer = serviceBuyer.get(buyerName);
-        return referalDao.count(buyer, dateRegistrationFilter, tracker);
+        return referralDao.count(serviceBuyer.get(buyerName), dateRegistrationFilter, tracker);
     }
-
 
     @Transactional
     public List<Referral> find(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker, String sort) {
-        if (sort != null) {
-            switch (SortParameterParser.getColumnName(sort)) {
-                case "profit":
-                    return sortByProfit(findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, null), SortParameterParser.getTypeOrder(sort));
-                case "countSail":
-                    return sortByCountSail(findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, null), SortParameterParser.getTypeOrder(sort));
-                default:
-                    break;
-            }
-        }
+        if ("profit".equals(SortParameterParser.getColumnName(sort)))
+            return sortByProfit(findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, null), SortParameterParser.getTypeOrder(sort));
+        if ("countSail".equals(SortParameterParser.getColumnName(sort)))
+            return sortByCountSail(findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, null), SortParameterParser.getTypeOrder(sort));
         return findReferrals(buyerName, pagination, dateRegistrationFilter, dateStatisticFilter, tracker, sort);
     }
 
     @Transactional
     private List<Referral> findReferrals(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker, String sort) {
-        Buyer buyer = serviceBuyer.get(buyerName);
-        List<Buyer> list = referalDao.findByDateRegistration(buyer.getId(), pagination, dateRegistrationFilter, tracker, sort);
-        setSails(list, dateStatisticFilter);
+        List<Buyer> list = referralDao.findByDateRegistration(serviceBuyer.get(buyerName), pagination, dateRegistrationFilter, dateStatisticFilter, tracker, sort);
         return convertToReferral(list);
     }
 
     @Transactional
     public Referral find(Long referralId) {
-        return convertToReferral(referalDao.find(referralId));
+        return convertToReferral(referralDao.find(referralId));
+    }
+
+    @Transactional
+    public Referral findBySailDate(Long referId, PaginationFilter pagination, DateFilter sailDate, String sort) {
+        return convertToReferral(referralDao.find(referId, pagination, sailDate, sort));
     }
 }

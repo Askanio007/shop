@@ -17,23 +17,11 @@ public class ProductDAOImpl extends GeneralDAOImpl<Product>implements ProductDAO
 		return session().createQuery("from PictureProduct where prod is null").list();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PictureProduct> getPictureByProduct(Long id) {
-		return session().createQuery("from PictureProduct where prod.id = " + id).list();
-	}
-
 	@Override
 	public String getPicturePath(Long picId) {
 		return (String) createQuery("select path from PictureProduct where id = :id")
 					.setLong("id", picId)
 					.uniqueResult();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Product> getAllBySail(Long sailid) {
-		return createCriteria().createAlias("sailList", "sail").add(eq("sail.id", sailid)).list();
 	}
 
 }

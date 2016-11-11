@@ -27,26 +27,11 @@ public class BuyerDAOImpl extends GeneralDAOImpl<Buyer>implements BuyerDAO {
 	}
 
 	@Override
-	public String getRole(int id) {
-		return (String) createQuery("select role from Role where id = :id")
-				.setLong("id", id)
-				.uniqueResult();
-	}
-
-	@Override
 	public String getAvaPathById(Long buyerId) {
 		return (String) createQuery("select ava from BuyerInfo where id = :buyerId")
 				.setLong("buyerId", buyerId)
 				.uniqueResult();
 	}
-	
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Buyer> getAllBySail(Long sailId) {
-		return createCriteria().createAlias("sails", "sail").add(eq("sail.id", sailId)).list();
-	}
-
 
 	@Override
 	public Buyer getBuyerByReferCode(String code) {

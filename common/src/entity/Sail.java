@@ -18,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import models.Basket;
 import utils.StateSail;
+import view.ViewFormat;
 
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -70,6 +71,8 @@ public class Sail {
 	@NotNull
 	private Collection<Buyer> buyers;// TODO: 16.10.2016 кто это? ::: Это список покупателей. Я изначально сделал так, что одна и та же покупка может быть у нескольких покупателей
 
+	private String viewTotalSum;
+
 	public Sail() {
 
 	}
@@ -80,6 +83,7 @@ public class Sail {
 		this.products = products;
 		this.amount = basket.countProducts();
 		this.totalsum = basket.cost();
+		viewTotalSum = ViewFormat.money(totalsum);
 		this.date = new Date();
 		setStateWithDate(StateSail.getState(StateSail.State.SENT));
 	}
@@ -90,6 +94,7 @@ public class Sail {
 		this.products = products;
 		this.amount = basket.countProducts();
 		this.totalsum = basket.cost();
+		viewTotalSum = ViewFormat.money(totalsum);
 		this.date = new Date();
 		setStateWithDate(StateSail.getState(StateSail.State.SENT));
 	}
@@ -104,6 +109,7 @@ public class Sail {
 
 	public void setTotalsum(Double fcount) {
 		totalsum = fcount;
+		viewTotalSum = ViewFormat.money(totalsum);
 	}
 
 	public void setProducts(Collection<SoldProduct> productList) {
@@ -177,9 +183,8 @@ public class Sail {
 		return cashbackPercent;
 	}
 
-	public String getViewTotalsum()
-	{
-		return String.format("%.2f", this.totalsum);
+	public String getViewTotalsum() {
+		return viewTotalSum;
 	}
 
 

@@ -45,6 +45,7 @@ public class TotalSoldProductDAOImpl extends GeneralDAOImpl<TotalSoldProduct>imp
 	public void addFilter(Map<String, Object> params, Criteria crit) {
 		if (params.isEmpty())
 			return;
+
 		for (Map.Entry<String, Object> entry : params.entrySet()){
 			crit.add(eq(entry.getKey(),entry.getValue()));
 		}

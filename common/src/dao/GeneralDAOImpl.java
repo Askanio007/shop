@@ -5,12 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import utils.PaginationFilter;
@@ -46,8 +44,7 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 
 	@Override
 	public void delete(Long id) {
-		Object ob = session().load(entityClass, id);
-		delete(ob);
+		delete(session().load(entityClass, id));
 	}
 
 	@Override
@@ -114,7 +111,12 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 		crit.setFirstResult(filter.getOffset()).setMaxResults(filter.getLimit());
 	}
 
-	protected Date endDay(Date date) {
+	protected void getAssociatedObjectLeftJoin(Criteria crit, String associationPath, String alias) {
+		crit.setFetchMode(associationPath, FetchMode.JOIN)
+				.createAlias(associationPath, alias, JoinType.LEFT_OUTER_JOIN);
+	}
+
+	public static Date endDay(Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.add(Calendar.DATE, 1);

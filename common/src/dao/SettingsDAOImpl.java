@@ -11,26 +11,32 @@ public class SettingsDAOImpl implements SettingsDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Override
 	public int timeDiscount() {
 		return getPropertyInteger("time_general_discount");
 	}
 
+	@Override
 	public String pathUploadPic() {
 		return getPropertyString("path_upload_pic_product");
 	}
 
+	@Override
 	public String pathUploadAva() {
 		return getPropertyString("path_upload_avatar");
 	}
 
+	@Override
 	public int timeDisactive() {
 		return getPropertyInteger("time_disactive_discount");
 	}
 
+	@Override
 	public byte cashback(){
 		return getPropertyByte("base_cashback");
 	}
 
+	@Override
 	public Long deliveredCompleteTime() { 
 		return getPropertyLong("auto_delivered_complete"); }
 

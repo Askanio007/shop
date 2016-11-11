@@ -13,8 +13,6 @@ public class FilterTotalSoldProduct {
 
 
 
-
-
 	public Long getId() {
 		return id;
 	}

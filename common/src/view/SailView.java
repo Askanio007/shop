@@ -53,8 +53,7 @@ public class SailView {
 		return buyers;
 	}
 	
-	public static List<SailView> convertSail(List<Sail> sails)
-	{
+	public static List<SailView> convertSail(List<Sail> sails) {
 		List<SailView> list = new ArrayList<>();
 		for (Sail s : sails) {
 			list.add(new SailView(s));

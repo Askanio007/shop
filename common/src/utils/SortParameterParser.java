@@ -9,8 +9,6 @@ public class SortParameterParser {
 
     public static String getTypeOrder(String sort) {
         String[] str = sort.trim().split("_");
-        if (str[1].equals("up"))
-           return "desc";
-        return "asc";
+        return str[1].equals("up") ? "desc" : "asc";
     }
 }
