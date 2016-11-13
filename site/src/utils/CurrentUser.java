@@ -9,7 +9,6 @@ import service.BuyerService;
 public class CurrentUser {
 
     public static String getName() {
-
         return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

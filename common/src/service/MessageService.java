@@ -19,7 +19,7 @@ import view.ChatView;
 public class MessageService {
 
 	@Autowired
-	@Qualifier("chatDAO")
+	@Qualifier("messageDao")
 	private MessageDAO messageDao;
 	
 	@Transactional

@@ -42,11 +42,11 @@ public class SailService {
 	private SoldProductService serviceSold;
 
 
-	public List<Sail> initialize(List<Sail> sails) {
+	public List<Sail> initialize(Collection<Sail> sails) {
 		for (Sail s : sails) {
 			initialize(s);
 		}
-		return sails;
+		return (List<Sail>) sails;
 	}
 
 	public Sail initialize(Sail sail) {

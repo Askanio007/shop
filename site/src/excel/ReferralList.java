@@ -17,10 +17,8 @@ public class ReferralList extends AbstractExcelView {
 
     @Override
     protected void buildExcelDocument(Map map, HSSFWorkbook hssfWorkbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-
         HSSFSheet excelSheet = hssfWorkbook.createSheet("Statistic by referrals");
         setExcelHeader(excelSheet);
-
         List<Referral> statistics = (List) map.get("referralsList");
         setExcelRows(excelSheet,statistics);
 

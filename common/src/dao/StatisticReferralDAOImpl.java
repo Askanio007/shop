@@ -22,7 +22,7 @@ import static java.sql.Types.DOUBLE;
 import static org.hibernate.criterion.Projections.*;
 import static org.hibernate.criterion.Restrictions.*;
 
-@Repository("ClickStatisticDao")
+@Repository("StatisticDao")
 public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> implements StatisticReferralDAO {
 
     @Override

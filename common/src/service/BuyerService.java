@@ -62,8 +62,10 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public BuyerInfo getInfo(Long buyerId) {
-		return buyerDao.findInfoById(buyerId);
+	public Buyer getFullInfo(String buyerName) {
+		Buyer buyer = buyerDao.findByName(buyerName);
+		Hibernate.initialize(buyer.getInfo());
+		return buyer;
 	}
 
 	@Transactional
@@ -115,8 +117,6 @@ public class BuyerService {
 				.build();
 		save(buyer);
 	}
-
-
 
 	@Transactional
 	public List<Buyer> list(PaginationFilter dbPagination) {
@@ -184,6 +184,16 @@ public class BuyerService {
     }
 
 	@Transactional
+	public boolean isCorrectData(String login, String password) {
+		Buyer buyer = get(login);
+		if (buyer == null)
+			return false;
+		if (!buyer.getPassword().equals(password))
+			return false;
+		return true;
+	}
+
+	@Transactional
 	public Double getProfitByLastMonth(Long buyerId) {
 		// TODO: 16.10.2016 вообще создаешь в методе календарь один и давай сним работать. ::: мне нужно передавать две даты, они же должны где-то храниться
 		Calendar from = Calendar.getInstance();
@@ -197,4 +207,12 @@ public class BuyerService {
 		List<Sail> sails = sailService.listCompletedByDate(buyerId, new DateFilter(from.getTime(), to.getTime()));
 		return sailService.getProfit(sails);
 	}
+
+	@Transactional
+	public void saveAvatar(String nameBuyer, String avatarName) {
+		Buyer user = get(nameBuyer);
+		user.getInfo().setAva(settings.getPathUploadAva() + "\\" + avatarName);
+		edit(user);
+	}
+
 }

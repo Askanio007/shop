@@ -17,7 +17,7 @@ import java.util.List;
 import static org.hibernate.criterion.Projections.groupProperty;
 import static org.hibernate.criterion.Restrictions.*;
 
-@Repository("referalDao")
+@Repository("referralDao")
 public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDAO {
 
     @Override

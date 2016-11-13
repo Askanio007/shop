@@ -75,13 +75,11 @@ public class ProductController {
 		}
 
 		if (LoadFileUtil.checkExtension(file, FileType.ARCHIVE)) {
-			{
-				UploadZip.getPicFromArchive(newListPic, dir, file);
-				request.getSession().setAttribute("pics", newListPic);
-				if (id != null)
-					return "redirect:/product/edit/" + id;
-				return "redirect:/product/add";
-			}
+			UploadZip.getPicFromArchive(newListPic, dir, file);
+			request.getSession().setAttribute("pics", newListPic);
+			if (id != null)
+				return "redirect:/product/edit/" + id;
+			return "redirect:/product/add";
 		}
 		request.getSession().setAttribute("infoMessage", "Invalid format");
 		if (id != null)
@@ -101,7 +99,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
-	public String add(Model model, HttpServletRequest request) {
+	public String add(Model model) {
 		model.addAttribute("product", new Product());
 		return "product/addproduct";
 	}
@@ -109,12 +107,12 @@ public class ProductController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
-
 		if (result.hasErrors())
 			return "product/addproduct";
-		List<PictureProduct> listPics = (List<PictureProduct>) request.getSession().getAttribute("pics");
+
+		Object listPics =  request.getSession().getAttribute("pics");
 		if (listPics != null) {
-			product.setPicList(listPics);
+			product.setPicList((List<PictureProduct>) listPics);
 		}
 		serviceProduct.save(product);
 		request.getSession().setAttribute("infoMessage", "Add succes!");
@@ -145,18 +143,12 @@ public class ProductController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/edit/{productId}", method = RequestMethod.POST)
 	public String edit(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
-
 		if (result.hasErrors())
 			return "product/edit";
-		
-		List<PictureProduct> pics = (List<PictureProduct>) request.getSession().getAttribute("pics");
-		if (pics == null) {
-			serviceProduct.edit(product);
-			request.getSession().setAttribute("infoMessage", "Edit success!");
-			return "redirect:/product/all";
+		Object pics = request.getSession().getAttribute("pics");
+		if (pics != null) {
+			product.setPicList((List<PictureProduct>) pics);
 		}
-		
-		product.setPicList(pics);
 		serviceProduct.edit(product);
 		request.getSession().setAttribute("infoMessage", "Edit success!");
 		return "redirect:/product/all";
@@ -171,7 +163,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/addDiscount", method = RequestMethod.POST)
-	public String addDiscount(@ModelAttribute("disc") Discount disc, @RequestParam("buyerName") String name, HttpServletRequest request) {
+	public String addDiscount(@ModelAttribute("disc") Discount disc, @RequestParam("buyerName") String name) {
 		Buyer buyer = serviceBuyer.get(name);
 		disc.setBuyer(buyer);
 		String text = disc.getDiscount() + "% discount on the " + serviceProduct.get(disc.getProductId()).getName() + " special for you, Mr. "

@@ -17,10 +17,8 @@ public class StatisticByDay extends AbstractExcelView {
 
     @Override
     protected void buildExcelDocument(Map map, HSSFWorkbook hssfWorkbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-
         HSSFSheet excelSheet = hssfWorkbook.createSheet("Statistic by days");
         setExcelHeader(excelSheet);
-
         List<ReportByDay> statistics = (List) map.get("statisticList");
         setExcelRows(excelSheet,statistics);
 

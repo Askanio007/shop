@@ -27,7 +27,7 @@ public class ChatController {
 	private BuyerService serviceBuyer;
 	
 	@RequestMapping(value = "/user/chat", method = RequestMethod.GET)
-	public String chat(Model model, HttpServletRequest request, SessionStatus status) {
+	public String chat(Model model, HttpServletRequest request) {
 		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
 		ViewPagination viewPagination = new ViewPagination(request, serviceChat.count(buyer));
 		List<ChatView> list = serviceChat.getViewChat(viewPagination.getDBPagination(), buyer);
@@ -38,7 +38,7 @@ public class ChatController {
 	}
 
 	@RequestMapping(value = "/user/addMessage", method = RequestMethod.POST)
-	public String addMessage(@RequestParam("message") String text,HttpServletRequest request) {
+	public String addMessage(@RequestParam("message") String text) {
 		serviceChat.addToAdmin(text, serviceBuyer.get(CurrentUser.getName()).getId());
 		return "redirect:/user/chat";
 	}

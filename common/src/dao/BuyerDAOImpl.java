@@ -20,13 +20,6 @@ public class BuyerDAOImpl extends GeneralDAOImpl<Buyer>implements BuyerDAO {
 	}
 
 	@Override
-	public BuyerInfo findInfoById(Long buyerId) {
-		return (BuyerInfo) createQuery("from BuyerInfo where id = :id")
-						.setLong("id", buyerId)
-						.uniqueResult();
-	}
-
-	@Override
 	public String getAvaPathById(Long buyerId) {
 		return (String) createQuery("select ava from BuyerInfo where id = :buyerId")
 				.setLong("buyerId", buyerId)

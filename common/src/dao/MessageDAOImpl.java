@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import entity.Buyer;
 import utils.PaginationFilter;
 
-@Repository("chatDAO")
+@Repository("messageDao")
 public class MessageDAOImpl extends GeneralDAOImpl<Message> implements MessageDAO {
 
 	@SuppressWarnings("unchecked")

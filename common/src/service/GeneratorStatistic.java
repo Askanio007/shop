@@ -28,10 +28,13 @@ public class GeneratorStatistic {
     private SailService sailService;
 
     @Autowired
-    SettingsService settings;
+    private SettingsService settings;
 
     @Autowired
     private StatisticReferralsService statisticService;
+
+    @Autowired
+    private SoldProductService soldProductService;
 
 
     @Transactional
@@ -110,7 +113,7 @@ public class GeneratorStatistic {
 
     @Transactional
     public void addGenericUserSail(List<Buyer> buyers, Basket basket, Date date) {
-        Sail sail = new Sail(buyers, sailService.convertToSoldProduct(basket.getProducts()), basket);
+        Sail sail = new Sail(buyers, soldProductService.convertToSoldProduct(basket.getProducts()), basket);
         sail.setState(StateSail.getState(StateSail.State.COMPLETE));
         sail.setDate(date);
         Calendar c = Calendar.getInstance();

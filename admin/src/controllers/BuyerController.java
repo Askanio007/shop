@@ -55,14 +55,11 @@ public class BuyerController {
 
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.POST)
 	public String edit(@ModelAttribute("buyerInfo") @Valid BuyerInfo buyerInfo,@PathVariable("buyerId") Long buyerId, HttpServletRequest request, BindingResult result, Model model) {
-		if (result.hasErrors()) {
+		if (result.hasErrors())
 			return "buyer/edit";
-		} else {
-			//todo Kirill
-			serviceBuyer.edit(buyerId, buyerInfo, request.getParameter("active") == null);
-			model.addAttribute("infoMessage", "Edit success");
-			return "redirect:/buyer/all";
-		}
+		serviceBuyer.edit(buyerId, buyerInfo, request.getParameter("active") == null);
+		model.addAttribute("infoMessage", "Edit success");
+		return "redirect:/buyer/all";
 	}
 
 }

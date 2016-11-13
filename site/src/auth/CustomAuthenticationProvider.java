@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import entity.Buyer;
 import service.BuyerService;
+import utils.EncryptionString;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -24,18 +26,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String name = authentication.getName();
-		String password = serviceBuyer.getHashPassword(authentication.getCredentials().toString());
-		Buyer buyer = serviceBuyer.get(name);
-
-		if (buyer == null)
-			return null;
-		if (!buyer.getPassword().equals(password)) {
-			return null;
-		}
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority("isAuthenticated()"));
-		Authentication auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
+		String login = authentication.getName();
+		String password = EncryptionString.toMD5(authentication.getCredentials().toString());
+		if (!serviceBuyer.isCorrectData(login, password)) return null;
+		Authentication auth = getAuthentication(login, password);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return auth;
 	}
@@ -43,6 +37,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+	}
+
+	public static Authentication getAuthentication (String login, String password){
+		List<GrantedAuthority> grantedAuths = new ArrayList<>();
+		grantedAuths.add(new SimpleGrantedAuthority("isAuthenticated()"));
+		return new UsernamePasswordAuthenticationToken(login, password, grantedAuths);
 	}
 
 }

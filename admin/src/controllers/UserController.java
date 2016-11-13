@@ -36,7 +36,7 @@ public class UserController {
 	private GeneratorStatistic generatorService;
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public String info(HttpServletRequest request, Model model) {
+	public String info(Model model) {
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
 			model.addAttribute("user", "Anonim");
 			return "info";
@@ -56,7 +56,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("user") User user,BindingResult result,HttpServletRequest request) {
+	public String add(@ModelAttribute("user") User user,HttpServletRequest request) {
 		Long roleId = Long.parseLong(request.getParameter("role"));
 		serviceUser.save(user, roleId);
 	return "redirect:/user/list";
@@ -80,7 +80,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/listRole", method = RequestMethod.GET)
-	public String edit(HttpServletRequest request, Model model) {
+	public String edit(Model model) {
 		List<Role> roles = serviceRole.getAll();
 		model.addAttribute("roles", roles);
 	return "user/listRole";
@@ -93,7 +93,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/editRole", method = RequestMethod.POST)
-	public String edit(@ModelAttribute("role") Role role, BindingResult result, Model model) {
+	public String edit(@ModelAttribute("role") Role role) {
 	role.setUsers(serviceUser.allByRole(role));
 	serviceRole.edit(role);
 	return "redirect:/user/listRole";

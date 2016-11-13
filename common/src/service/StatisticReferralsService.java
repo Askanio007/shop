@@ -18,8 +18,8 @@ import java.util.List;
 public class StatisticReferralsService {
 
     @Autowired
-    @Qualifier("ClickStatisticDao")
-    private StatisticReferralDAO clickDao;
+    @Qualifier("StatisticDao")
+    private StatisticReferralDAO statDao;
     
     @Autowired
     private BuyerService serviceBuyer;
@@ -29,12 +29,12 @@ public class StatisticReferralsService {
 
     @Transactional
     public void update(StatisticReferral click) {
-        clickDao.update(click);
+        statDao.update(click);
     }
 
     @Transactional
     public void save(StatisticReferral click) {
-        clickDao.save(click);
+        statDao.save(click);
     }
 
 
@@ -56,14 +56,14 @@ public class StatisticReferralsService {
         Buyer buyer = serviceBuyer.getByRefCode(code);
         if (buyer == null)
             return;
-        StatisticReferral statistic = clickDao.byDay(buyer, date, null);
+        StatisticReferral statistic = statDao.byDay(buyer, date, null);
         statistic.setEnterCodeAmount(statistic.getEnterCodeAmount() + 1);
         save(statistic);
     }
 
     @Transactional
     public void saveSailStatistic(Buyer buyer, Date date) {
-        StatisticReferral statistic = clickDao.byDay(buyer, date, buyer.getTracker());
+        StatisticReferral statistic = statDao.byDay(buyer, date, buyer.getTracker());
         statistic.setSailAmount(statistic.getSailAmount() + 1);
         save(statistic);
     }
@@ -75,7 +75,7 @@ public class StatisticReferralsService {
 
     @Transactional
     public void saveRegistrationStatistic(Buyer buyer,String tracker, Date dateReg) {
-        StatisticReferral statistic = clickDao.byDay(buyer, dateReg, tracker);
+        StatisticReferral statistic = statDao.byDay(buyer, dateReg, tracker);
         statistic.setRegAmount(statistic.getRegAmount() + 1);
         save(statistic);
     }
@@ -84,7 +84,7 @@ public class StatisticReferralsService {
     // TODO: 16.10.2016 Это жесть. расскажи в чем такая трудность что       ::::: исправил, выборки делаются через критерию, все парамеры подставляются тогда, когда они есть
     // при возможности писать что и как угодно, ты выбираешь этот вариант
     public List<ReportByDay> byDate(Buyer buyer, PaginationFilter pagination, DateFilter date, String tracker, String sort) {
-            return clickDao.listByDate(buyer, pagination, date, tracker, sort);
+            return statDao.listByDate(buyer, pagination, date, tracker, sort);
     }
 
     public void saveProfit(Buyer buyer, String tracker, Double profit) {
@@ -94,13 +94,13 @@ public class StatisticReferralsService {
     }
 
     private StatisticReferral getStatistic(Buyer buyer, Date date, String tracker) {
-        return clickDao.byDay(buyer, date, tracker);
+        return statDao.byDay(buyer, date, tracker);
     }
 
     @Transactional
     public int countByDate(String nameBuyer, DateFilter date, String tracker) {
         Buyer b = serviceBuyer.get(nameBuyer);
-            return clickDao.count(b, date, tracker);
+            return statDao.count(b, date, tracker);
     }
 
 }

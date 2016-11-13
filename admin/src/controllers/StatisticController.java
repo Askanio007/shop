@@ -35,10 +35,8 @@ public class StatisticController {
 
 	@RequestMapping(value = "/statistic/products", method = RequestMethod.GET)
 	public String list(@ModelAttribute("filterTotalSoldProduct") FilterTotalSoldProduct filter, HttpServletRequest request, Model model) {
-
 		if (filter == null)
 			filter = new FilterTotalSoldProduct();
-
 		ViewPagination viewPagination = new ViewPagination(request, serviceTotalSoldProduct.count(filter));
 		String sort = request.getParameter("sort");
 		List<TotalSoldProduct> totalDoldProducts = serviceTotalSoldProduct.list(viewPagination.getDBPagination(), sort,filter);
