@@ -3,6 +3,7 @@ package dao;
 import java.util.*;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Repository;
 
 import entity.TotalSoldProduct;
@@ -24,10 +25,9 @@ public class TotalSoldProductDAOImpl extends GeneralDAOImpl<TotalSoldProduct>imp
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TotalSoldProduct> find(PaginationFilter filter, FilterTotalSoldProduct paramFilter, String sort) {
-		Criteria crit = createCriteria();
+		Criteria crit = createCriteria().createAlias("this.product", "product");
 		addFilter(paramFilter.getParams(), crit);
-		if (sort != null)
-			addOrder(crit, sort);
+		addOrder(crit, sort);
 		addPagination(crit, filter);
 		return crit.list();
 	}
@@ -36,7 +36,7 @@ public class TotalSoldProductDAOImpl extends GeneralDAOImpl<TotalSoldProduct>imp
 	public int countAll(FilterTotalSoldProduct paramFilter) {
 		if (!paramFilter.haveParam())
 			return countAll();
-		Criteria crit = createCriteria();
+		Criteria crit = createCriteria().createAlias("this.product", "product").setProjection(Projections.rowCount());
 		addFilter(paramFilter.getParams(), crit);
 		return asInt(crit.uniqueResult());
 	}

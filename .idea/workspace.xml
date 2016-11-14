@@ -1,102 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21c03c3c-8579-4888-aaba-90c1a153db0a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/dao/ChatDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/dao/ChatDAOImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/dao/ClickStatisticDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/dao/ClickStatisticDAOImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/dao/ReferalDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/dao/ReferalDAOImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/entity/Chat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/entity/ClickByLink.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/service/ChatService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/src/service/ClickStatisticService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/site/target/classes/controllers/ShopController$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ShopController$1.class" afterPath="" />
+    <list default="true" id="d1f65933-23ae-481f-82c4-001ae0401505" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT.war" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT.war" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/BuyerController.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/BuyerController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ProductController.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ProductController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/BuyerConverter.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/BuyerConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/DateConverter.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/DateConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/JsonConverter.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/JsonConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/ProductConverter.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/converter/ProductConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/sheduler/AutoCompletionDelivery.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/sheduler/AutoCompletionDelivery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/sheduler/CashbackPercent.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/sheduler/CashbackPercent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/SailController.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/SailController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/StatisticController.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/StatisticController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/UserController.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/sheduler/GeneralDiscount.class" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/classes/sheduler/GeneralDiscount.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/lib/common-0.0.1-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/lib/common-0.0.1-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/controllers/BuyerController.class" afterPath="$PROJECT_DIR$/admin/target/classes/controllers/BuyerController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/controllers/ProductController.class" afterPath="$PROJECT_DIR$/admin/target/classes/controllers/ProductController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/converter/BuyerConverter.class" afterPath="$PROJECT_DIR$/admin/target/classes/converter/BuyerConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/converter/DateConverter.class" afterPath="$PROJECT_DIR$/admin/target/classes/converter/DateConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/converter/JsonConverter.class" afterPath="$PROJECT_DIR$/admin/target/classes/converter/JsonConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/converter/ProductConverter.class" afterPath="$PROJECT_DIR$/admin/target/classes/converter/ProductConverter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/sheduler/AutoCompletionDelivery.class" afterPath="$PROJECT_DIR$/admin/target/classes/sheduler/AutoCompletionDelivery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/sheduler/CashbackPercent.class" afterPath="$PROJECT_DIR$/admin/target/classes/sheduler/CashbackPercent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/controllers/SailController.class" afterPath="$PROJECT_DIR$/admin/target/classes/controllers/SailController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/controllers/StatisticController.class" afterPath="$PROJECT_DIR$/admin/target/classes/controllers/StatisticController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/controllers/UserController.class" afterPath="$PROJECT_DIR$/admin/target/classes/controllers/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/classes/sheduler/GeneralDiscount.class" afterPath="$PROJECT_DIR$/admin/target/classes/sheduler/GeneralDiscount.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/BuyerDAO.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/BuyerDAO.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/BuyerDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/BuyerDAOImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/DiscountDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/DiscountDAOImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/GeneralDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/GeneralDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/MessageDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/MessageDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/ProductDAO.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/ProductDAO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/ProductDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/ProductDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/RoleDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/RoleDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/SailDaoHQLImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/SailDaoHQLImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/SailDaoInterface.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/SailDaoInterface.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/SettingsDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/SettingsDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/StatisticReferralDAO.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/StatisticReferralDAO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/StatisticReferralDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/StatisticReferralDAOImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/ReferralDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/ReferralDAOImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/TotalSoldProductDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/TotalSoldProductDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/dao/UserDAOImpl.class" afterPath="$PROJECT_DIR$/common/target/classes/dao/UserDAOImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Buyer$1.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Buyer$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Buyer$Builder.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Buyer$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Buyer.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Buyer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Product.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Product.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Role.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Role.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Sail.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Sail.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/StatisticReferral$1.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/StatisticReferral$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/StatisticReferral$Builder.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/StatisticReferral$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/StatisticReferral.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/StatisticReferral.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/TotalSoldProduct.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/TotalSoldProduct.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/models/Basket.class" afterPath="$PROJECT_DIR$/common/target/classes/models/Basket.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/models/FilterTotalSoldProduct.class" afterPath="$PROJECT_DIR$/common/target/classes/models/FilterTotalSoldProduct.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/entity/Discount.class" afterPath="$PROJECT_DIR$/common/target/classes/entity/Discount.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/models/ProductProfit.class" afterPath="$PROJECT_DIR$/common/target/classes/models/ProductProfit.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/models/Referral.class" afterPath="$PROJECT_DIR$/common/target/classes/models/Referral.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/models/ReportByDay.class" afterPath="$PROJECT_DIR$/common/target/classes/models/ReportByDay.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/models/SailProfit.class" afterPath="$PROJECT_DIR$/common/target/classes/models/SailProfit.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/BuyerService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/BuyerService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/DiscountService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/DiscountService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/GeneratorStatistic.class" afterPath="$PROJECT_DIR$/common/target/classes/service/GeneratorStatistic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/MessageService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/MessageService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ProductService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ProductService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ReferralService$1.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ReferralService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ReferralService$2.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ReferralService$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ReferralService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ReferralService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ReportService$1.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ReportService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ReportService$2.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ReportService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/ReportService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/ReportService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/SailService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/SailService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/SoldProductService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/SoldProductService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/StatisticReferralsService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/StatisticReferralsService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/TotalSoldProductService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/TotalSoldProductService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/service/UserService.class" afterPath="$PROJECT_DIR$/common/target/classes/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/servlets/ImageServlet.class" afterPath="$PROJECT_DIR$/common/target/classes/servlets/ImageServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/CalculatorDiscount.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/CalculatorDiscount.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/DateFilter.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/DateFilter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/LoadFileUtil$1.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/LoadFileUtil$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/LoadFileUtil$FileType.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/LoadFileUtil$FileType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/LoadFileUtil.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/LoadFileUtil.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/SortParameterParser.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/SortParameterParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/StateSail$1.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/StateSail$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/StateSail$State.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/StateSail$State.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/utils/StateSail.class" afterPath="$PROJECT_DIR$/common/target/classes/utils/StateSail.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/validator/PasswordValidator.class" afterPath="$PROJECT_DIR$/common/target/classes/validator/PasswordValidator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/validator/SimpleValidator.class" afterPath="$PROJECT_DIR$/common/target/classes/validator/SimpleValidator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/view/SailView.class" afterPath="$PROJECT_DIR$/common/target/classes/view/SailView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/view/ViewPagination.class" afterPath="$PROJECT_DIR$/common/target/classes/view/ViewPagination.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/auth/CustomAuthenticationProvider.class" afterPath="$PROJECT_DIR$/site/target/classes/auth/CustomAuthenticationProvider.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/BuyController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/BuyController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/CashController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/CashController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/ChatController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/ChatController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/ExcelReportController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/ExcelReportController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/RedirectAfterLogin.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/RedirectAfterLogin.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/ReportController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/ReportController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/ShopController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/ShopController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/controllers/UserController.class" afterPath="$PROJECT_DIR$/site/target/classes/controllers/UserController.class" />
@@ -104,13 +42,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/excel/ReferralDetail.class" afterPath="$PROJECT_DIR$/site/target/classes/excel/ReferralDetail.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/excel/ReferralList.class" afterPath="$PROJECT_DIR$/site/target/classes/excel/ReferralList.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/excel/StatisticByDay.class" afterPath="$PROJECT_DIR$/site/target/classes/excel/StatisticByDay.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/classes/utils/CurrentUser.class" afterPath="$PROJECT_DIR$/site/target/classes/utils/CurrentUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT.war" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT.war" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/auth/CustomAuthenticationProvider.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/auth/CustomAuthenticationProvider.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/BuyController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/BuyController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/CashController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/CashController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ChatController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ChatController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ExcelReportController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ExcelReportController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/RedirectAfterLogin.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/RedirectAfterLogin.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ReportController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ReportController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ShopController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/ShopController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/UserController.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/controllers/UserController.class" />
@@ -118,43 +52,50 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/excel/ReferralDetail.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/excel/ReferralDetail.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/excel/ReferralList.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/excel/ReferralList.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/excel/StatisticByDay.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/excel/StatisticByDay.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/utils/CurrentUser.class" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/classes/utils/CurrentUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/lib/common-0.0.1-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/lib/common-0.0.1-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/admin.iml" afterPath="$PROJECT_DIR$/admin/admin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/BuyerController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/BuyerController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/WebContent/WEB-INF/jsp/statistic/statistic.jsp" afterPath="$PROJECT_DIR$/admin/WebContent/WEB-INF/jsp/statistic/statistic.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/ProductController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/ProductController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/StatisticController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/StatisticController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/UserController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/SailController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/SailController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/sheduler/GeneralDiscount.java" afterPath="$PROJECT_DIR$/admin/src/sheduler/GeneralDiscount.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/jsp/statistic/statistic.jsp" afterPath="$PROJECT_DIR$/admin/target/admin-0.0.1-SNAPSHOT/WEB-INF/jsp/statistic/statistic.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/BuyerDAO.java" afterPath="$PROJECT_DIR$/common/src/dao/BuyerDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/BuyerDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/BuyerDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/MessageDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/MessageDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/DiscountDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/DiscountDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/GeneralDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/GeneralDAOImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/ReferralDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/ReferralDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/StatisticReferralDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/StatisticReferralDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/BuyerService.java" afterPath="$PROJECT_DIR$/common/src/service/BuyerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/GeneratorStatistic.java" afterPath="$PROJECT_DIR$/common/src/service/GeneratorStatistic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/MessageService.java" afterPath="$PROJECT_DIR$/common/src/service/MessageService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/TotalSoldProductDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/TotalSoldProductDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Discount.java" afterPath="$PROJECT_DIR$/common/src/entity/Discount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/Basket.java" afterPath="$PROJECT_DIR$/common/src/models/Basket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/ProductProfit.java" afterPath="$PROJECT_DIR$/common/src/models/ProductProfit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/SailProfit.java" afterPath="$PROJECT_DIR$/common/src/models/SailProfit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/DiscountService.java" afterPath="$PROJECT_DIR$/common/src/service/DiscountService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/ProductService.java" afterPath="$PROJECT_DIR$/common/src/service/ProductService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/ReferralService.java" afterPath="$PROJECT_DIR$/common/src/service/ReferralService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/SailService.java" afterPath="$PROJECT_DIR$/common/src/service/SailService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/StatisticReferralsService.java" afterPath="$PROJECT_DIR$/common/src/service/StatisticReferralsService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/CookieBuilder.java" afterPath="$PROJECT_DIR$/common/src/utils/CookieBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/site.iml" afterPath="$PROJECT_DIR$/site/site.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/auth/CustomAuthenticationProvider.java" afterPath="$PROJECT_DIR$/site/src/auth/CustomAuthenticationProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/ChatController.java" afterPath="$PROJECT_DIR$/site/src/controllers/ChatController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/LoadFileUtil.java" afterPath="$PROJECT_DIR$/common/src/utils/LoadFileUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/SortParameterParser.java" afterPath="$PROJECT_DIR$/common/src/utils/SortParameterParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shop.iml" afterPath="$PROJECT_DIR$/shop.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/WebContent/WEB-INF/jsp/user/reports/referralsStatisticDetail.jsp" afterPath="$PROJECT_DIR$/site/WebContent/WEB-INF/jsp/user/reports/referralsStatisticDetail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/ReportController.java" afterPath="$PROJECT_DIR$/site/src/controllers/ReportController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/ShopController.java" afterPath="$PROJECT_DIR$/site/src/controllers/ShopController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/UserController.java" afterPath="$PROJECT_DIR$/site/src/controllers/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/ByDayDetail.java" afterPath="$PROJECT_DIR$/site/src/excel/ByDayDetail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/ReferralDetail.java" afterPath="$PROJECT_DIR$/site/src/excel/ReferralDetail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/ReferralList.java" afterPath="$PROJECT_DIR$/site/src/excel/ReferralList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/StatisticByDay.java" afterPath="$PROJECT_DIR$/site/src/excel/StatisticByDay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/utils/CurrentUser.java" afterPath="$PROJECT_DIR$/site/src/utils/CurrentUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/utils/LinkBuilder.java" afterPath="$PROJECT_DIR$/site/src/utils/LinkBuilder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/jsp/user/reports/referralsStatisticDetail.jsp" afterPath="$PROJECT_DIR$/site/target/site-0.0.1-SNAPSHOT/WEB-INF/jsp/user/reports/referralsStatisticDetail.jsp" />
     </list>
     <ignored path="shop.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/admin/target/" />
-    <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/site/target/" />
     <ignored path="$PROJECT_DIR$/common/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -163,6 +104,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -172,13 +114,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -191,38 +126,30 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common/src/service/GeneratorStatistic.java" />
-        <option value="$PROJECT_DIR$/common/src/service/SailService.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/ClickStatisticDAOImpl.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/ChatDAOImpl.java" />
-        <option value="$PROJECT_DIR$/common/src/service/ChatService.java" />
-        <option value="$PROJECT_DIR$/site/WebContent/WEB-INF/spring/data.xml" />
-        <option value="$PROJECT_DIR$/common/src/service/MessageService.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/MessageDAOImpl.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/ReferralDAOImpl.java" />
-        <option value="$PROJECT_DIR$/common/src/service/ReferralService.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/StatisticReferralDAOImpl.java" />
-        <option value="$PROJECT_DIR$/common/src/service/StatisticReferralsService.java" />
-        <option value="$PROJECT_DIR$/site/src/controllers/ChatController.java" />
-        <option value="$PROJECT_DIR$/common/src/utils/CookieBuilder.java" />
-        <option value="$PROJECT_DIR$/site/src/auth/Authentication.java" />
-        <option value="$PROJECT_DIR$/site/src/auth/RoleManager.java" />
-        <option value="$PROJECT_DIR$/site/src/auth/CustomAuthenticationProvider.java" />
-        <option value="$PROJECT_DIR$/site/src/controllers/ShopController.java" />
-        <option value="$PROJECT_DIR$/site/src/utils/CurrentUser.java" />
-        <option value="$PROJECT_DIR$/site/src/utils/LinkBuilder.java" />
-        <option value="$PROJECT_DIR$/site/src/controllers/UserController.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/BuyerDAO.java" />
-        <option value="$PROJECT_DIR$/common/src/dao/BuyerDAOImpl.java" />
-        <option value="$PROJECT_DIR$/common/src/service/BuyerService.java" />
-        <option value="$PROJECT_DIR$/site/src/excel/ReferralDetail.java" />
-        <option value="$PROJECT_DIR$/site/src/excel/ByDayDetail.java" />
-        <option value="$PROJECT_DIR$/site/src/excel/ReferralList.java" />
-        <option value="$PROJECT_DIR$/site/src/excel/StatisticByDay.java" />
-        <option value="$PROJECT_DIR$/admin/src/controllers/BuyerController.java" />
+        <option value="$PROJECT_DIR$/common/src/utils/LoadFileUtil.java" />
+        <option value="$PROJECT_DIR$/admin/src/controllers/SailController.java" />
+        <option value="$PROJECT_DIR$/common/src/service/ProductService.java" />
+        <option value="$PROJECT_DIR$/common/src/service/DiscountService.java" />
+        <option value="$PROJECT_DIR$/admin/src/sheduler/GeneralDiscount.java" />
+        <option value="$PROJECT_DIR$/site/src/controllers/ReportController.java" />
+        <option value="$PROJECT_DIR$/common/src/utils/SortParameterParser.java" />
         <option value="$PROJECT_DIR$/admin/src/controllers/ProductController.java" />
-        <option value="$PROJECT_DIR$/admin/src/controllers/StatisticController.java" />
-        <option value="$PROJECT_DIR$/admin/src/controllers/UserController.java" />
+        <option value="$PROJECT_DIR$/common/src/service/SailService.java" />
+        <option value="$PROJECT_DIR$/site/WebContent/WEB-INF/jsp/user/reports/referralsStatisticDetail.jsp" />
+        <option value="$PROJECT_DIR$/common/src/models/SailProfit.java" />
+        <option value="$PROJECT_DIR$/common/src/dao/DiscountDAOImpl.java" />
+        <option value="$PROJECT_DIR$/common/src/entity/Discount.java" />
+        <option value="$PROJECT_DIR$/common/src/models/Basket.java" />
+        <option value="$PROJECT_DIR$/common/src/models/ProductProfit.java" />
+        <option value="$PROJECT_DIR$/common/src/utils/CookieBuilder.java" />
+        <option value="$PROJECT_DIR$/site/src/controllers/ShopController.java" />
+        <option value="$PROJECT_DIR$/site/src/controllers/UserController.java" />
+        <option value="$PROJECT_DIR$/site/src/utils/LinkBuilder.java" />
+        <option value="$PROJECT_DIR$/common/src/service/ReferralService.java" />
+        <option value="$PROJECT_DIR$/common/src/dao/TotalSoldProductDAOImpl.java" />
+        <option value="$PROJECT_DIR$/admin/WebContent/WEB-INF/jsp/statistic/statistic.jsp" />
+        <option value="$PROJECT_DIR$/common/src/dao/ReferralDAOImpl.java" />
+        <option value="$PROJECT_DIR$/common/src/dao/GeneralDAOImpl.java" />
       </list>
     </option>
   </component>
@@ -235,8 +162,8 @@
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
-    <option name="FILTER_INFO" value="false" />
-    <option name="FILTER_DEBUG" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="MavenImportPreferences">
@@ -254,8 +181,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -284,7 +211,6 @@
     <panes>
       <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -293,13 +219,76 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.file-colors" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
@@ -334,13 +323,8 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="DEBUGGER_TYPE" value="Java" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <Java />
-      <Profilers>
-        <option name="GAPID_DISABLE_PCS" value="false" />
-      </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method />
@@ -359,13 +343,8 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="DEBUGGER_TYPE" value="Java" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <Java />
-      <Profilers>
-        <option name="GAPID_DISABLE_PCS" value="false" />
-      </Profilers>
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -448,9 +427,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
       <method />
     </configuration>
     <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
@@ -722,7 +698,7 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <configuration default="false" name="shop" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.611" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration default="false" name="shop" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/admin/" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -738,8 +714,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="Unnamed_shop_3" />
-        <option name="HTTP_PORT" value="8080" />
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_shop" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -748,7 +723,7 @@
       <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="63233" />
+        <option name="DEBUG_PORT" value="58206" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -809,27 +784,39 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="21c03c3c-8579-4888-aaba-90c1a153db0a" name="Default" comment="" />
-      <created>1479038304021</created>
+      <changelist id="d1f65933-23ae-481f-82c4-001ae0401505" name="Default" comment="" />
+      <created>1479115047624</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1479038304021</updated>
-      <workItem from="1479038306090" duration="7133000" />
+      <updated>1479115047624</updated>
+      <workItem from="1479115049005" duration="17220000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7133000" />
+    <option name="totallyTimeSpent" value="17220000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293348" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -837,20 +824,20 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991276" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293348" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3982684" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25586355" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3293348" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -872,7 +859,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/common/src/models/FilterTotalSoldProduct.java</url>
+          <line>44</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -881,167 +876,23 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common/src/dao/ChatDAO.java">
+    <entry file="file://$PROJECT_DIR$/admin/src/converter/BuyerConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+        <state relative-caret-position="85">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/spring/excel-views.xml">
+    <entry file="file://$PROJECT_DIR$/admin/src/converter/ProductConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/spring/spring-security.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/spring/root-context.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/classes/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/spring/data.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-187">
-          <caret line="4" column="68" selection-start-line="4" selection-start-column="68" selection-end-line="4" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/MessageDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/service/MessageService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="21" column="26" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/MessageDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/ReferralDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/ReferralDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/service/ReferralService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/StatisticReferralDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="24" column="25" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/StatisticReferralDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/service/StatisticReferralsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="102" column="26" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/WebContent/WEB-INF/spring/data.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/WebContent/WEB-INF/spring/root-context.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/WebContent/WEB-INF/spring/spring-security.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/WebContent/WEB-INF/classes/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/ChatController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/CashController.java">
+    <entry file="file://$PROJECT_DIR$/admin/src/converter/JsonConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
@@ -1049,34 +900,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/BuyController.java">
+    <entry file="file://$PROJECT_DIR$/admin/src/sheduler/CashbackPercent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+        <state relative-caret-position="102">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/ExcelReportController.java">
+    <entry file="file://$PROJECT_DIR$/admin/src/sheduler/AutoCompletionDelivery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        <state relative-caret-position="102">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/ReportController.java">
+    <entry file="file://$PROJECT_DIR$/admin/src/sheduler/GeneralDiscount.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="70" column="98" selection-start-line="70" selection-start-column="98" selection-end-line="70" selection-end-column="98" />
+        <state relative-caret-position="238">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/utils/CookieBuilder.java">
+    <entry file="file://$PROJECT_DIR$/common/src/service/ProductService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+        <state relative-caret-position="518">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/sheduler/PrivateDiscount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/sheduler/StartShedulerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1089,209 +956,347 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/auth/RoleManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/auth/CustomAuthenticationProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/RedirectAfterLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/ShopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="59" column="40" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/jsp/user/menuUser.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/service/SailService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="158" column="26" selection-start-line="158" selection-start-column="26" selection-end-line="158" selection-end-column="26" />
-          <folding>
-            <element signature="e#4106#4107#0" expanded="false" />
-            <element signature="e#4149#4150#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/SailDaoHQLImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="32" column="15" selection-start-line="32" selection-start-column="15" selection-end-line="32" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/BuyerDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/WebContent/WEB-INF/jsp/buyer/all.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/dao/BuyerDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/controllers/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="62" column="87" selection-start-line="62" selection-start-column="87" selection-end-line="62" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/excel/ReferralDetail.java">
+    <entry file="file://$PROJECT_DIR$/site/src/controllers/ReportController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="18" column="172" selection-start-line="18" selection-start-column="172" selection-end-line="18" selection-end-column="172" />
+          <caret line="144" column="65" selection-start-line="144" selection-start-column="65" selection-end-line="144" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/excel/ByDayDetail.java">
+    <entry file="file://$PROJECT_DIR$/common/src/dao/GeneralDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="18" column="172" selection-start-line="18" selection-start-column="172" selection-end-line="18" selection-end-column="172" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/excel/ReferralList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/excel/StatisticByDay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="18" column="172" selection-start-line="18" selection-start-column="172" selection-end-line="18" selection-end-column="172" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/utils/LinkBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/src/utils/CurrentUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/src/controllers/BuyerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="59" column="84" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/src/controllers/ChatController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/utils/LoadFileUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+        <state relative-caret-position="391">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/src/controllers/ProductController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="67" column="33" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
+        <state relative-caret-position="204">
+          <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/TotalSoldProductDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/utils/CalculatorDiscount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/DiscountDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/service/DiscountService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
+          <folding>
+            <element signature="e#1510#1511#0" expanded="true" />
+            <element signature="e#1565#1566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/BuyerDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/ProductDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/SailDaoHQLImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/entity/Discount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/src/controllers/BuyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/service/MessageService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/function/BiFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="52" column="6" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/models/Basket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/DiscountDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="3" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+          <folding>
+            <element signature="e#448#478#0" expanded="false" />
+            <element signature="e#681#711#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Collection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="579" column="22" selection-start-line="579" selection-start-column="22" selection-end-line="579" selection-end-column="22" />
+          <folding>
+            <element signature="e#26957#26958#0" expanded="true" />
+            <element signature="e#27022#27023#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/view/ViewFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding>
+            <element signature="e#86#87#0" expanded="false" />
+            <element signature="e#137#138#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/models/Referral.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-717">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/service/SailService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="60" column="42" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/models/ProductProfit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/models/SailProfit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/WebContent/WEB-INF/jsp/user/reports/referralsStatisticDetail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/utils/CookieBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/src/utils/LinkBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/src/controllers/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="133" column="134" selection-start-line="133" selection-start-column="134" selection-end-line="133" selection-end-column="134" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/src/utils/CurrentUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/src/controllers/ExcelReportController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="73" column="80" selection-start-line="73" selection-start-column="80" selection-end-line="73" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/entity/TotalSoldProduct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/utils/SortParameterParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/models/FilterTotalSoldProduct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/WebContent/WEB-INF/jsp/statistic/statistic.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="94" column="65" selection-start-line="94" selection-start-column="65" selection-end-line="94" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/TotalSoldProductDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/src/controllers/ShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/src/service/BuyerService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="144" column="16" selection-start-line="144" selection-start-column="16" selection-end-line="144" selection-end-column="16" />
+        <state relative-caret-position="176">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/src/controllers/SailController.java">
+    <entry file="file://$PROJECT_DIR$/common/src/service/ReportService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1513">
-          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+        <state relative-caret-position="-17">
+          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/src/controllers/StatisticController.java">
+    <entry file="file://$PROJECT_DIR$/common/src/dao/GeneralDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="36" column="138" selection-start-line="36" selection-start-column="138" selection-end-line="36" selection-end-column="138" />
+        <state relative-caret-position="926">
+          <caret line="119" column="42" selection-start-line="119" selection-start-column="42" selection-end-line="119" selection-end-column="42" />
+          <folding>
+            <element signature="e#1987#1988#0" expanded="true" />
+            <element signature="e#2035#2036#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/service/ReferralService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="74" column="49" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/src/controllers/UserController.java">
+    <entry file="file://$PROJECT_DIR$/common/src/entity/Sail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="95" column="56" selection-start-line="95" selection-start-column="56" selection-end-line="95" selection-end-column="56" />
+        <state relative-caret-position="272">
+          <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/entity/Buyer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/dao/ReferralDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
           <folding />
         </state>
       </provider>

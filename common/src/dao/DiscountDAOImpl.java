@@ -11,26 +11,30 @@ import entity.Product;
 @Repository("discountDAO")
 public class DiscountDAOImpl extends GeneralDAOImpl<Discount>implements DiscountDAO {
 
+	@Override
 	public Discount getGeneral() {
 		return (Discount) createQuery("from Discount disc where buyer is null")
 				.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<Discount> getActivePrivate() {
-		return createQuery("from Discount disc inner join disc.buyer buyer where active = true and buyer.id is not null")
+		return createQuery("select disc from Discount disc inner join disc.buyer buyer where active = true and buyer.id is not null")
 				.list();
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<Discount> getActivePrivateByBuyerId(Long id) {
-		return createQuery("from Discount disc inner join disc.buyer buyer where active = true and buyer.id = :id")
-				.setLong("id", id).list();
+		return createQuery("select disc from Discount disc inner join disc.buyer buyer where active = true and buyer.id = :id")
+				.setLong("id", id)
+				.list();
 	}
 
 	@Override
 	public Discount getPrivate(Product product, Long id) {
-		return (Discount) createQuery("from Discount disc inner join disc.buyer buyer where active = true and buyer.id = :id and disc.productId = :product")
+		return (Discount) createQuery("select disc from Discount disc inner join disc.buyer buyer where active = true and buyer.id = :id and disc.productId = :product")
 				.setLong("id", id)
 				.setLong("product",product.getId())
 				.uniqueResult();

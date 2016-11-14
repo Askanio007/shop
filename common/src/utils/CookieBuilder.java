@@ -35,7 +35,7 @@ public class CookieBuilder {
 
     public static void addCookie(HttpServletResponse response, String param) {
         List<Cookie> cookies = CookieBuilder.referralParams(param);
-        cookies.add(CookieBuilder.parentCode(param));
+        cookies.add(parentCode(param));
         for (Cookie cookie : cookies) {
             response.addCookie(cookie);
         }

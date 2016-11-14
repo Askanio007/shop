@@ -46,7 +46,7 @@ public class ReportController {
         BuyController.setCountProductBasketInModel(request, model);
         ViewPagination viewPagination = new ViewPagination("1", serviceReferal.count(CurrentUser.getName(), new DateFilter() ,""));
         model.addAttribute("pagination", viewPagination);
-        List<Referral> referrals = serviceReferal.find(CurrentUser.getName(), viewPagination.getDBPagination(), new DateFilter() , new DateFilter()  ,"", null);
+        List<Referral> referrals = serviceReferal.find(CurrentUser.getName(), viewPagination.getDBPagination(), new DateFilter() , new DateFilter()  ,"", "");
         model.addAttribute("referrals", referrals);
         return "user/reports/referrals";
     }
@@ -112,7 +112,7 @@ public class ReportController {
         DateFilter dateRegistration = new DateFilter();
         BuyController.setCountProductBasketInModel(request, model);
         ViewPagination viewPagination = new ViewPagination("1", serviceClickStatistic.countByDate(CurrentUser.getName(), dateRegistration, ""), 50);
-        model.addAttribute("days",serviceReport.getReportByDay(CurrentUser.getName(), viewPagination.getDBPagination(), dateRegistration, "", null));
+        model.addAttribute("days",serviceReport.getReportByDay(CurrentUser.getName(), viewPagination.getDBPagination(), dateRegistration, "", ""));
         model.addAttribute("pagination", viewPagination);
         return "user/reports/referralsByDay";
     }
@@ -142,7 +142,7 @@ public class ReportController {
         BuyController.setCountProductBasketInModel(request, model);
         Buyer buyer = serviceBuyer.get(CurrentUser.getName());
         ViewPagination viewPagination = new ViewPagination("1", serviceReferal.countActiveByDay(buyer.getId(), date, tracker));
-        model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker, null));
+        model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker, ""));
         model.addAttribute("tracker", tracker);
         model.addAttribute("day", DateConverter.getFormatView().format(date));
        model.addAttribute("pagination", viewPagination);

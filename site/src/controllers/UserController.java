@@ -131,7 +131,7 @@ public class UserController {
 							   @RequestParam("tracker") String tracker,
 							   Model model, HttpServletRequest request) {
 		BuyController.setCountProductBasketInModel(request, model);
-		model.addAttribute("inviteLink", LinkBuilder.buildReferralLink(serviceBuyer.get(CurrentUser.getName()), tracker, ancor, request.getContextPath()));
+		model.addAttribute("inviteLink", LinkBuilder.buildReferralLink(serviceBuyer.get(CurrentUser.getName()), tracker, ancor,request));
 		return "user/inviteLink";
 	}
 }

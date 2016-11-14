@@ -86,6 +86,8 @@ public class ReferralService {
         return referralDao.count(serviceBuyer.get(buyerName), dateRegistrationFilter, tracker);
     }
 
+    //TODO Artyom: Может быть создать объект, который будет включать в себя все эти параметры для поиска и в дальнейшем передавать этот объект а не кучу параметров?
+    //Да не, бред какой-то.
     @Transactional
     public List<Referral> find(String buyerName, PaginationFilter pagination, DateFilter dateRegistrationFilter, DateFilter dateStatisticFilter, String tracker, String sort) {
         if ("profit".equals(SortParameterParser.getColumnName(sort)))

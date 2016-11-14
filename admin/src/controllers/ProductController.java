@@ -43,9 +43,6 @@ public class ProductController {
 	private BuyerService serviceBuyer;
 
 	@Autowired
-	private SettingsService setting;
-
-	@Autowired
 	private DiscountService serviceDisc;
 
 	@RequestMapping("/login")
@@ -57,31 +54,11 @@ public class ProductController {
 	@RequestMapping(value = "/product/upload", method = RequestMethod.POST)
 	public String uploadPicture(@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws IllegalStateException, IOException {
-		String dir = setting.getPathUploadPicProduct();
-		List<PictureProduct> newListPic = new ArrayList<>();
-		Object pics = request.getSession().getAttribute("pics");
 		Object id = request.getParameter("id");
-		
-		if (pics != null)
-			newListPic = (List<PictureProduct>) pics;
-
-		if (LoadFileUtil.checkExtension(file, FileType.IMAGE)) {
-			String path = LoadFileUtil.storeToFileWithOriginalName(file, dir);
-			newListPic.add(new PictureProduct(path));
-			request.getSession().setAttribute("pics", newListPic);
-			if (id != null)
-				return "redirect:/product/edit/" + id;
-			return "redirect:/product/add";
-		}
-
-		if (LoadFileUtil.checkExtension(file, FileType.ARCHIVE)) {
-			UploadZip.getPicFromArchive(newListPic, dir, file);
-			request.getSession().setAttribute("pics", newListPic);
-			if (id != null)
-				return "redirect:/product/edit/" + id;
-			return "redirect:/product/add";
-		}
-		request.getSession().setAttribute("infoMessage", "Invalid format");
+		Object pics = request.getSession().getAttribute("pics");
+		request.getSession().setAttribute("pics", serviceProduct.addPicture(pics, file));
+		if (!LoadFileUtil.isCorrectFormat(file))
+			request.getSession().setAttribute("infoMessage", "Invalid format");
 		if (id != null)
 			return "redirect:/product/edit/" + id;
 		return "redirect:/product/add";

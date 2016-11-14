@@ -52,7 +52,7 @@ public class ShopController {
 	public String registration(@RequestParam("name") String nameBuyer,
 							   @RequestParam("refer") String referCode,
 							   @ModelAttribute("password") Password password,
-							   @CookieValue(value = "code", defaultValue = "") String referCodeFromCookie,
+							   @CookieValue(value = "partnerCode", defaultValue = "") String referCodeFromCookie,
 							   @CookieValue(value = "tracker", defaultValue = "") String tracker,
 							   BindingResult result) {
 		valid.validate(password, result);

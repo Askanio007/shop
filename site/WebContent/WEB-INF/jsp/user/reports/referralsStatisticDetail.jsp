@@ -82,9 +82,7 @@
         <tr>
             <td>${sail.sail.id}</td>
             <td>${sail.sail.date}</td>
-            <td> <c:forEach items="${sail.products}" var="product">
-                ${product.product.name} x${product.product.amount}    ${product.viewProfit} <br>
-            </c:forEach></td>
+            <td>${sail.products}></td>
             <td>${sail.sail.viewTotalsum}</td>
             <td>${sail.sail.cashbackPercent}</td>
             <td>${sail.viewProfit}</td>

@@ -87,11 +87,9 @@ public class SailController {
 	}
 
 	@RequestMapping(value = "/sail/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("sail") @Valid Sail sail, BindingResult result, Model model,HttpServletRequest request) {
+	public String add(@ModelAttribute("sail") @Valid Sail sail, BindingResult result, HttpServletRequest request) {
 		if (result.hasErrors()) {
-			model.addAttribute("buyerList", serviceBuyer.list());
-			model.addAttribute("productList", serviceProduct.list());
-			return "sail/addsail";
+			return "redirect:/sail/add";
 		}
 		Basket buyerProdList = (Basket) request.getSession().getAttribute("buyerProdList");
 		serviceSail.save(sail, buyerProdList);
@@ -127,11 +125,9 @@ public class SailController {
 
 	// AJAX
 	@RequestMapping(value = "/sail/addBuy", method = RequestMethod.GET)
-	public @ResponseBody List<String> addProductInSail(
-			@RequestParam(value = "amount") String count,
-			@RequestParam(value = "idprod") String idprod,
-			HttpServletRequest request
-	) throws JsonProcessingException {
+	public @ResponseBody List<String> addProductInSail(@RequestParam(value = "amount") String count,
+													   @RequestParam(value = "idprod") String idprod,
+													   HttpServletRequest request) throws JsonProcessingException {
 		Product newProd = serviceProduct.get(Long.parseLong(idprod));
 		int amount = Integer.parseInt(count);
 		Basket basket = (Basket)request.getSession().getAttribute("buyerProdList");

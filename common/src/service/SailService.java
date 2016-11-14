@@ -87,9 +87,11 @@ public class SailService {
 		buyer.setBalance(buyer.getBalance() - basket.cost());
 		Sail sail = new Sail(buyer, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
 		try {
-			serviceStatistic.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), new Date());
+			if (buyer.getRefId() != null)
+				serviceStatistic.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), new Date());
 			serviceBuyer.edit(buyer);
-			save(sail);} catch (Exception e) {
+			save(sail);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

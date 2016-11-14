@@ -23,26 +23,14 @@ public class GeneralDiscount implements Runnable {
 	@Autowired
 	private MessageService serviceChat;
 
-	Random rnd = new Random();
-
 	@Override
 	public void run() {
-		int numberProduct = 0;
-		int countProduct = serviceProduct.countAll();
-		if (countProduct == 0) {
-			return;
-		}
-		while (numberProduct == 0) {
-			numberProduct = rnd.nextInt(countProduct);
-		}
-		Product product = serviceProduct.getByNumber(numberProduct);
+
+		Product product = serviceProduct.getRandomProduct();
 		Discount discount = serviceDisc.getGeneral();
 		try {
 			if (discount == null) {
-				discount = new Discount();
-				discount.setDiscount((byte) 50);
-				discount.setProductId(product.getId());
-				serviceDisc.save(discount);
+				serviceDisc.createGeneral(product);
 			} else {
 				discount.setProductId(product.getId());
 				serviceDisc.edit(discount);

@@ -112,7 +112,8 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 	}
 
 	protected void getAssociatedObjectLeftJoin(Criteria crit, String associationPath, String alias) {
-		crit.setFetchMode(associationPath, FetchMode.JOIN)
+			crit
+				.setFetchMode(associationPath, FetchMode.JOIN)
 				.createAlias(associationPath, alias, JoinType.LEFT_OUTER_JOIN);
 	}
 

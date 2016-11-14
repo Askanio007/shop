@@ -81,4 +81,9 @@ public class DiscountService {
 	public List<Discount> listActivePrivate() {
 		return discountDao.getActivePrivate();
 	}
+
+	@Transactional
+	public void createGeneral(Product product) {
+		save(new Discount(product, (byte) 50));
+	}
 }

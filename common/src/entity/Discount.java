@@ -22,7 +22,7 @@ public class Discount {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "buyer_id", nullable = false)
 	private Buyer buyer;
 
@@ -37,6 +37,13 @@ public class Discount {
 
 	@Column(name = "product_id")
 	private Long productId;
+
+	public Discount() {}
+
+	public Discount(Product product, byte discount) {
+		this.productId = product.getId();
+		this.dscnt = discount;
+	}
 
 	public void setBuyer(Buyer buyer) {
 		this.buyer = buyer;

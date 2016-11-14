@@ -21,7 +21,7 @@ public class Basket {
 	}
 
 	public int countProducts() {
-		// TODO: 16.10.2016 у тебя разве не 8ая джава в проекте? если так, то стримы тебе в руки ::: сейчас 7, обновлю до 8, поизучаю
+		// TODO: 16.10.2016 у тебя разве не 8ая джава в проекте? если так, то стримы тебе в руки ::: поставил 8. Начал изучать
 		int count = 0;
 		for (ProductBasket product : products) {
 			count = count + product.getAmount();

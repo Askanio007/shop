@@ -85,15 +85,15 @@
 						<th>ID</th>
 						<th>Name</th>
 						<c:choose>
-						<c:when test="${sort eq 'priceUp'}"><th><a href="products?sort=totalCost_down">Price, $</a></th></c:when>
-						<c:when test="${sort eq 'priceDown'}"><th><a href="products?sort=totalCost_up">Price, $</a></th></c:when>
-						<c:otherwise><th><a href="products?sort=priceUp">Price, $</a></c:otherwise>
+						<c:when test="${sort eq 'totalCost_up'}"><th><a href="products?sort=totalCost_down">Price, $</a></th></c:when>
+						<c:when test="${sort eq 'totalCost_down'}"><th><a href="products?sort=totalCost_up">Price, $</a></th></c:when>
+						<c:otherwise><th><a href="products?sort=totalCost_up">Price, $</a></c:otherwise>
 						</c:choose>
 						
 						<c:choose>
-						<c:when test="${sort eq 'amountUp'}"><th><a href="products?sort=totalAmount_down">Amount</a></th></c:when>
-						<c:when test="${sort eq 'amountDown'}"><th><a href="products?sort=totalAmount_up">Amount</a></th></c:when>
-						<c:otherwise><th><a href="products?sort=amountUp">Amount</a></th></c:otherwise>
+						<c:when test="${sort eq 'totalAmount_up'}"><th><a href="products?sort=totalAmount_down">Amount</a></th></c:when>
+						<c:when test="${sort eq 'totalAmount_down'}"><th><a href="products?sort=totalAmount_up">Amount</a></th></c:when>
+						<c:otherwise><th><a href="products?sort=totalAmount_up">Amount</a></th></c:otherwise>
 						</c:choose>
 						<th>Buyers</th>
 					</tr>
