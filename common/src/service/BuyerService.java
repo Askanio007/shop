@@ -96,9 +96,15 @@ public class BuyerService {
 		return newPassword.equals(EncryptionString.toMD5(oldPassword)); // TODO: 16.10.2016 facepalm :: исправил. И, по-моему, это теперь первое место))
 	}
 
-
 	protected String randomReferCode() {
 		return UUID.randomUUID().toString();
+	}
+
+	@Transactional
+	public void accrueRevenue(Buyer parent, Sail sail) {
+		Double profit = profitFromReferralBySail(sail, parent.getPercentCashback());
+		parent.setBalance(parent.getBalance() + profit);
+		edit(parent);
 	}
 
 	@Transactional
@@ -163,25 +169,6 @@ public class BuyerService {
 	public Double profitFromReferralBySail(Sail sail, int cashBack){
 		return sail.getTotalsum() * (cashBack * 1.0 / 100);
 	}
-
-    @Transactional
-    public void calculateProfit(Sail sail) {
-        Buyer buyer;
-        for (Buyer refer : sail.getBuyers()) {
-            if (refer.getRefId() != null) {
-            	buyer = get(refer.getRefId());
-				Double profit = profitFromReferralBySail(sail, buyer.getPercentCashback());
-            	buyer.setBalance(buyer.getBalance() + profit);
-				try{
-					statisticService.saveProfit(buyer, refer.getTracker(), profit);
-					edit(buyer);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-            }
-        }
-    }
 
 	@Transactional
 	public boolean isCorrectData(String login, String password) {

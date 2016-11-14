@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import dao.SailDaoInterface;
 import entity.Buyer;
 import entity.Sail;
-import entity.SoldProduct;
 import utils.DateFilter;
 import utils.PaginationFilter;
-import utils.StateSail;
+import utils.StateSail.*;
 import view.SailView;
+import static utils.StateSail.getState;
 
 // TODO: 16.10.2016 не Complete - Completed. Complete - завершать ::: исправил, принял к сведению
 // listCompleteSailByDate - завершить список продаж по дате
@@ -49,6 +49,13 @@ public class SailService {
 		return (List<Sail>) sails;
 	}
 
+	public List<Sail> initializeProducts(Collection<Sail> sails) {
+		for (Sail s : sails) {
+			Hibernate.initialize(s.getProducts());
+		}
+		return (List<Sail>) sails;
+	}
+
 	public Sail initialize(Sail sail) {
 		Hibernate.initialize(sail.getBuyers());
 		Hibernate.initialize(sail.getProducts());
@@ -68,17 +75,13 @@ public class SailService {
 		sail.setTotalsum(basket.cost());
 		sail.setAmount(basket.countProducts());
 		sail.setProducts(serviceSold.convertToSoldProduct(basket.getProducts()));
-		sail.setStateWithDate(StateSail.getState(StateSail.State.SENT));
+		sail.setStateWithDate(getState(State.SENT));
 		save(sail);
 	}
 
 	@Transactional
 	public void save(List<Buyer> buyers, Basket basket) {
 		Sail sail = new Sail(buyers, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
-		for (Buyer buyer : buyers) {
-			if (buyer.getRefId() != null)
-				serviceStatistic.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), new Date());
-		}
 		save(sail);
 	}
 
@@ -87,8 +90,6 @@ public class SailService {
 		buyer.setBalance(buyer.getBalance() - basket.cost());
 		Sail sail = new Sail(buyer, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
 		try {
-			if (buyer.getRefId() != null)
-				serviceStatistic.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), new Date());
 			serviceBuyer.edit(buyer);
 			save(sail);
 		} catch (Exception e) {
@@ -128,16 +129,25 @@ public class SailService {
 	@Transactional
 	public void sailComplete(Long sailId) {
 		Sail s = find(sailId);
-		s.setStateWithDate(StateSail.getState(StateSail.State.COMPLETE));
-		serviceBuyer.calculateProfit(s);
-		update(s);
-		serviceTotalSold.add(s.getProducts());
+		s.setStateWithDate(getState(State.COMPLETE));
+		try {
+			for (Buyer buyer : s.getBuyers()) {
+				if (buyer.getRefId() == null) continue;
+				Buyer parent = serviceBuyer.get(buyer.getRefId());
+				serviceBuyer.accrueRevenue(parent, s);
+				serviceStatistic.saveSailStatistic(parent, new Date(),buyer.getTracker());
+			}
+			update(s);
+			serviceTotalSold.add(s.getProducts());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Transactional
 	public void sailConflict(Long sailId) {
 		Sail sail = find(sailId);
-		sail.setStateWithDate(StateSail.getState(StateSail.State.CONFLICT));
+		sail.setStateWithDate(getState(State.CONFLICT));
 		update(sail);
 	}
 

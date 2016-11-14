@@ -122,7 +122,7 @@ public class GeneratorStatistic {
         sail.setDateChangeState(c.getTime());
         for (Buyer buyer : buyers) {
             if (buyer.getRefId() != null)
-                statisticService.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), c.getTime());
+                statisticService.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), c.getTime(), buyer.getTracker());
         }
         sailService.save(sail);
     }

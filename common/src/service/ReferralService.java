@@ -73,6 +73,8 @@ public class ReferralService {
     @Transactional
     private List<Referral> getDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
         List<Buyer> buyers = referralDao.findActiveByDay(buyerId, pagination, date, tracker, sort);
+        for (Buyer buyer : buyers)
+            sailService.initializeProducts(buyer.getSails());
         return convertToReferral(buyers);
     }
 

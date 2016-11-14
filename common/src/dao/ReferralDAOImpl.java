@@ -2,9 +2,7 @@ package dao;
 
 import entity.Buyer;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.*;
-import org.hibernate.sql.JoinType;
 import utils.DateFilter;
 import org.springframework.stereotype.Repository;
 
@@ -13,10 +11,10 @@ import utils.StateSail;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import static org.hibernate.criterion.Projections.groupProperty;
 import static org.hibernate.criterion.Restrictions.*;
+import static utils.StateSail.getState;
+import utils.StateSail.*;
 
 @Repository("referralDao")
 public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDAO {
@@ -24,10 +22,10 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
     @Override
     public Buyer find(Long referId, PaginationFilter pagination, DateFilter sailDate, String sort) {
         Criteria crit = createCriteria()
-                    .add(eq("sail.state", StateSail.getState(StateSail.State.COMPLETE)))
+                    .add(eq("sail.state", getState(State.COMPLETE)))
                     .add(between("sail.dateChangeState",sailDate.getFrom(), sailDate.getTo()))
                     .add(eq("id", referId));
-        getAssociatedObjectLeftJoin(crit, "this.sails", "sail");
+        associatedLeftJoin(crit, "this.sails", "sail");
         addPagination(crit, pagination);
         addOrder(crit, sort);
         return (Buyer)crit.uniqueResult();
@@ -49,12 +47,12 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
     public List<Buyer> findByDateRegistration(Buyer buyer, PaginationFilter pagination, DateFilter sailDate, DateFilter date, String tracker, String sort) {
         Criteria crit = createCriteria()
                     .add(eq("refId", buyer.getId()))
-                    .add(eq("sail.state", StateSail.getState(StateSail.State.COMPLETE)))
+                    .add(eq("sail.state", getState(State.COMPLETE)))
                     .add(between("sail.dateChangeState",sailDate.getFrom(), sailDate.getTo()))
                     .add(between("dateReg", date.getFrom(), date.getTo()));
         if (!tracker.equals(""))
             crit.add(eq("tracker", tracker));
-        getAssociatedObjectLeftJoin(crit, "this.sails", "sail");
+        associatedLeftJoin(crit, "this.sails", "sail");
         addOrder(crit, sort);
         addPagination(crit, pagination);
         return crit.list();
@@ -69,18 +67,12 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
                                 between("dateReg", day, endDay(day)),
                                 conjunction(
                                         between("sail.dateChangeState", day, endDay(day)),
-                                        eq("sail.state", StateSail.getState(StateSail.State.COMPLETE))
+                                        eq("sail.state", getState(State.COMPLETE))
                                 ))
                 );
-              /*  .setProjection(
-                        Projections.projectionList()
-                                .add(groupProperty("id"))
-                );*/
         if (!"".equals(tracker))
             crit.add(eq("tracker", tracker));
-
-        getAssociatedObjectLeftJoin(crit, "this.sails", "sail");
-        getAssociatedObjectLeftJoin(crit, "sail.products", "product");
+        associatedLeftJoin(crit, "this.sails", "sail");
         addOrder(crit, sort);
         addPagination(crit, pagination);
         return crit.list();
@@ -97,7 +89,7 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
                                 between("dateReg", date, endDay(date)),
                                 conjunction(
                                         between("sail.dateChangeState", date, endDay(date)),
-                                        eq("sail.state", StateSail.getState(StateSail.State.COMPLETE))
+                                        eq("sail.state", getState(State.COMPLETE))
                                 ))
                 )
                 .setProjection(

@@ -111,7 +111,7 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 		crit.setFirstResult(filter.getOffset()).setMaxResults(filter.getLimit());
 	}
 
-	protected void getAssociatedObjectLeftJoin(Criteria crit, String associationPath, String alias) {
+	protected void associatedLeftJoin(Criteria crit, String associationPath, String alias) {
 			crit
 				.setFetchMode(associationPath, FetchMode.JOIN)
 				.createAlias(associationPath, alias, JoinType.LEFT_OUTER_JOIN);

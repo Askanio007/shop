@@ -62,8 +62,8 @@ public class StatisticReferralsService {
     }
 
     @Transactional
-    public void saveSailStatistic(Buyer buyer, Date date) {
-        StatisticReferral statistic = statDao.byDay(buyer, date, buyer.getTracker());
+    public void saveSailStatistic(Buyer buyer, Date date, String tracker) {
+        StatisticReferral statistic = statDao.byDay(buyer, date, tracker);
         statistic.setSailAmount(statistic.getSailAmount() + 1);
         save(statistic);
     }
