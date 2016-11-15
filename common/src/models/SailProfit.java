@@ -37,7 +37,10 @@ public class SailProfit {
     private String buildListProductsToStr(List<ProductProfit> products) {
         StringBuilder str = new StringBuilder();
         for (ProductProfit product : products) {
-            str.append(product.getProduct().getName()).append(" ").append(product.getProfit()).append(";");
+            str.append(product.getProduct().getName())
+                    .append(" ")
+                    .append(product.getProfit())
+                    .append(";");
         }
         return str.toString();
     }

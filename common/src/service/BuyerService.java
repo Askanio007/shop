@@ -4,19 +4,17 @@ import dao.BuyerDAO;
 import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
-import entity.StatisticReferral;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import utils.DateBuilder;
+import view.DateConverter;
 import utils.DateFilter;
 import utils.EncryptionString;
 import utils.PaginationFilter;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @Service
@@ -182,16 +180,7 @@ public class BuyerService {
 
 	@Transactional
 	public Double getProfitByLastMonth(Long buyerId) {
-		// TODO: 16.10.2016 вообще создаешь в методе календарь один и давай сним работать. ::: мне нужно передавать две даты, они же должны где-то храниться
-		Calendar from = Calendar.getInstance();
-		from.add(Calendar.MONTH, - 1);
-		from.set(Calendar.HOUR, 0);
-		from.set(Calendar.MINUTE, 0);
-		from.set(Calendar.SECOND, 0);
-		from.set(Calendar.MILLISECOND, 0);
-		Calendar to = Calendar.getInstance(); // TODO: 16.10.2016 уже с датой ::: убрал setTime(new Date())
-		to.add(Calendar.DATE, -1);
-		List<Sail> sails = sailService.listCompletedByDate(buyerId, new DateFilter(from.getTime(), to.getTime()));
+		List<Sail> sails = sailService.listCompletedByDate(buyerId, DateBuilder.getLastMonth());
 		return sailService.getProfit(sails);
 	}
 
@@ -205,7 +194,22 @@ public class BuyerService {
 	@Transactional
 	public List<Buyer> getActiveByDay(Date date) {
 		return buyerDao.getActiveByDate(date);
+	}
 
+	@Transactional
+	public void aggregateProfitStatistic() {
+		Date date = new Date();
+		List<Buyer> buyers = getActiveByDay(date);
+		for (Buyer buyer : buyers) {
+			if (buyer.getRefId() == null) continue;
+			Buyer parent = get(buyer.getRefId());
+			List<Sail> todaySails = sailService.listCompletedByDate(buyer.getId(), new DateFilter(date));
+			Double profit = 0.0;
+			for (Sail sail : todaySails) {
+				profit =+ profitFromReferralBySail(sail, parent.getPercentCashback());
+			}
+			statisticService.saveProfit(parent, buyer.getTracker(), profit);
+		}
 	}
 
 }

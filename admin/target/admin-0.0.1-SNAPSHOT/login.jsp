@@ -30,7 +30,7 @@
 	</tr>
 </table>
 </form>
-<h1><a href="http://localhost:8080/site/">GO V MAGAZ</a></h1>
+<h1><a href="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()%>/site/">Go to shop</a></h1>
 
 </body>
 

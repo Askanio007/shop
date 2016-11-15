@@ -3,11 +3,12 @@ package dao;
 import entity.Buyer;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.*;
+import utils.DateBuilder;
+import view.DateConverter;
 import utils.DateFilter;
 import org.springframework.stereotype.Repository;
 
 import utils.PaginationFilter;
-import utils.StateSail;
 
 import java.util.Date;
 import java.util.List;
@@ -64,9 +65,9 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
                 .add(eq("refId", buyerId))
                 .add(
                         Restrictions.disjunction(
-                                between("dateReg", day, endDay(day)),
+                                between("dateReg", day, DateBuilder.endDay(day)),
                                 conjunction(
-                                        between("sail.dateChangeState", day, endDay(day)),
+                                        between("sail.dateChangeState", day, DateBuilder.endDay(day)),
                                         eq("sail.state", getState(State.COMPLETE))
                                 ))
                 );
@@ -86,9 +87,9 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
                 .createAlias("this.sails", "sail")
                 .add(
                         Restrictions.disjunction(
-                                between("dateReg", date, endDay(date)),
+                                between("dateReg", date, DateBuilder.endDay(date)),
                                 conjunction(
-                                        between("sail.dateChangeState", date, endDay(date)),
+                                        between("sail.dateChangeState", date, DateBuilder.endDay(date)),
                                         eq("sail.state", getState(State.COMPLETE))
                                 ))
                 )

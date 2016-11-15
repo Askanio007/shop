@@ -3,8 +3,6 @@ package models;
 import view.DateConverter;
 import view.ViewFormat;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ReportByDay {

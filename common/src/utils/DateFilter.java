@@ -1,11 +1,7 @@
 package utils;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import view.DateConverter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DateFilter {
@@ -24,8 +20,8 @@ public class DateFilter {
     }
 
     public DateFilter(Date day) {
-        this.from = DateConverter.getDateWithoutTime(day);
-        this.to = DateConverter.endDay(day);
+        this.from = DateBuilder.getDateWithoutTime(day);
+        this.to = DateBuilder.endDay(day);
     }
 
     private Date checkNullFrom(Date date) {
