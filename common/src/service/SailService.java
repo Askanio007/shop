@@ -62,7 +62,7 @@ public class SailService {
 		return sail;
 	}
 
-	public Double getProfit(Collection <Sail> sails) {
+	public Double getProfit(Collection<Sail> sails) {
 		Double profit = 0.0;
 		for (Sail s : sails) {
 			profit += serviceBuyer.profitFromReferralBySail(s, s.getCashbackPercent());
@@ -135,7 +135,7 @@ public class SailService {
 				if (buyer.getRefId() == null) continue;
 				Buyer parent = serviceBuyer.get(buyer.getRefId());
 				serviceBuyer.accrueRevenue(parent, s);
-				serviceStatistic.saveSailStatistic(parent, new Date(),buyer.getTracker());
+				serviceStatistic.saveSailStatistic(parent, new Date(), buyer.getTracker());
 			}
 			update(s);
 			serviceTotalSold.add(s.getProducts());
@@ -183,6 +183,6 @@ public class SailService {
 
 	@Transactional
 	public int countByReferral(Long referalId, DateFilter dateSail) {
-		return sailDao.countByReferral(referalId,dateSail);
+		return sailDao.countByReferral(referalId, dateSail);
 	}
 }

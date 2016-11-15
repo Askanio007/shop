@@ -202,4 +202,10 @@ public class BuyerService {
 		edit(user);
 	}
 
+	@Transactional
+	public List<Buyer> getActiveByDay(Date date) {
+		return buyerDao.getActiveByDate(date);
+
+	}
+
 }

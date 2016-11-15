@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import entity.Buyer;
@@ -12,5 +13,8 @@ public interface BuyerDAO extends GeneralDAO<Buyer>{
 	String getAvaPathById(Long buyerId);
 
 	Buyer getBuyerByReferCode(String code);
+
+	List<Buyer> getActiveByDate(Date date);
+
 
 }

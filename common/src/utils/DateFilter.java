@@ -23,6 +23,11 @@ public class DateFilter {
         this.to = checkNullTo(to);
     }
 
+    public DateFilter(Date day) {
+        this.from = DateConverter.getDateWithoutTime(day);
+        this.to = DateConverter.endDay(day);
+    }
+
     private Date checkNullFrom(Date date) {
         return date == null ? new Date(1) : date;
     }

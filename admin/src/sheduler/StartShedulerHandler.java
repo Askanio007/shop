@@ -30,6 +30,9 @@ public class StartShedulerHandler {
 	private CashbackPercent cashbackPercent;
 
 	@Autowired
+	private AggregationProfitStatistics aggregationProfitStatistics;
+
+	@Autowired
 	private SettingsService setting;
 
 	@Autowired
@@ -41,6 +44,7 @@ public class StartShedulerHandler {
 		scheduler.scheduleAtFixedRate(discount, new Date(), setting.getTimeGeneralDiscount());
 		scheduler.scheduleAtFixedRate(disactiveDiscount, new Date(), setting.getTimeDisactiveDiscount());
 		scheduler.scheduleAtFixedRate(autoCompletionDelivery, new Date(), 120000);
+		scheduler.scheduleAtFixedRate(aggregationProfitStatistics, new Date(), 120000);
 		scheduler.schedule(cashbackPercent, new CronTrigger("0 0 0 1 * ?"));
 	}
 
