@@ -30,7 +30,6 @@ public class Message {
 	@Column(name = "date")
 	private Date date;
 
-	// TODO: 16.10.2016 конструктор необходимый только для гибернейта можно делать приватным или защищенным ::: исправил здесь и в других классах
 	private Message() {
 	}
 

@@ -91,11 +91,13 @@ public class BuyerService {
 	}
 
 	public boolean checkEqualsOldPasswords(String newPassword, String oldPassword) {
-		return newPassword.equals(EncryptionString.toMD5(oldPassword)); // TODO: 16.10.2016 facepalm :: исправил. И, по-моему, это теперь первое место))
+		return newPassword.equals(EncryptionString.toMD5(oldPassword));
 	}
 
 	protected String randomReferCode() {
 		return UUID.randomUUID().toString();
+		// TODO: Kirill чтобы получить строку без дефисов, то можешь например
+		// return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
 	@Transactional
@@ -112,7 +114,7 @@ public class BuyerService {
 			referId = getByRefCode(referCode).getId();
 			statisticService.saveRegistrationStatistic(get(referId), tracker);
 		}
-		String code = randomReferCode();// TODO: 16.10.2016 java.util.UUID ::: Добавил, почитал про него
+		String code = randomReferCode();
 		Buyer buyer = new Buyer
 				.Builder(name, EncryptionString.toMD5(password), code)
 				.percentCashback(settings.getBaseCashback())
@@ -134,6 +136,7 @@ public class BuyerService {
 		List<Buyer> buyers = buyerDao.find();
 		// TODO: 16.10.2016 да? ::: Если инициализировать, то получается, все покупатели подтягивают свои продажи. И это плохо, я праивльно понял?)
 		//initialize(buyers);
+		// TODO: Kirill ну раз ты закомментил и все продолжило работать и ты избавился от выборки из таблицы секстилионнов продаж и прочего хлама, то да.
 		return buyers;
 	}
 
@@ -146,9 +149,9 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public void edit(Long buyerId, BuyerInfo buyerInfo, boolean active) {// TODO: 16.10.2016 вообще странно. надо обсудить
+	public void edit(Long buyerId, BuyerInfo buyerInfo, boolean active) {
 		Buyer buyer = get(buyerId);
-		buyer.setEnable(active);// TODO: 16.10.2016 а если активный? ::: убрал проверку, она не нужна.
+		buyer.setEnable(active);
 		edit(buyer, buyerInfo);
 	}
 

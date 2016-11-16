@@ -44,15 +44,11 @@ public class BuyerInfo {
 		this.phone = phone;
 	}
 
-	// TODO: 16.10.2016 суть - какая-то логика в ентити, не имеющая отношения к ентити. да еще и не правильная. ::: убрал логику, она не использовалась нигде, не знаю откуда она вообще
-	// полей больше, а присваевается только часть
-	
 	public BuyerInfo(Buyer buyer) {
 		this.buyer = buyer;
 	}
 
 	public BuyerInfo() {
-
 	}
 
 	public void setPhone(String newPhone) {

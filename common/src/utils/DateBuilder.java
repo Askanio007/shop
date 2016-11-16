@@ -18,8 +18,8 @@ public class DateBuilder {
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.MILLISECOND, -1);
         return calendar.getTime();
-    }
-
+    }// TODO: Kirill это метод "конец дня"..
+    // а это "дата без времени"...
     public static Date getDateWithoutTime(Date date) {
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -29,8 +29,9 @@ public class DateBuilder {
         return calendar.getTime();
     }
 
-    public static DateFilter getLastMonth() {
+    public static DateFilter getLastMonth() {        
         // TODO: 16.10.2016 вообще создаешь в методе календарь один и давай сним работать. ::: исправил
+        // TODO: Kirill я плакаю, подумай хорошо и приходи расскажи, что ты сделал.
         DateFilter dateFilter = new DateFilter();
         calendar.add(Calendar.MONTH, - 1);
         calendar.set(Calendar.HOUR, 0);

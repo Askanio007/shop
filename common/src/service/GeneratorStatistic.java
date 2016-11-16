@@ -69,8 +69,7 @@ public class GeneratorStatistic {
             referId = serviceBuyer.getByRefCode(referCode).getId();
             statisticService.saveRegistrationStatistic(serviceBuyer.get(referId), tracker, dateReg);
         }
-        String code = serviceBuyer.randomReferCode();// TODO: 16.10.2016 две одинаковые, немного странные :::: вынес в отдельный метод
-        // строки, содержащие какой-то логический смысл, и никакого желание вынести метод?
+        String code = serviceBuyer.randomReferCode();
         Buyer buyer = new Buyer
                 .Builder(name, EncryptionString.toMD5(password), code, dateReg)
                 .percentCashback(settings.getBaseCashback())
@@ -80,10 +79,6 @@ public class GeneratorStatistic {
         serviceBuyer.save(buyer);
     }
 
-
-    // TODO: 16.10.2016 методы для генерации данных нефиг делать в классах реализующих бизнес логику приложения. Весь    :::: вынес всё в отдельный метод
-    // этот вспомогательный набор полезностей надо вынести в отдельные сервис. Грубо говоря - интерфейсы твоих сервисов -
-    // это API твоего приложения. А функции генерации покупок у него нет
     @Transactional
     public void generateBuyer() {
         regGenerateUser("MainBuyer", "password", null, null, new GregorianCalendar(2013, 2, 12).getTime());
