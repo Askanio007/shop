@@ -21,7 +21,7 @@ public class Buyer {
 	@Column(name = "name")
 	@Length(min = 2, max=30)
 	@NotNull 				// TODO: 16.10.2016 как соотносится с ограничениями в базе?
-	private String name;
+	private String name;// TODO: Kirill поправил? я так понял что нет
 
 	@Column(name = "password")
 	private String password;

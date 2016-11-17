@@ -29,8 +29,6 @@ public class GeneralDAOImpl<T> implements GeneralDAO<T> {
 		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 	}
 
-	// TODO: 16.10.2016 add плохой вариант названия ::: исправил на save
-	//вообще вот на это погляди - session().saveOrUpdate() ----------------
 	@Override
 	public void save(T t) {
 		session().saveOrUpdate(t);

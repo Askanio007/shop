@@ -6,12 +6,6 @@ import view.ViewFormat;
 import java.util.Date;
 
 public class ReportByDay {
-
-    // TODO: 16.10.2016 пора бы уже разобраться как это работает для чего нужно и так далее
-    // TODO: классы, объекты, статические бла бла бла и прочяя неинтересная фигня    :::
-    // я вынес отсюда все threadLocal, потому что у меня есть отдельный класс. DateConverter
-    // Но я так понял, проблема быда в том, что переменные были не static и каждый раз создавались с классом
-
     private Date date;
     private Long clickLinkAmount;
     private Long enterCodeAmount;

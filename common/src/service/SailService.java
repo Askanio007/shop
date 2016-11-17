@@ -19,9 +19,6 @@ import utils.StateSail.*;
 import view.SailView;
 import static utils.StateSail.getState;
 
-// TODO: 16.10.2016 не Complete - Completed. Complete - завершать ::: исправил, принял к сведению
-// listCompleteSailByDate - завершить список продаж по дате
-// listCompletedSailByDate - список завершенных продаж по дате
 @Service
 public class SailService {
 

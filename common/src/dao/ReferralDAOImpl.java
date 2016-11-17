@@ -79,7 +79,6 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
         return crit.list();
     }
 
-    // TODO: 16.10.2016 не проверял, но как-то так это должно работать ::: кое-что исправил, вроде работает правильно. С критерией немного разобрался, но с проекциями пока проблемы, изучаю
     @Override
     public int countActiveByDay(Long buyerId, Date date, String tracker) {
         Criteria criteria = createCriteria()

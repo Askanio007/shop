@@ -37,18 +37,14 @@ public class StatisticReferralsService {
         statDao.save(click);
     }
 
-
-    // TODO: 16.10.2016 ну какой нафиг set ::: исправил на save
     @Transactional
     public void saveClickByLink(String codePartner, Date date, String tracker) {
         Buyer buyer = serviceBuyer.getByRefCode(codePartner);
         if (buyer == null)
             return;
-        //-------------отрефакторить-------------- TODO: исправил, вынес создание нового экземпляра в dao в метод byDay
         StatisticReferral statistic = getStatistic(buyer, date, tracker);
         statistic.setClickLinkAmount(statistic.getClickLinkAmount() + 1);
-        save(statistic);// TODO: 16.10.2016 это не add ::: изменил название
-        //------------------------------------------
+        save(statistic);
     }
 
     @Transactional
@@ -80,9 +76,6 @@ public class StatisticReferralsService {
         save(statistic);
     }
 
-
-    // TODO: 16.10.2016 Это жесть. расскажи в чем такая трудность что       ::::: исправил, выборки делаются через критерию, все парамеры подставляются тогда, когда они есть
-    // при возможности писать что и как угодно, ты выбираешь этот вариант
     public List<ReportByDay> byDate(Buyer buyer, PaginationFilter pagination, DateFilter date, String tracker, String sort) {
             return statDao.listByDate(buyer, pagination, date, tracker, sort);
     }
