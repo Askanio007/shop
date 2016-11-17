@@ -25,7 +25,6 @@ public class GeneralDiscount implements Runnable {
 
 	@Override
 	public void run() {
-
 		Product product = serviceProduct.getRandomProduct();
 		Discount discount = serviceDisc.getGeneral();
 		try {

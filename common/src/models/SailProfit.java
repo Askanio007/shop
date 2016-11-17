@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-// TODO: 16.10.2016 в классе есть серьезные ошибки :::
-// метод setProfit был паблик, что могло повлечь за собой сторонее изменение профита, сделал private
-// вместе его смотрели, постарался закрыть всё, что можно изменить из "вне". Аналогично просмотрел подобные другие классы, там также поправил некоторые вещи
 public class SailProfit {
 
     private final String strProducts;
@@ -36,8 +33,13 @@ public class SailProfit {
 
     private String buildListProductsToStr(List<ProductProfit> products) {
         StringBuilder str = new StringBuilder();
+        // TODO: Kirill к сведению - такая еще штука есть String.join() и вообще для работы
+        // со строками есть всякие либы типа apache StringUtils
         for (ProductProfit product : products) {
-            str.append(product.getProduct().getName()).append(" ").append(product.getProfit()).append(";");
+            str.append(product.getProduct().getName())
+                    .append(" ")
+                    .append(product.getProfit())
+                    .append(";");
         }
         return str.toString();
     }

@@ -47,5 +47,4 @@ public class StartShedulerHandler {
 		scheduler.scheduleAtFixedRate(aggregationProfitStatistics, new Date(), 120000);
 		scheduler.schedule(cashbackPercent, new CronTrigger("0 0 0 1 * ?"));
 	}
-
 }

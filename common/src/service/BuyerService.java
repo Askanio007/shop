@@ -4,19 +4,17 @@ import dao.BuyerDAO;
 import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
-import entity.StatisticReferral;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import utils.DateBuilder;
+import view.DateConverter;
 import utils.DateFilter;
 import utils.EncryptionString;
 import utils.PaginationFilter;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @Service
@@ -93,11 +91,13 @@ public class BuyerService {
 	}
 
 	public boolean checkEqualsOldPasswords(String newPassword, String oldPassword) {
-		return newPassword.equals(EncryptionString.toMD5(oldPassword)); // TODO: 16.10.2016 facepalm :: исправил. И, по-моему, это теперь первое место))
+		return newPassword.equals(EncryptionString.toMD5(oldPassword));
 	}
 
 	protected String randomReferCode() {
 		return UUID.randomUUID().toString();
+		// TODO: Kirill чтобы получить строку без дефисов, то можешь например
+		// return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
 	@Transactional
@@ -114,7 +114,7 @@ public class BuyerService {
 			referId = getByRefCode(referCode).getId();
 			statisticService.saveRegistrationStatistic(get(referId), tracker);
 		}
-		String code = randomReferCode();// TODO: 16.10.2016 java.util.UUID ::: Добавил, почитал про него
+		String code = randomReferCode();
 		Buyer buyer = new Buyer
 				.Builder(name, EncryptionString.toMD5(password), code)
 				.percentCashback(settings.getBaseCashback())
@@ -136,6 +136,7 @@ public class BuyerService {
 		List<Buyer> buyers = buyerDao.find();
 		// TODO: 16.10.2016 да? ::: Если инициализировать, то получается, все покупатели подтягивают свои продажи. И это плохо, я праивльно понял?)
 		//initialize(buyers);
+		// TODO: Kirill ну раз ты закомментил и все продолжило работать и ты избавился от выборки из таблицы секстилионнов продаж и прочего хлама, то да.
 		return buyers;
 	}
 
@@ -148,9 +149,9 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public void edit(Long buyerId, BuyerInfo buyerInfo, boolean active) {// TODO: 16.10.2016 вообще странно. надо обсудить
+	public void edit(Long buyerId, BuyerInfo buyerInfo, boolean active) {
 		Buyer buyer = get(buyerId);
-		buyer.setEnable(active);// TODO: 16.10.2016 а если активный? ::: убрал проверку, она не нужна.
+		buyer.setEnable(active);
 		edit(buyer, buyerInfo);
 	}
 
@@ -182,16 +183,7 @@ public class BuyerService {
 
 	@Transactional
 	public Double getProfitByLastMonth(Long buyerId) {
-		// TODO: 16.10.2016 вообще создаешь в методе календарь один и давай сним работать. ::: мне нужно передавать две даты, они же должны где-то храниться
-		Calendar from = Calendar.getInstance();
-		from.add(Calendar.MONTH, - 1);
-		from.set(Calendar.HOUR, 0);
-		from.set(Calendar.MINUTE, 0);
-		from.set(Calendar.SECOND, 0);
-		from.set(Calendar.MILLISECOND, 0);
-		Calendar to = Calendar.getInstance(); // TODO: 16.10.2016 уже с датой ::: убрал setTime(new Date())
-		to.add(Calendar.DATE, -1);
-		List<Sail> sails = sailService.listCompletedByDate(buyerId, new DateFilter(from.getTime(), to.getTime()));
+		List<Sail> sails = sailService.listCompletedByDate(buyerId, DateBuilder.getLastMonth());
 		return sailService.getProfit(sails);
 	}
 
@@ -205,7 +197,22 @@ public class BuyerService {
 	@Transactional
 	public List<Buyer> getActiveByDay(Date date) {
 		return buyerDao.getActiveByDate(date);
+	}
 
+	@Transactional
+	public void aggregateProfitStatistic() {
+		Date date = new Date();
+		List<Buyer> buyers = getActiveByDay(date);
+		for (Buyer buyer : buyers) {
+			if (buyer.getRefId() == null) continue;
+			Buyer parent = get(buyer.getRefId());
+			List<Sail> todaySails = sailService.listCompletedByDate(buyer.getId(), new DateFilter(date));
+			Double profit = 0.0;
+			for (Sail sail : todaySails) {
+				profit =+ profitFromReferralBySail(sail, parent.getPercentCashback());
+			}
+			statisticService.saveProfit(parent, buyer.getTracker(), profit);
+		}
 	}
 
 }

@@ -14,6 +14,7 @@
 <a href="generateRef">Create referrals</a><br>
 <a href="generateProd">Create products</a><br>
 <a href="generateSail">Create sails</a>
+<a href="calcProfit">Calc profit</a>
 <br>
  <c:if test="${user eq true }">
  Hello admin! Text for ROLE_ADMIN

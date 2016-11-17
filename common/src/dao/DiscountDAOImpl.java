@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import entity.Discount;
 import entity.Product;
 
-// TODO: 16.10.2016 сконфигурировать плагин hibernate
 @Repository("discountDAO")
 public class DiscountDAOImpl extends GeneralDAOImpl<Discount>implements DiscountDAO {
 

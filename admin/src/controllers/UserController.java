@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import entity.Role;
 import entity.User;
 import service.*;
+import sheduler.StartShedulerHandler;
 import view.ViewPagination;
 
 @Controller
@@ -31,6 +32,9 @@ public class UserController {
 
 	@Autowired
 	private RoleService serviceRole;
+
+	@Autowired
+	private BuyerService serviceBuyer;
 
 	@Autowired
 	private GeneratorStatistic generatorService;
@@ -123,5 +127,10 @@ public class UserController {
 	return "redirect:/info";
 	}
 
+	@RequestMapping(value = "/calcProfit", method = RequestMethod.GET)
+	public String calcProfit() {
+		serviceBuyer.aggregateProfitStatistic();
+		return "redirect:/info";
+	}
 	
 }

@@ -36,16 +36,29 @@ public class Referral {
     }
 
     public String sailsToString() {
-        String sailStr = "";
+        StringBuilder str = new StringBuilder();
         for (Sail s : this.sails) {
             int i = 0;
-            sailStr = "Date: " + s.getDate().toString();
+            str.append("Date: ")
+                    .append(s.getDate().toString());
             for (SoldProduct sp : s.getProducts()) {
-                sailStr += (i+1) + ") Name: "+sp.getName() + "; cost: " +sp.getCost()+ "; amount: " + sp.getAmount() + "; discount: " + sp.getDiscount()+"; ";
+                str.append(i+1)
+                        .append(") Name: ")
+                        .append(sp.getName())
+                        .append(";")
+                        .append(" cost: ")
+                        .append(sp.getCost())
+                        .append(";")
+                        .append(" amount: ")
+                        .append(sp.getAmount())
+                        .append(";")
+                        .append(" discount: ")
+                        .append(sp.getDiscount())
+                        .append("; ");
                 i++;
             }
         }
-        return sailStr;
+        return str.toString();
     }
 
     public long getCountSails() {

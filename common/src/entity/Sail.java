@@ -70,6 +70,7 @@ public class Sail {
 	@LazyCollection(LazyCollectionOption.TRUE)
 	@NotNull
 	private Collection<Buyer> buyers;// TODO: 16.10.2016 кто это? ::: Это список покупателей. Я изначально сделал так, что одна и та же покупка может быть у нескольких покупателей
+	// TODO: Kirill тогда я не понимаю что такое покупка в твоих терминах. думаю что это ерунда какая-то
 
 	private String viewTotalSum;
 
