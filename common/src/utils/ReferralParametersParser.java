@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ReferralParametersParser {
 
+    // TODO: Kirill trim - Returns a string whose value is this string, with any leading and trailing whitespace removed
     public static String[] trimParameters(String params){
         return params.trim().split("&");
     }

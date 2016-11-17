@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,17 +24,23 @@ public class LoadFileUtil {
 	private static List<String> acceptedExts;
 
 	static {
-		List<String> imageExts = new ArrayList<>();
+		// TODO: Kirill вот тебе еще варианты конструкций
+		/*List<String> imageExts = new ArrayList<>();
 		imageExts.add("jpg");
 		imageExts.add("png");
-		acceptedImageExts = Collections.unmodifiableList(imageExts);
+		acceptedImageExts = Collections.unmodifiableList(imageExts);*/
+		acceptedImageExts = Collections.unmodifiableList(Arrays.asList("jpg", "png"));
+
 		List<String> archiveExts = new ArrayList<>();
 		archiveExts.add("zip");
 		acceptedArchiveExts = Collections.unmodifiableList(archiveExts);
+
 		List<String> exts = new ArrayList<>();
 		exts.addAll(acceptedImageExts);
 		exts.addAll(acceptedArchiveExts);
 		acceptedExts = Collections.unmodifiableList(exts);
+
+		// TODO: Kirill а вообще погляди как используются эти списки, е для этих цедей есть более подходящая конструкция
 	}
 
 	public static boolean checkExtension(String fileName, FileType fileType) {
@@ -51,12 +58,13 @@ public class LoadFileUtil {
 		return checkExtension(FilenameUtils.getExtension(file.getOriginalFilename()), fileType);
 	}
 
-	@SuppressWarnings("static-access")
+	//@SuppressWarnings("static-access")
 	public static String storeToFileWithOriginalName(MultipartFile file, String directoryToSave) throws IllegalStateException, IOException {
 		Path path = Paths.get(directoryToSave, file.getOriginalFilename());
 		File f = path.toFile();
 		file.transferTo(f);
-		return directoryToSave +f.separator+ file.getOriginalFilename();
+		// TODO: Kirill может вместо того чтобы суспендить ворнинг, лучше его исправить?
+		return directoryToSave + f.separator + file.getOriginalFilename();
 	}
 
 	private static boolean checkExtension(String fileName, List<String> extsList) {
