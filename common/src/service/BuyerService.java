@@ -167,6 +167,7 @@ public class BuyerService {
 		edit(buyer);
 	}
 
+	// TODO: Kirill мне тут никакого реферала не видно  
 	public Double profitFromReferralBySail(Sail sail, int cashBack){
 		return sail.getTotalsum() * (cashBack * 1.0 / 100);
 	}

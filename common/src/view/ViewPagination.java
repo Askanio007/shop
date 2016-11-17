@@ -24,6 +24,8 @@ public class ViewPagination {
 		this(page, countAllRecords, DEFAULT_PAGE_SIZE);
 	}
 
+	// TODO: Kirill на мой взгляд странно передавать сюда запрос. Чтобы подчеркнуть постоянство этого параметра,
+	// что тебе он нужен, лучше сделать тут строковую константу с названием параметра который тебе нужен.
 	public ViewPagination(HttpServletRequest request, int countAllRecords, int countRecordOnPage) {
 		this(request.getParameter("page"), countAllRecords, countRecordOnPage);
 	}
