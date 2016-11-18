@@ -22,9 +22,6 @@ public class UserService {
 	private UserDAO userDao;
 
 	@Autowired
-	private BuyerService serviceBuyer;
-	
-	@Autowired
 	private RoleService serviceRole;
 
 	@Transactional
@@ -41,6 +38,7 @@ public class UserService {
 	public List<User> list(PaginationFilter pagination) {
 		List<User> list = userDao.find(pagination);
 		for (User u : list) {
+			// TODO: Kirill чтоб уж наверняка, а то вдруг Гибернейт не подтянет eager с первого раза сам
 			Hibernate.initialize(u.getRole());
 		}
 		return userDao.find(pagination);

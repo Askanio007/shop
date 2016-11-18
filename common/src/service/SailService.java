@@ -46,6 +46,8 @@ public class SailService {
 		return (List<Sail>) sails;
 	}
 
+	// TODO: Kirill а тебе действительно нужно явно инициализировать коллекции, вроде бы во всех этих
+	// случаях прокси что заменяют ленивые коллекции до первого вызова вполне должны справится
 	public List<Sail> initializeProducts(Collection<Sail> sails) {
 		for (Sail s : sails) {
 			Hibernate.initialize(s.getProducts());
@@ -62,6 +64,7 @@ public class SailService {
 	public Double getProfit(Collection<Sail> sails) {
 		Double profit = 0.0;
 		for (Sail s : sails) {
+			// TODO: Kirill может как вариант их все туда сразу передать?
 			profit += serviceBuyer.profitFromReferralBySail(s, s.getCashbackPercent());
 		}
 		return profit;
@@ -89,6 +92,8 @@ public class SailService {
 		try {
 			serviceBuyer.edit(buyer);
 			save(sail);
+			// TODO: Kirill и что тут ловим? и что делаем если поймали? Делаем вид что ничего не было и... барабанная дробь...
+			// GOTO "развязочка"
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -46,7 +46,6 @@ public class ImageServlet extends HttpServlet {
 		beanFactory.autowireBean(this);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("image/jpeg");
@@ -57,18 +56,27 @@ public class ImageServlet extends HttpServlet {
 		}
 
 		if (request.getParameter("tempPic") != null) {
+			// TODO: Kirill если не избежать, то надо делать это на минимальном отрезке
+			@SuppressWarnings("unchecked")
 			List<PictureProduct> list = (List<PictureProduct>) request.getSession().getAttribute("pics");
 			String path = list.get(Integer.parseInt(request.getParameter("tempPic"))).getPath();
+
+			/* еще вариант, но это хуже гораздо, хоть и работает без супресов
+			List list = (List) request.getSession().getAttribute("pics");
+			String path = ((PictureProduct)list.get(Integer.parseInt(request.getParameter("tempPic")))).getPath();
+			*/
+
 			write(path, response);
 			return;
 		}
 
 		if (request.getParameter("avaPic") != null) {
 			String path = serviceBuyer.getPathAva(getParam(request, "avaPic"));
-			if (path.equals(""))
+			write(path, response);
+			/*if (path.equals(""))
 				write("", response);
 			else
-				write(path, response);
+				write(path, response);*/
 			return;
 		}
 
@@ -83,11 +91,11 @@ public class ImageServlet extends HttpServlet {
 	public void write(String path, HttpServletResponse response) throws IOException {
 		byte[] buffer = new byte[1024];
 		int ch;
+		// TODO: Kirill exception и стрим не закроется.
 		BufferedInputStream bin = new BufferedInputStream(new FileInputStream(path));
 		BufferedOutputStream bout = new BufferedOutputStream(response.getOutputStream());
 		while ((ch = bin.read(buffer)) > 0) {
 			bout.write(buffer, 0, ch);
-			;
 		}
 		bin.close();
 		bout.close();

@@ -27,7 +27,7 @@ public class User {
 	@Column(name = "enable")
 	private boolean enable;
 
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
 

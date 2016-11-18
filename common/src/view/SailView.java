@@ -13,7 +13,7 @@ public class SailView {
 	private Long id;
 	private String date;
 	private Integer amount;
-	private Double totalsum;
+	private Double totalSum;
 	private Collection <SoldProduct> products;
 	private Collection <Buyer> buyers;
 
@@ -24,7 +24,7 @@ public class SailView {
 		this.amount = sail.getAmount();
 		this.buyers = sail.getBuyers();
 		this.products = sail.getProducts();
-		this.totalsum = sail.getTotalsum();
+		this.totalSum = sail.getTotalsum();
 	}
 
 	public String getDateStr() {
@@ -39,13 +39,16 @@ public class SailView {
 		return amount;
 	}
 
-	public Double getTotalsum() {
-		return totalsum;
+	public Double getTotalSum() {
+		return totalSum;
 	}
+
+	// TODO: Kirill это коллекция ентитей
 	public Collection<SoldProduct> getProducts() {
 		return products;
 	}
 
+	// TODO: Kirill и это
 	public Collection<Buyer> getBuyers() {
 		return buyers;
 	}

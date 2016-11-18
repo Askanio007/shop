@@ -52,10 +52,10 @@ public class ReportService {
     }
 
     @Transactional
-    public List<SailProfit> getProfitBySails(Long referalId, PaginationFilter pagination, DateFilter dateSail, String sort) {
+    public List<SailProfit> getProfitBySails(Long referralId, PaginationFilter pagination, DateFilter dateSail, String sort) {
         if ("profit".equals(SortParameterParser.getColumnName(sort)))
-            return sortBySailProfit(SailProfit.convertToSailProfit(serviceReferral.findBySailDate(referalId, pagination, dateSail, null).getSails()), sort);
-        return SailProfit.convertToSailProfit(serviceReferral.findBySailDate(referalId, pagination, dateSail, sort).getSails());
+            return sortBySailProfit(SailProfit.convertToSailProfit(serviceReferral.findBySailDate(referralId, pagination, dateSail, null).getSails()), sort);
+        return SailProfit.convertToSailProfit(serviceReferral.findBySailDate(referralId, pagination, dateSail, sort).getSails());
     }
 
     @Transactional
