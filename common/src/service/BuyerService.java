@@ -90,6 +90,8 @@ public class BuyerService {
 		Hibernate.initialize(buyer.getInfo());
 	}
 
+	// TODO: Kirill будь я придирчивым и говнистым, мне бы название не понравилось.
+	// Говорят сравни, пароль старый с новым равны? А сравнивают не хеш одного пароля с хешем другого
 	public boolean checkEqualsOldPasswords(String newPassword, String oldPassword) {
 		return newPassword.equals(EncryptionString.toMD5(oldPassword));
 	}
@@ -167,6 +169,7 @@ public class BuyerService {
 		edit(buyer);
 	}
 
+	// TODO: Kirill мне тут никакого реферала не видно  
 	public Double profitFromReferralBySail(Sail sail, int cashBack){
 		return sail.getTotalsum() * (cashBack * 1.0 / 100);
 	}

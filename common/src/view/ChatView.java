@@ -6,11 +6,9 @@ import java.util.Date;
 
 public class ChatView {
 
-	private Date date;
-
-	private String text;
-
-	private String from;
+	private final Date date;
+	private final String text;
+	private final String from;
 
 	public ChatView(Message c, String from) {
 		this.date = c.getDate();
@@ -21,7 +19,6 @@ public class ChatView {
 	public String getFrom() {
 		return from;
 	}
-
 
 	public Date getDate() {
 		return date;

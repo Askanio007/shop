@@ -13,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import entity.PictureProduct;
 
 public class UploadZip {
-	
+
+	// TODO: Kirill серьезно, шеф, завязывай
 	@SuppressWarnings("static-access")
 	public static List<PictureProduct> getPicFromArchive(List<PictureProduct> newListPic, String dir, MultipartFile file)
 	{

@@ -48,6 +48,7 @@ public class Sail {
 	@Column(name = "amount")
 	private Integer amount;
 
+	// TODO: Kirill для любых действий с деньгами пользоваться необходимо только BigDecimal  
 	@Column(name = "totalsum")
 	private Double totalsum;
 

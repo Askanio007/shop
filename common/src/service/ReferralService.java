@@ -28,11 +28,19 @@ public class ReferralService {
 
 
     public List<Referral> sortByProfit(List<Referral> referrals, final String typeSort) {
+        // TODO: Kirill и восьмая джава должна тут подкорректировать что-нибудь  
         Collections.sort(referrals, new Comparator<Referral>() {
             @Override
             public int compare(Referral ref1, Referral ref2) {
-                if (typeSort.equals("desc")) return ref2.getProfit().compareTo(ref1.getProfit());
-                return ref1.getProfit().compareTo(ref2.getProfit());
+                // TODO: Kirill может сочтешь это более читабельным, я например так считаю. 
+                // Проверки typeSort на null нет, безопаснее в данном случае сравнить со строкой заведомо, которая заведомо not null
+                // return "desc".equals(typeSort) ?
+                return typeSort.equals("desc") ?
+                        ref2.getProfit().compareTo(ref1.getProfit()) : 
+                        ref1.getProfit().compareTo(ref2.getProfit());
+                
+                /*if (typeSort.equals("desc")) return ref2.getProfit().compareTo(ref1.getProfit());
+                return ref1.getProfit().compareTo(ref2.getProfit());*/
             }
         });
         return referrals;
@@ -66,7 +74,7 @@ public class ReferralService {
     @Transactional
     public List<Referral> findDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
         if ("profit".equals(SortParameterParser.getColumnName(sort)))
-                return sortByProfit(getDailyActive(buyerId, pagination, date, tracker, null), SortParameterParser.getTypeOrder(sort));
+            return sortByProfit(getDailyActive(buyerId, pagination, date, tracker, null), SortParameterParser.getTypeOrder(sort));
         return getDailyActive(buyerId, pagination, date, tracker, sort);
     }
 

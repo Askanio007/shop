@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+// TODO: Kirill строго говоря - md5 это не шифрование
 public class EncryptionString {
 
     public static String toMD5(String str) {

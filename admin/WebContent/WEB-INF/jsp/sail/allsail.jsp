@@ -40,7 +40,7 @@
 						</c:forEach>
 					</td>
 					<td>${sail.amount}</td>
-					<td>${sail.totalsum}</td>
+					<td>${sail.totalSum}</td>
 					<td><c:forEach items="${sail.buyers}" var="buyer">
 				${buyer.name}
 				</c:forEach>

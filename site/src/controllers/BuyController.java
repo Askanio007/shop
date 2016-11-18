@@ -70,6 +70,7 @@ public class BuyController {
 		if (b.getBalance() < basket.cost())
 			return "redirect:/user/deposit";
 		serviceSail.save(b, basket);
+		// "развязочка" очищаем корзину от результатов трехчасового лазанья по сайту в поиске саааамых выгодных товаров.
 		basket.clear();
 		request.getSession().setAttribute("basket", basket);
 		return "redirect:/user/profile";
