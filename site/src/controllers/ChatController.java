@@ -25,11 +25,11 @@ public class ChatController {
 	
 	@Autowired
 	private BuyerService serviceBuyer;
-	
+
 	@RequestMapping(value = "/user/chat", method = RequestMethod.GET)
 	public String chat(Model model, HttpServletRequest request) {
 		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
-		ViewPagination viewPagination = new ViewPagination(request, serviceChat.count(buyer));
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceChat.count(buyer));
 		List<ChatView> list = serviceChat.getViewChat(viewPagination.getDBPagination(), buyer);
 		model.addAttribute("chat", list);
 		model.addAttribute("pagination", viewPagination);

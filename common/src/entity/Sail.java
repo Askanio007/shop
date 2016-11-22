@@ -1,14 +1,9 @@
 package entity;
 
+import java.math.BigDecimal;
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,13 +15,7 @@ import models.Basket;
 import utils.StateSail;
 import view.ViewFormat;
 
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
-
-@Entity
+@Entity(name = "Sail")
 @Table(name = "sail")
 public class Sail {
 
@@ -48,9 +37,9 @@ public class Sail {
 	@Column(name = "amount")
 	private Integer amount;
 
-	// TODO: Kirill для любых действий с деньгами пользоваться необходимо только BigDecimal  
+	// TODO: Kirill для любых действий с деньгами пользоваться необходимо только BigDecimal  ::: исправио везде на BigDecimal
 	@Column(name = "totalsum")
-	private Double totalsum;
+	private BigDecimal totalsum;
 
 	@Column(name = "state")
 	private String state;
@@ -64,30 +53,14 @@ public class Sail {
 	@NotNull
 	private Collection<SoldProduct> products;
 
-	@JoinTable(name = "sail_by_buyer", joinColumns = {
-			@JoinColumn(name = "sail_id", referencedColumnName = "sail_id") }, inverseJoinColumns = {
-					@JoinColumn(name = "buyer_id", referencedColumnName = "buyer_id") })
-	@ManyToMany
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "buyer_id", nullable = false)
 	@NotNull
-	private Collection<Buyer> buyers;// TODO: 16.10.2016 кто это? ::: Это список покупателей. Я изначально сделал так, что одна и та же покупка может быть у нескольких покупателей
-	// TODO: Kirill тогда я не понимаю что такое покупка в твоих терминах. думаю что это ерунда какая-то
-
-	private String viewTotalSum;
+	private Buyer buyer;// TODO: 16.10.2016 кто это? ::: Это список покупателей. Я изначально сделал так, что одна и та же покупка может быть у нескольких покупателей
+	// TODO: Kirill тогда я не понимаю что такое покупка в твоих терминах. думаю что это ерунда какая-то ::: оставил только одного покупателя
 
 	public Sail() {
 
-	}
-
-	public Sail(List<Buyer> buyers, List<SoldProduct> products, Basket basket) {
-		this.buyers = buyers;
-		this.cashbackPercent = buyers.get(0).getPercentCashback();
-		this.products = products;
-		this.amount = basket.countProducts();
-		this.totalsum = basket.cost();
-		viewTotalSum = ViewFormat.money(totalsum);
-		this.date = new Date();
-		setStateWithDate(StateSail.getState(StateSail.State.SENT));
 	}
 
 	public Sail(Buyer buyer, List<SoldProduct> products, Basket basket) {
@@ -96,7 +69,6 @@ public class Sail {
 		this.products = products;
 		this.amount = basket.countProducts();
 		this.totalsum = basket.cost();
-		viewTotalSum = ViewFormat.money(totalsum);
 		this.date = new Date();
 		setStateWithDate(StateSail.getState(StateSail.State.SENT));
 	}
@@ -109,21 +81,16 @@ public class Sail {
 		this.amount = count;
 	}
 
-	public void setTotalsum(Double fcount) {
+	public void setTotalsum(BigDecimal fcount) {
 		totalsum = fcount;
-		viewTotalSum = ViewFormat.money(totalsum);
 	}
 
 	public void setProducts(Collection<SoldProduct> productList) {
 		products = productList;
 	}
 
-	public void setBuyers(Collection<Buyer> buyerList) {
-		buyers = buyerList;
-	}
-
 	public void setBuyer(Buyer buyer) {
-		this.buyers = Arrays.asList(buyer);
+		this.buyer = buyer;
 	}
 
 	public void setStateWithDate(String state) {
@@ -169,7 +136,7 @@ public class Sail {
 		return amount;
 	}
 
-	public Double getTotalsum() {
+	public BigDecimal getTotalsum() {
 		return totalsum;
 	}
 
@@ -177,18 +144,11 @@ public class Sail {
 		return products;
 	}
 
-	public Collection<Buyer> getBuyers() {
-		return buyers;
+	public Buyer getBuyer() {
+		return buyer;
 	}
 
 	public int getCashbackPercent() {
 		return cashbackPercent;
 	}
-
-	public String getViewTotalsum() {
-		return viewTotalSum;
-	}
-
-
-
 }

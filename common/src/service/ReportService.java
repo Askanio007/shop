@@ -32,8 +32,8 @@ public class ReportService {
             @Override
             public int compare(SailProfit sail1, SailProfit sail2) {
                 if (sail2.getProfit() == sail1.getProfit()) return 0;
-                if (type.equals("desc")) return sail2.getProfit() > sail1.getProfit() ? 1 : -1;
-                return sail1.getProfit() > sail2.getProfit() ? 1 : -1;
+                if (type.equals("desc")) return sail2.getProfit().compareTo(sail1.getProfit()) ;
+                return sail1.getProfit().compareTo(sail2.getProfit());
             }
         });
 		return list;
@@ -44,8 +44,8 @@ public class ReportService {
             @Override
             public int compare(ReportByDay report1, ReportByDay report2) {
                 if (report2.getProfit() == report1.getProfit()) return 0;
-                if (type.equals("desc")) return report2.getProfit() > report1.getProfit() ? 1 : -1;
-                return report1.getProfit() > report2.getProfit() ? 1 : -1;
+                if (type.equals("desc")) return report2.getProfit().compareTo(report1.getProfit());
+                return report1.getProfit().compareTo(report2.getProfit());
             }
         });
         return list;

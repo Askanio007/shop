@@ -45,7 +45,7 @@ public class ReferralList extends AbstractExcelView {
             excelRow.createCell(3).setCellValue(checkEmptyField(referral.getInfo().getAge()));
             excelRow.createCell(4).setCellValue(referral.getSails().size());
             excelRow.createCell(5).setCellValue(referral.getTracker());
-            excelRow.createCell(6).setCellValue(referral.getProfit());
+            excelRow.createCell(6).setCellValue(referral.getProfit().doubleValue());
         }
     }
 

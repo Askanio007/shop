@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import utils.DateBuilder;
-import view.DateConverter;
 import utils.DateFilter;
-import utils.EncryptionString;
+import utils.HashString;
 import utils.PaginationFilter;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -77,35 +77,22 @@ public class BuyerService {
 		return buyerDao.getBuyerByReferCode(code);
 	}
 
-
-
-	public void initialize(List<Buyer> buyers) {
-		for (Buyer buyer : buyers) {
-			initialize(buyer);
-		}
-	}
-
-	public void initialize(Buyer buyer) {
-		Hibernate.initialize(buyer.getSails());
-		Hibernate.initialize(buyer.getInfo());
-	}
-
-	// TODO: Kirill будь я придирчивым и говнистым, мне бы название не понравилось.
+	// TODO: Kirill будь я придирчивым и говнистым, мне бы название не понравилось. ::: исправил название метода и переменных. Я подразумевал, что
+	// сравниваются две строки, а хеш это или нет это уже не важно
 	// Говорят сравни, пароль старый с новым равны? А сравнивают не хеш одного пароля с хешем другого
-	public boolean checkEqualsOldPasswords(String newPassword, String oldPassword) {
-		return newPassword.equals(EncryptionString.toMD5(oldPassword));
+	public boolean checkOldPasswords(String oldPassword, String enteredOldPassword) {
+		return oldPassword.equals(HashString.toMD5(enteredOldPassword));
 	}
 
 	protected String randomReferCode() {
 		return UUID.randomUUID().toString();
-		// TODO: Kirill чтобы получить строку без дефисов, то можешь например
+		// TODO: Kirill чтобы получить строку без дефисов, то можешь например  ::: когда-то на джава раш ешё это проходил даже )
 		// return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
 	@Transactional
 	public void accrueRevenue(Buyer parent, Sail sail) {
-		Double profit = profitFromReferralBySail(sail, parent.getPercentCashback());
-		parent.setBalance(parent.getBalance() + profit);
+		parent.setBalance(parent.getBalance().add(sailService.profitFromSail(sail, parent.getPercentCashback())));
 		edit(parent);
 	}
 
@@ -118,7 +105,7 @@ public class BuyerService {
 		}
 		String code = randomReferCode();
 		Buyer buyer = new Buyer
-				.Builder(name, EncryptionString.toMD5(password), code)
+				.Builder(name, HashString.toMD5(password), code)
 				.percentCashback(settings.getBaseCashback())
 				.refId(referId)
 				.tracker(tracker)
@@ -129,24 +116,18 @@ public class BuyerService {
 	@Transactional
 	public List<Buyer> list(PaginationFilter dbPagination) {
 		List<Buyer> buyers = buyerDao.find(dbPagination);
-		initialize(buyers);
 		return buyers;
 	}
 
 	@Transactional
 	public List<Buyer> list() {
 		List<Buyer> buyers = buyerDao.find();
-		// TODO: 16.10.2016 да? ::: Если инициализировать, то получается, все покупатели подтягивают свои продажи. И это плохо, я праивльно понял?)
-		//initialize(buyers);
-		// TODO: Kirill ну раз ты закомментил и все продолжило работать и ты избавился от выборки из таблицы секстилионнов продаж и прочего хлама, то да.
 		return buyers;
 	}
 
 	@Transactional
 	public Buyer get(Long buyerId) {
 		Buyer buyer = buyerDao.find(buyerId);
-		initialize(buyer);
-		sailService.initialize(buyer.getSails());
 		return buyer;
 	}
 
@@ -159,7 +140,7 @@ public class BuyerService {
 
 	@Transactional
 	public void editPassword(Buyer buyer, String newPass) {
-		buyer.setPassword(EncryptionString.toMD5(newPass));
+		buyer.setPassword(HashString.toMD5(newPass));
 		edit(buyer);
 	}
 
@@ -167,11 +148,6 @@ public class BuyerService {
 	public void edit(Buyer buyer, BuyerInfo info) {
 		buyer.setInfo(info);
 		edit(buyer);
-	}
-
-	// TODO: Kirill мне тут никакого реферала не видно  
-	public Double profitFromReferralBySail(Sail sail, int cashBack){
-		return sail.getTotalsum() * (cashBack * 1.0 / 100);
 	}
 
 	@Transactional
@@ -185,9 +161,9 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public Double getProfitByLastMonth(Long buyerId) {
+	public BigDecimal getProfitByLastMonth(Long buyerId) {
 		List<Sail> sails = sailService.listCompletedByDate(buyerId, DateBuilder.getLastMonth());
-		return sailService.getProfit(sails);
+		return sailService.profitFromSail(sails);
 	}
 
 	@Transactional
@@ -210,9 +186,9 @@ public class BuyerService {
 			if (buyer.getRefId() == null) continue;
 			Buyer parent = get(buyer.getRefId());
 			List<Sail> todaySails = sailService.listCompletedByDate(buyer.getId(), new DateFilter(date));
-			Double profit = 0.0;
+			BigDecimal profit = BigDecimal.ZERO;
 			for (Sail sail : todaySails) {
-				profit =+ profitFromReferralBySail(sail, parent.getPercentCashback());
+				profit.add(sailService.profitFromSail(sail, parent.getPercentCashback()));
 			}
 			statisticService.saveProfit(parent, buyer.getTracker(), profit);
 		}

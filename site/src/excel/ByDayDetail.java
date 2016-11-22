@@ -37,7 +37,7 @@ public class ByDayDetail extends AbstractExcelView {
             HSSFRow excelRow = excelSheet.createRow(record++);
             excelRow.createCell(0).setCellValue(referral.getId());
             excelRow.createCell(1).setCellValue(referral.sailsToString());
-            excelRow.createCell(2).setCellValue(referral.getProfit());
+            excelRow.createCell(2).setCellValue(referral.getProfit().doubleValue());
         }
     }
 

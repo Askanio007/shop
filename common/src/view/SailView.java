@@ -1,5 +1,6 @@
 package view;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collection;
@@ -13,16 +14,16 @@ public class SailView {
 	private Long id;
 	private String date;
 	private Integer amount;
-	private Double totalSum;
+	private BigDecimal totalSum;
 	private Collection <SoldProduct> products;
-	private Collection <Buyer> buyers;
+	private Buyer buyer;
 
 
 	public SailView(Sail sail) {
 		this.date = DateConverter.getFormatView().format(sail.getDate());
 		this.id = sail.getId();
 		this.amount = sail.getAmount();
-		this.buyers = sail.getBuyers();
+		this.buyer = sail.getBuyer();
 		this.products = sail.getProducts();
 		this.totalSum = sail.getTotalsum();
 	}
@@ -39,7 +40,7 @@ public class SailView {
 		return amount;
 	}
 
-	public Double getTotalSum() {
+	public BigDecimal getTotalSum() {
 		return totalSum;
 	}
 
@@ -49,8 +50,8 @@ public class SailView {
 	}
 
 	// TODO: Kirill и это
-	public Collection<Buyer> getBuyers() {
-		return buyers;
+	public Buyer getBuyer() {
+		return buyer;
 	}
 	
 	public static List<SailView> convertSail(List<Sail> sails) {

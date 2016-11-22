@@ -8,10 +8,11 @@ import models.ProductBasket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import utils.EncryptionString;
+import utils.HashString;
 import utils.PaginationFilter;
 import utils.StateSail;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -71,7 +72,7 @@ public class GeneratorStatistic {
         }
         String code = serviceBuyer.randomReferCode();
         Buyer buyer = new Buyer
-                .Builder(name, EncryptionString.toMD5(password), code, dateReg)
+                .Builder(name, HashString.toMD5(password), code, dateReg)
                 .percentCashback(settings.getBaseCashback())
                 .refId(referId)
                 .tracker(tracker)
@@ -101,24 +102,22 @@ public class GeneratorStatistic {
             PaginationFilter filter = new PaginationFilter(r.nextInt(countBuyer), 1);
             List<Buyer> buyer = serviceBuyer.list(filter);
             Calendar calendar = new GregorianCalendar(2015, c.nextInt(11), c.nextInt(28));
-            addGenericUserSail(buyer, basket, calendar.getTime());
+            addGenericUserSail(buyer.get(0), basket, calendar.getTime());
             list.clear();
         }
     }
 
     @Transactional
-    public void addGenericUserSail(List<Buyer> buyers, Basket basket, Date date) {
-        Sail sail = new Sail(buyers, soldProductService.convertToSoldProduct(basket.getProducts()), basket);
+    public void addGenericUserSail(Buyer buyer, Basket basket, Date date) {
+        Sail sail = new Sail(buyer, soldProductService.convertToSoldProduct(basket.getProducts()), basket);
         sail.setState(StateSail.getState(StateSail.State.COMPLETE));
         sail.setDate(date);
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)+1);
         sail.setDateChangeState(c.getTime());
-        for (Buyer buyer : buyers) {
-            if (buyer.getRefId() != null)
-                statisticService.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), c.getTime(), buyer.getTracker());
-        }
+        if (buyer.getRefId() != null)
+            statisticService.saveSailStatistic(serviceBuyer.get(buyer.getRefId()), c.getTime(), buyer.getTracker());
         sailService.save(sail);
     }
 
@@ -139,7 +138,7 @@ public class GeneratorStatistic {
                 name = firstWom[r.nextInt(3)] + " " + secondWom[r.nextInt(8)] + " " + threeWom[r.nextInt(8)];
             else
                 name = firstMan[r.nextInt(3)] + " " + secondMan[r.nextInt(8)] + " " + threeMan[r.nextInt(8)];
-            double cost = ThreadLocalRandom.current().nextDouble(0, 30000);
+            BigDecimal cost = BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(0, 30000));
             serviceProduct.save(new Product(name, cost));
         }
     }

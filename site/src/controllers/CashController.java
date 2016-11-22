@@ -11,6 +11,7 @@ import service.BuyerService;
 import utils.CurrentUser;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 @Controller
 public class CashController {
@@ -27,7 +28,7 @@ public class CashController {
     @RequestMapping(value = "/user/deposit", method = RequestMethod.POST)
     public String deposit(@RequestParam("sum") Integer sum) {
         Buyer b = serviceBuyer.get(CurrentUser.getName());
-        b.setBalance(sum + b.getBalance());
+        b.setBalance(b.getBalance().add(BigDecimal.valueOf(sum.doubleValue())));
         serviceBuyer.edit(b);
         return "redirect:/user/profile";
     }

@@ -32,15 +32,14 @@ public class ReferralService {
         Collections.sort(referrals, new Comparator<Referral>() {
             @Override
             public int compare(Referral ref1, Referral ref2) {
-                // TODO: Kirill может сочтешь это более читабельным, я например так считаю. 
+                // TODO: Kirill может сочтешь это более читабельным, я например так считаю.
                 // Проверки typeSort на null нет, безопаснее в данном случае сравнить со строкой заведомо, которая заведомо not null
                 // return "desc".equals(typeSort) ?
-                return typeSort.equals("desc") ?
+                // TODO: Artyom насчёт сравнивания строки с элементом это да, я обратил на это внимание ещё когда сортировку делал. Тут просто ни разу не падало, вот
+                // я и не изменил)) Поправил и в других местах. Насчёт того что, это читабельнее - согласен
+                return "desc".equals(typeSort) ?
                         ref2.getProfit().compareTo(ref1.getProfit()) : 
                         ref1.getProfit().compareTo(ref2.getProfit());
-                
-                /*if (typeSort.equals("desc")) return ref2.getProfit().compareTo(ref1.getProfit());
-                return ref1.getProfit().compareTo(ref2.getProfit());*/
             }
         });
         return referrals;
@@ -50,9 +49,9 @@ public class ReferralService {
         Collections.sort(referrals, new Comparator<Referral>() {
             @Override
             public int compare(Referral ref1, Referral ref2) {
-                if (ref2.getCountSails() == ref1.getCountSails()) return 0;
-                if (typeSort.equals("desc")) return ref2.getCountSails() > ref1.getCountSails() ? 1 : -1;
-                return ref1.getCountSails() > ref2.getCountSails() ? 1 : -1;
+                return "desc".equals(typeSort) ?
+                        ref2.getCountSails() > ref1.getCountSails() ? 1 : -1 :
+                        ref1.getCountSails() > ref2.getCountSails() ? 1 : -1;
             }
 
         });
@@ -68,7 +67,7 @@ public class ReferralService {
     }
 
     public Referral convertToReferral(Buyer buyer) {
-        return new Referral(buyer, sailService.getProfit(buyer.getSails()));
+        return new Referral(buyer, sailService.profitFromSail(buyer.getSails()));
     }
 
     @Transactional

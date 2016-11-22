@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dao.UserDAO;
 import entity.Role;
 import entity.User;
-import utils.EncryptionString;
+import utils.HashString;
 import utils.PaginationFilter;
 
 @Service
@@ -29,18 +28,14 @@ public class UserService {
 		Role r = serviceRole.get(roleId);
 		user.setRole(r);
 		user.setEnable(true);
-		user.setPassword(EncryptionString.toMD5(user.getPassword()));
+		user.setPassword(HashString.toMD5(user.getPassword()));
 		r.setUser(user);
 		userDao.save(user);
 	}
 
 	@Transactional
 	public List<User> list(PaginationFilter pagination) {
-		List<User> list = userDao.find(pagination);
-		for (User u : list) {
-			// TODO: Kirill чтоб уж наверняка, а то вдруг Гибернейт не подтянет eager с первого раза сам
-			Hibernate.initialize(u.getRole());
-		}
+		// TODO: Kirill чтоб уж наверняка, а то вдруг Гибернейт не подтянет eager с первого раза сам ::: затуп) убрал инициализацию связей
 		return userDao.find(pagination);
 	}
 

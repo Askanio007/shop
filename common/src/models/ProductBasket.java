@@ -5,19 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import entity.Product;
 
+import java.math.BigDecimal;
+
 public class ProductBasket{
 
 	@JsonProperty("name")
 	private String name;
 
 	@JsonProperty("id")
-	private Long id;
+	private long id;
 
 	@JsonProperty("amount")
 	private int amount;
 
 	@JsonIgnore
-	private Double cost;
+	private BigDecimal cost;
 	
 	@JsonIgnore
 	private byte discount;
@@ -47,7 +49,7 @@ public class ProductBasket{
 		this.amount = count;
 	}
 
-	public void setCost(Double cost) {
+	public void setCost(BigDecimal cost) {
 		this.cost = cost;
 	}
 
@@ -64,7 +66,7 @@ public class ProductBasket{
 		return discount;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -72,7 +74,7 @@ public class ProductBasket{
 		return amount;
 	}
 
-	public Double getCost() {
+	public BigDecimal getCost() {
 		return cost;
 	}
 

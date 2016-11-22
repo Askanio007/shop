@@ -58,13 +58,12 @@ public class LoadFileUtil {
 		return checkExtension(FilenameUtils.getExtension(file.getOriginalFilename()), fileType);
 	}
 
-	//@SuppressWarnings("static-access")
 	public static String storeToFileWithOriginalName(MultipartFile file, String directoryToSave) throws IllegalStateException, IOException {
 		Path path = Paths.get(directoryToSave, file.getOriginalFilename());
 		File f = path.toFile();
 		file.transferTo(f);
-		// TODO: Kirill может вместо того чтобы суспендить ворнинг, лучше его исправить?
-		return directoryToSave + f.separator + file.getOriginalFilename();
+		// TODO: Kirill может вместо того чтобы суспендить ворнинг, лучше его исправить?  ::: Исправляю везде по коду
+		return directoryToSave + "\\" + file.getOriginalFilename();
 	}
 
 	private static boolean checkExtension(String fileName, List<String> extsList) {

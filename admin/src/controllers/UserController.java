@@ -68,7 +68,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model,SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceUser.countAll());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceUser.countAll());
 		List<User> list = serviceUser.list(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("userList", list);

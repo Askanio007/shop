@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import utils.PaginationFilter;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -80,9 +81,9 @@ public class StatisticReferralsService {
             return statDao.listByDate(buyer, pagination, date, tracker, sort);
     }
 
-    public void saveProfit(Buyer buyer, String tracker, Double profit) {
+    public void saveProfit(Buyer buyer, String tracker, BigDecimal profit) {
         StatisticReferral stat = getStatistic(buyer, new Date(), tracker);
-        stat.setProfit(stat.getProfit() + profit);
+        stat.setProfit(stat.getProfit().add(profit));
         save(stat);
     }
 

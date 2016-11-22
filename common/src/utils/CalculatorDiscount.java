@@ -3,14 +3,14 @@ package utils;
 import entity.Discount;
 import entity.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CalculatorDiscount {
 
-	public static double getCostWithDiscount(double cost, byte discount) {
-		double disc = discount * 0.01;
-		double finalCost = cost - (cost * disc);
-		return finalCost;
+	public static BigDecimal getCostWithDiscount(BigDecimal cost, byte discount) {
+		BigDecimal disc = new BigDecimal(discount * 0.01);
+		return cost.subtract(cost.multiply(disc));
 	}
 
 	public static void setNewCost(Product product, Discount discount) {

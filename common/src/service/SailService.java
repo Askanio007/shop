@@ -1,5 +1,6 @@
 package service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import javax.transaction.Transactional;
@@ -38,15 +39,7 @@ public class SailService {
 	@Autowired
 	private SoldProductService serviceSold;
 
-
-	public List<Sail> initialize(Collection<Sail> sails) {
-		for (Sail s : sails) {
-			initialize(s);
-		}
-		return (List<Sail>) sails;
-	}
-
-	// TODO: Kirill а тебе действительно нужно явно инициализировать коллекции, вроде бы во всех этих
+	// TODO: Kirill а тебе действительно нужно явно инициализировать коллекции, вроде бы во всех этих :: убрал все подобные инициализации
 	// случаях прокси что заменяют ленивые коллекции до первого вызова вполне должны справится
 	public List<Sail> initializeProducts(Collection<Sail> sails) {
 		for (Sail s : sails) {
@@ -55,17 +48,16 @@ public class SailService {
 		return (List<Sail>) sails;
 	}
 
-	public Sail initialize(Sail sail) {
-		Hibernate.initialize(sail.getBuyers());
-		Hibernate.initialize(sail.getProducts());
-		return sail;
+	// TODO: Kirill мне тут никакого реферала не видно  ::: исправил название
+	public BigDecimal profitFromSail(Sail sail, int cashBack){
+		return sail.getTotalsum().multiply(BigDecimal.valueOf(cashBack * 1.0 / 100));
 	}
 
-	public Double getProfit(Collection<Sail> sails) {
-		Double profit = 0.0;
-		for (Sail s : sails) {
-			// TODO: Kirill может как вариант их все туда сразу передать?
-			profit += serviceBuyer.profitFromReferralBySail(s, s.getCashbackPercent());
+	public BigDecimal profitFromSail(Collection<Sail> sails){ // TODO: Kirill может как вариант их все туда сразу передать? ::: создал дополнительный метод.
+		// Тот используется в других местах, где не передаётся коллекция
+		BigDecimal profit = BigDecimal.ZERO;
+		for (Sail s : sails){
+			profit.add(profitFromSail(s, s.getCashbackPercent()));
 		}
 		return profit;
 	}
@@ -80,23 +72,13 @@ public class SailService {
 	}
 
 	@Transactional
-	public void save(List<Buyer> buyers, Basket basket) {
-		Sail sail = new Sail(buyers, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
-		save(sail);
-	}
-
-	@Transactional
 	public void save(Buyer buyer, Basket basket) {
-		buyer.setBalance(buyer.getBalance() - basket.cost());
+		buyer.setBalance(buyer.getBalance().subtract(basket.cost()));
 		Sail sail = new Sail(buyer, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
-		try {
-			serviceBuyer.edit(buyer);
-			save(sail);
+		serviceBuyer.edit(buyer);
+		save(sail);
 			// TODO: Kirill и что тут ловим? и что делаем если поймали? Делаем вид что ничего не было и... барабанная дробь...
 			// GOTO "развязочка"
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void save(Sail sail) {
@@ -105,7 +87,7 @@ public class SailService {
 
 	@Transactional
 	public List<Sail> list(PaginationFilter dbFilter) {
-		return initialize(sailDao.find(dbFilter));
+		return sailDao.find(dbFilter);
 	}
 
 	@Transactional
@@ -115,7 +97,7 @@ public class SailService {
 
 	@Transactional
 	public List<Sail> allByBuyer(PaginationFilter dbFilter, Long buyerid) {
-		return initialize(sailDao.getByBuyer(dbFilter, buyerid));
+		return sailDao.getByBuyer(dbFilter, buyerid);
 	}
 
 	@Transactional
@@ -125,20 +107,19 @@ public class SailService {
 
 	@Transactional
 	public Sail find(Long sailId) {
-		return initialize(sailDao.find(sailId));
+		return sailDao.find(sailId);
 	}
 
 	@Transactional
 	public void sailComplete(Long sailId) {
 		Sail s = find(sailId);
 		s.setStateWithDate(getState(State.COMPLETE));
+		if (s.getBuyer().getRefId() == null)
+			return;
 		try {
-			for (Buyer buyer : s.getBuyers()) {
-				if (buyer.getRefId() == null) continue;
-				Buyer parent = serviceBuyer.get(buyer.getRefId());
-				serviceBuyer.accrueRevenue(parent, s);
-				serviceStatistic.saveSailStatistic(parent, new Date(), buyer.getTracker());
-			}
+			Buyer parent = serviceBuyer.get(s.getBuyer().getRefId());
+			serviceBuyer.accrueRevenue(parent, s);
+			serviceStatistic.saveSailStatistic(parent, new Date(), s.getBuyer().getTracker());
 			update(s);
 			serviceTotalSold.add(s.getProducts());
 		} catch (Exception e) {

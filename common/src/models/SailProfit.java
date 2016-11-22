@@ -4,6 +4,7 @@ import entity.Sail;
 import entity.SoldProduct;
 import view.ViewFormat;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,21 +13,19 @@ public class SailProfit {
 
     private final String strProducts;
     private final Sail sail;
-    private final Double profit;
-    private final String viewProfit;
+    private final BigDecimal profit;
 
     public SailProfit(Sail sail, List<ProductProfit> products) {
         this.sail = sail;
         this.profit = calculateProfit(products);
-        viewProfit = ViewFormat.money(this.profit);
         strProducts = buildListProductsToStr(products);
 
     }
 
-    private Double calculateProfit(List<ProductProfit> products) {
-        Double profitTemp = 0.0;
+    private BigDecimal calculateProfit(List<ProductProfit> products) {
+        BigDecimal profitTemp = BigDecimal.ZERO;
         for (ProductProfit prod : products) {
-            profitTemp += prod.getProfit();
+            profitTemp.add(prod.getProfit());
         }
         return profitTemp;
     }
@@ -48,13 +47,13 @@ public class SailProfit {
         return sail;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
     public String getViewProfit()
     {
-        return viewProfit;
+        return profit.toString();
     }
 
     public String getProducts()

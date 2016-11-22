@@ -6,6 +6,7 @@ import entity.Sail;
 import entity.SoldProduct;
 import view.ViewFormat;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -16,8 +17,7 @@ public class Referral {
     private Collection<Sail> sails;
     private BuyerInfo info;
     private String tracker;
-    private Double profit;
-    private String viewProfit;
+    private BigDecimal profit;
 
     private String sailsToString;
 
@@ -29,10 +29,9 @@ public class Referral {
         this.tracker = b.getTracker();
     }
     
-    public Referral(Buyer b, Double profit) {
+    public Referral(Buyer b, BigDecimal profit) {
         this(b);
         this.profit = profit;
-        viewProfit = ViewFormat.money(profit);
     }
     
     private Referral() {
@@ -46,7 +45,7 @@ public class Referral {
                 str.append("Date: ")
                         .append(s.getDate().toString());
                 for (SoldProduct sp : s.getProducts()) {
-                    str.append(++i)// TODO: Kirill просто вариант
+                    str.append(++i)// TODO: Kirill просто вариант ::: принял к сведению. Разобрался когда инкремент в префиксе и постфиксе
                             .append(") Name: ")
                             .append(sp.getName())
                             .append(";")
@@ -99,13 +98,12 @@ public class Referral {
         this.info = info;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
-    public void setProfit(Double profit) {
+    public void setProfit(BigDecimal profit) {
         this.profit = profit;
-        viewProfit = ViewFormat.money(profit);
     }
 
     public String getTracker() {
@@ -118,6 +116,6 @@ public class Referral {
 
     public String getViewProfit()
     {
-        return viewProfit;
+        return profit.toString();
     }
 }

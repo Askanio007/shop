@@ -47,7 +47,7 @@ public class UserController {
 	@Qualifier("passValid")
 	private Validator valid;
 
-	private static final int countRecordOnPage = 10;
+	private static final int COUNT_RECORD_ON_PAGE = 10;
 
 	@RequestMapping(value = "/user/edit", method = RequestMethod.GET)
 	public String editBuyerPage(Model model) {
@@ -60,7 +60,7 @@ public class UserController {
 	@RequestMapping(value = "/user/profile", method = RequestMethod.GET)
 	public String cabinetUser(Model model, HttpServletRequest request) {
 		Buyer user = serviceBuyer.getFullInfo(CurrentUser.getName());
-		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countByBuyer(user.getId()), countRecordOnPage);
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceSail.countByBuyer(user.getId()), COUNT_RECORD_ON_PAGE);
 		model.addAttribute("user", user);
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("sails", serviceSail.allByBuyer(viewPagination.getDBPagination(), user.getId()));
@@ -90,11 +90,12 @@ public class UserController {
 		valid.validate(password, result);
 		if (result.hasErrors())
 			return "user/changePassword";
-		if (!serviceBuyer.checkEqualsOldPasswords(serviceBuyer.get(CurrentUser.getName()).getPassword(), oldPass)) {
+		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+		if (!serviceBuyer.checkOldPasswords(buyer.getPassword(), oldPass)) {
 			request.setAttribute("validEq", "Not correct old password");
 			return "user/changePassword";
 		}
-		serviceBuyer.editPassword(serviceBuyer.get(CurrentUser.getName()), password.getNewPassword());
+		serviceBuyer.editPassword(buyer, password.getNewPassword());
 		return "redirect:/user/profile";
 	}
 

@@ -41,7 +41,7 @@ public class StatisticByDay extends AbstractExcelView {
             excelRow.createCell(1).setCellValue(report.getClickLinkAmount());
             excelRow.createCell(2).setCellValue(report.getEnterCodeAmount());
             excelRow.createCell(3).setCellValue(report.getRegistrationAmount());
-            excelRow.createCell(4).setCellValue(report.getProfit());
+            excelRow.createCell(4).setCellValue(report.getProfit().doubleValue());
         }
     }
 }

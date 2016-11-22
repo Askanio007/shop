@@ -13,7 +13,9 @@ import javax.persistence.Table;
 
 import models.ProductBasket;
 
-// TODO: Kirill на мой взгляд, если используешь какую-то ентити в hql, то лучше сразу указать явно как она будет называться
+import java.math.BigDecimal;
+
+// TODO: Kirill на мой взгляд, если используешь какую-то ентити в hql, то лучше сразу указать явно как она будет называться :: исправил в других местах
 @Entity(name = "SoldProduct")
 @Table(name = "sold_product")
 public class SoldProduct {
@@ -33,7 +35,7 @@ public class SoldProduct {
     private Integer amount;
 
     @Column(name = "cost")
-    private Double cost;
+    private BigDecimal cost;
 
     @Column(name = "discount")
     private byte discount;
@@ -77,11 +79,11 @@ public class SoldProduct {
         this.amount = amount;
     }
 
-    public Double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(Double cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 

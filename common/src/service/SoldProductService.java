@@ -23,22 +23,9 @@ public class SoldProductService {
 	@Qualifier("soldProductDao")
 	private SoldProductDAO soldProduct;
 
-
-	public void initialize(SoldProduct sProduct){
-			Hibernate.initialize(sProduct.getSail());
-			Hibernate.initialize(sProduct.getSail().getBuyers());
-	}
-	
-	public void initialize(List<SoldProduct> list){
-		for (SoldProduct product : list) {
-			initialize(product);
-		}
-	}
-
 	@Transactional
 	public List<SoldProduct> list(Product product, PaginationFilter dbPagination) {
 		List<SoldProduct> list = soldProduct.list(product,dbPagination);
-		initialize(list);
 		return list;
 	}
 
