@@ -41,9 +41,9 @@ public class ReferralDetail extends AbstractExcelView {
             excelRow.createCell(0).setCellValue(sail.getSail().getId());
             excelRow.createCell(1).setCellValue(sail.getSail().getDate());
             excelRow.createCell(2).setCellValue(sail.getProducts());
-            excelRow.createCell(3).setCellValue(sail.getSail().getTotalsum());
+            excelRow.createCell(3).setCellValue(sail.getSail().getTotalsum().doubleValue());
             excelRow.createCell(4).setCellValue(sail.getSail().getCashbackPercent());
-            excelRow.createCell(5).setCellValue(sail.getProfit());
+            excelRow.createCell(5).setCellValue(sail.getProfit().doubleValue());
         }
     }
 

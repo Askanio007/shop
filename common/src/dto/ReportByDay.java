@@ -3,6 +3,7 @@ package dto;
 import view.DateConverter;
 import view.ViewFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ReportByDay {
@@ -11,8 +12,7 @@ public class ReportByDay {
     private Long enterCodeAmount;
     private Long sailAmount;
     private Long registrationAmount;
-    private Double profit;
-    private String viewProfit;
+    private BigDecimal profit;
     private String viewDate;
     private String requestDate;
 
@@ -53,13 +53,12 @@ public class ReportByDay {
         this.registrationAmount = registrationAmount;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
-    public void setProfit(Double profit) {
+    public void setProfit(BigDecimal profit) {
         this.profit = profit;
-        viewProfit = ViewFormat.money(this.profit);
     }
 
     public Long getSailAmount() {
@@ -81,6 +80,6 @@ public class ReportByDay {
 
     public String getViewProfit()
     {
-        return viewProfit;
+        return profit.toString();
     }
 }

@@ -41,7 +41,8 @@ public class BuyController {
 	@Autowired
 	TotalSoldProductService serviceTotalSold;
 
-	private static final int countRecordOnPage = 10;
+	private static final int COUNT_RECORD_ON_PAGE = 10;
+
 
 	public static void setCountProductBasketInModel(HttpServletRequest request, Model model) {
 		Basket basket = (Basket)request.getSession().getAttribute("basket");
@@ -67,12 +68,17 @@ public class BuyController {
 	public String order(HttpServletRequest request) {
 		Basket basket = (Basket) request.getSession().getAttribute("basket");
 		Buyer b = serviceBuyer.get(CurrentUser.getName());
-		if (b.getBalance() < basket.cost())
+		if (b.getBalance().compareTo(basket.cost()) == -1)
 			return "redirect:/user/deposit";
-		serviceSail.save(b, basket);
-		// "развязочка" очищаем корзину от результатов трехчасового лазанья по сайту в поиске саааамых выгодных товаров.
-		basket.clear();
-		request.getSession().setAttribute("basket", basket);
+		try {
+			serviceSail.save(b, basket);
+			// "развязочка" очищаем корзину от результатов трехчасового лазанья по сайту в поиске саааамых выгодных товаров.
+			// TODO: Artyom вынес провреку выше, корзина теперь не очистится, пока успешно не засчитается покупка
+			basket.clear();
+			request.getSession().setAttribute("basket", basket);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "redirect:/user/profile";
 	}
 
@@ -107,7 +113,7 @@ public class BuyController {
 	
 	@RequestMapping(value = "/user/products", method = RequestMethod.GET)
 	public String productList(Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAll(), countRecordOnPage);
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceProduct.countAll(), COUNT_RECORD_ON_PAGE);
 		List<Product> productList = serviceProduct.list(viewPagination.getDBPagination());
 		Discount discount = serviceDisc.getGeneral();
 		List<Discount> activeUserDiscount = serviceDisc.listActivePrivateByBuyerId(serviceBuyer.get(CurrentUser.getName()).getId());

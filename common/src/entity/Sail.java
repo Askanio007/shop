@@ -15,7 +15,7 @@ import models.Basket;
 import utils.StateSail;
 import view.ViewFormat;
 
-@Entity
+@Entity(name = "Sail")
 @Table(name = "sail")
 public class Sail {
 
@@ -37,7 +37,7 @@ public class Sail {
 	@Column(name = "amount")
 	private Integer amount;
 
-	// TODO: Kirill для любых действий с деньгами пользоваться необходимо только BigDecimal  
+	// TODO: Kirill для любых действий с деньгами пользоваться необходимо только BigDecimal  ::: исправио везде на BigDecimal
 	@Column(name = "totalsum")
 	private BigDecimal totalsum;
 
@@ -53,13 +53,11 @@ public class Sail {
 	@NotNull
 	private Collection<SoldProduct> products;
 
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "buyer_id", nullable = false)
-	@LazyCollection(LazyCollectionOption.TRUE)
 	@NotNull
 	private Buyer buyer;// TODO: 16.10.2016 кто это? ::: Это список покупателей. Я изначально сделал так, что одна и та же покупка может быть у нескольких покупателей
-	// TODO: Kirill тогда я не понимаю что такое покупка в твоих терминах. думаю что это ерунда какая-то
+	// TODO: Kirill тогда я не понимаю что такое покупка в твоих терминах. думаю что это ерунда какая-то ::: оставил только одного покупателя
 
 	public Sail() {
 
@@ -153,11 +151,4 @@ public class Sail {
 	public int getCashbackPercent() {
 		return cashbackPercent;
 	}
-
-	public BigDecimal getViewTotalsum() {
-		return totalsum;
-	}
-
-
-
 }

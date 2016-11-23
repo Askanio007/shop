@@ -2,6 +2,7 @@ package entity;
 
 import view.ViewFormat;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,14 +35,13 @@ public class Product {
 	@Column(name = "cost")
 	@NotNull
 	@Min(1)
-	private Double cost;
+	private BigDecimal cost;
 
 	// TODO: Kirill чтобы не тиражировать ошибки дальше, так как приложение более ли менее по размеру, а будет так вообще
 	// алиэкспрес, делать будем правильно. Ентити в контроллере быть не должно. То есть учитываю что потребители твоих сервисов
 	// именно контроллеры, то грубо говоря, сервисы не возвращают ентити. Исключение, если те методы вызываются другими сервисами,
 	// однако и там можно рассмотреть конкретные случаи и скорее всего можно будет обойтись DTO объектами.
 	// Если не понятно чокак, можешь спросить поподробнее
-	private String costStr;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
@@ -50,10 +50,9 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, Double cost) {
+	public Product(String name, BigDecimal cost) {
 		this.name = name;
 		this.cost = cost;
-		costStr = ViewFormat.money(this.cost);
 	}
 
 	public void setName(String newname) {
@@ -64,9 +63,8 @@ public class Product {
 		id = productId;
 	}
 
-	public void setCost(Double newcost) {
+	public void setCost(BigDecimal newcost) {
 		cost = newcost;
-		costStr = ViewFormat.money(this.cost);
 	}
 
 	public void setPicList(List<PictureProduct> list) {
@@ -82,17 +80,12 @@ public class Product {
 		return name;
 	}
 
-	public Double getCost() {
+	public BigDecimal getCost() {
 		return cost;
 	}
 
 	public List<PictureProduct> getPicList() {
 		return picList;
-	}
-
-	public String getViewCost()
-	{
-		return costStr;
 	}
 
 }

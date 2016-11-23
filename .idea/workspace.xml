@@ -2,32 +2,58 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa83dd40-5182-4938-8a3c-8db9353a24b6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/BuyerDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/BuyerInfoDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/DiscountDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/MessageDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/PictureProductDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/ProductDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/RoleDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/SailDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/SettingsDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/SoldProductDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/StatisticReferralDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/TotalSoldProductDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/dto/UserDTO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/models/ReportByDay.java" afterPath="$PROJECT_DIR$/common/src/dto/ReportByDay.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/utils/EncryptionString.java" afterPath="$PROJECT_DIR$/common/src/utils/HashString.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/BuyerController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/BuyerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/StatisticReferralDAO.java" afterPath="$PROJECT_DIR$/common/src/dao/StatisticReferralDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dao/StatisticReferralDAOImpl.java" afterPath="$PROJECT_DIR$/common/src/dao/StatisticReferralDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/ChatController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/ChatController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/ProductController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/ProductController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/SailController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/SailController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/StatisticController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/StatisticController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/controllers/UserController.java" afterPath="$PROJECT_DIR$/admin/src/controllers/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/src/sheduler/CashbackPercent.java" afterPath="$PROJECT_DIR$/admin/src/sheduler/CashbackPercent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/dto/ReportByDay.java" afterPath="$PROJECT_DIR$/common/src/dto/ReportByDay.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Buyer.java" afterPath="$PROJECT_DIR$/common/src/entity/Buyer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Discount.java" afterPath="$PROJECT_DIR$/common/src/entity/Discount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Message.java" afterPath="$PROJECT_DIR$/common/src/entity/Message.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/PictureProduct.java" afterPath="$PROJECT_DIR$/common/src/entity/PictureProduct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Product.java" afterPath="$PROJECT_DIR$/common/src/entity/Product.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Role.java" afterPath="$PROJECT_DIR$/common/src/entity/Role.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Sail.java" afterPath="$PROJECT_DIR$/common/src/entity/Sail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/Settings.java" afterPath="$PROJECT_DIR$/common/src/entity/Settings.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/SoldProduct.java" afterPath="$PROJECT_DIR$/common/src/entity/SoldProduct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/StatisticReferral.java" afterPath="$PROJECT_DIR$/common/src/entity/StatisticReferral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/TotalSoldProduct.java" afterPath="$PROJECT_DIR$/common/src/entity/TotalSoldProduct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/entity/User.java" afterPath="$PROJECT_DIR$/common/src/entity/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/Basket.java" afterPath="$PROJECT_DIR$/common/src/models/Basket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/ProductBasket.java" afterPath="$PROJECT_DIR$/common/src/models/ProductBasket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/ProductProfit.java" afterPath="$PROJECT_DIR$/common/src/models/ProductProfit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/Referral.java" afterPath="$PROJECT_DIR$/common/src/models/Referral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/models/SailProfit.java" afterPath="$PROJECT_DIR$/common/src/models/SailProfit.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/BuyerService.java" afterPath="$PROJECT_DIR$/common/src/service/BuyerService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/GeneratorStatistic.java" afterPath="$PROJECT_DIR$/common/src/service/GeneratorStatistic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/ReferralService.java" afterPath="$PROJECT_DIR$/common/src/service/ReferralService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/ReportService.java" afterPath="$PROJECT_DIR$/common/src/service/ReportService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/SailService.java" afterPath="$PROJECT_DIR$/common/src/service/SailService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/SoldProductService.java" afterPath="$PROJECT_DIR$/common/src/service/SoldProductService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/StatisticReferralsService.java" afterPath="$PROJECT_DIR$/common/src/service/StatisticReferralsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/service/UserService.java" afterPath="$PROJECT_DIR$/common/src/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/servlets/ImageServlet.java" afterPath="$PROJECT_DIR$/common/src/servlets/ImageServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/CalculatorDiscount.java" afterPath="$PROJECT_DIR$/common/src/utils/CalculatorDiscount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/DateBuilder.java" afterPath="$PROJECT_DIR$/common/src/utils/DateBuilder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/DateFilter.java" afterPath="$PROJECT_DIR$/common/src/utils/DateFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/ExcelReportController.java" afterPath="$PROJECT_DIR$/site/src/controllers/ExcelReportController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/LoadFileUtil.java" afterPath="$PROJECT_DIR$/common/src/utils/LoadFileUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/ReferralParametersParser.java" afterPath="$PROJECT_DIR$/common/src/utils/ReferralParametersParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/utils/UploadZip.java" afterPath="$PROJECT_DIR$/common/src/utils/UploadZip.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/view/SailView.java" afterPath="$PROJECT_DIR$/common/src/view/SailView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/view/ViewPagination.java" afterPath="$PROJECT_DIR$/common/src/view/ViewPagination.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/auth/CustomAuthenticationProvider.java" afterPath="$PROJECT_DIR$/site/src/auth/CustomAuthenticationProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/BuyController.java" afterPath="$PROJECT_DIR$/site/src/controllers/BuyController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/CashController.java" afterPath="$PROJECT_DIR$/site/src/controllers/CashController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/ChatController.java" afterPath="$PROJECT_DIR$/site/src/controllers/ChatController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/controllers/UserController.java" afterPath="$PROJECT_DIR$/site/src/controllers/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/ByDayDetail.java" afterPath="$PROJECT_DIR$/site/src/excel/ByDayDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/ReferralDetail.java" afterPath="$PROJECT_DIR$/site/src/excel/ReferralDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/ReferralList.java" afterPath="$PROJECT_DIR$/site/src/excel/ReferralList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/src/excel/StatisticByDay.java" afterPath="$PROJECT_DIR$/site/src/excel/StatisticByDay.java" />
     </list>
     <ignored path="shop.iws" />
@@ -54,15 +80,59 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DateFilter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DateFilter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/src/utils/DateFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="46" column="15" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
+            <state relative-caret-position="199">
+              <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
               <folding>
-                <element signature="e#998#999#0" expanded="true" />
-                <element signature="e#1064#1065#0" expanded="true" />
+                <element signature="e#1641#1642#0" expanded="true" />
+                <element signature="e#1670#1671#0" expanded="true" />
+                <element signature="e#1766#1767#0" expanded="true" />
+                <element signature="e#1805#1806#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/utils/DateBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="867">
+              <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Buyer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/entity/Buyer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1824">
+              <caret line="50" column="65" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sail.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/entity/Sail.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1751">
+              <caret line="152" column="5" selection-start-line="152" selection-start-column="5" selection-end-line="152" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BuyerService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common/src/service/BuyerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-306">
+              <caret line="126" column="18" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,10 +157,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common/src/utils/DateBuilder.java" />
-        <option value="$PROJECT_DIR$/common/src/models/Basket.java" />
-        <option value="$PROJECT_DIR$/common/src/entity/Sail.java" />
-        <option value="$PROJECT_DIR$/common/src/entity/Buyer.java" />
         <option value="$PROJECT_DIR$/common/src/dto/ReportByDay.java" />
         <option value="$PROJECT_DIR$/common/src/dto/SailDTO.java" />
         <option value="$PROJECT_DIR$/common/src/dto/ProductDTO.java" />
@@ -108,8 +174,12 @@
         <option value="$PROJECT_DIR$/common/src/dto/MessageDTO.java" />
         <option value="$PROJECT_DIR$/admin/src/controllers/BuyerController.java" />
         <option value="$PROJECT_DIR$/common/src/dto/BuyerDTO.java" />
-        <option value="$PROJECT_DIR$/common/src/service/BuyerService.java" />
         <option value="$PROJECT_DIR$/common/src/utils/DateFilter.java" />
+        <option value="$PROJECT_DIR$/common/src/utils/DateBuilder.java" />
+        <option value="$PROJECT_DIR$/common/src/entity/Buyer.java" />
+        <option value="$PROJECT_DIR$/common/src/entity/Sail.java" />
+        <option value="$PROJECT_DIR$/common/src/models/Basket.java" />
+        <option value="$PROJECT_DIR$/common/src/service/BuyerService.java" />
       </list>
     </option>
   </component>
@@ -162,6 +232,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -230,7 +303,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -290,9 +385,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -725,11 +817,13 @@
       <workItem from="1479808820326" duration="1302000" />
       <workItem from="1479817412309" duration="774000" />
       <workItem from="1479821325492" duration="785000" />
+      <workItem from="1479896548531" duration="504000" />
+      <workItem from="1479897098234" duration="374000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13502000" />
+    <option name="totallyTimeSpent" value="14380000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -742,7 +836,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -825,13 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/utils/DateBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="28" column="142" selection-start-line="28" selection-start-column="142" selection-end-line="28" selection-end-column="142" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/src/dao/BuyerDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -909,13 +996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/models/Basket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="78" column="51" selection-start-line="78" selection-start-column="51" selection-end-line="78" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/src/view/ViewFormat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -927,7 +1007,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -963,13 +1042,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/entity/Buyer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1106,20 +1178,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/entity/Sail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1338">
-          <caret line="140" column="22" selection-start-line="140" selection-start-column="22" selection-end-line="140" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/service/BuyerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="177" column="4" selection-start-line="177" selection-start-column="4" selection-end-line="177" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/src/controllers/BuyerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1138,18 +1196,61 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/src/utils/DateFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="46" column="15" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
+        <state relative-caret-position="199">
+          <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
           <folding>
-            <element signature="e#998#999#0" expanded="true" />
-            <element signature="e#1064#1065#0" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1670#1671#0" expanded="true" />
+            <element signature="e#1766#1767#0" expanded="true" />
+            <element signature="e#1805#1806#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/utils/DateBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/entity/Buyer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1824">
+          <caret line="50" column="65" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/models/Basket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="75" column="54" selection-start-line="75" selection-start-column="54" selection-end-line="75" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/entity/Sail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1751">
+          <caret line="152" column="5" selection-start-line="152" selection-start-column="5" selection-end-line="152" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/service/BuyerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-306">
+          <caret line="126" column="18" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>

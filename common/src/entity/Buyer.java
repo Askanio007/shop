@@ -2,6 +2,7 @@ package entity;
 
 import org.hibernate.validator.constraints.Length;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
+@Entity(name = "Buyer")
 @Table(name = "buyer")
 public class Buyer {
 	
@@ -42,12 +43,12 @@ public class Buyer {
 	private String tracker;
 
 	@Column(name = "balance")
-	private Double balance;
+	private BigDecimal balance;
 
 	@Column(name = "percent_cashback")
 	private Integer percentCashback;
-	
-	@OneToMany(mappedBy = "buyers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "buyer_id")
 	private Collection<Sail> sails;
 
@@ -92,7 +93,7 @@ public class Buyer {
 		
 		private boolean enable = true;
 		private Long refId = null;
-		private Double balance = 0.0;
+		private BigDecimal balance = BigDecimal.ZERO;
 		private Integer percentCashback = 50;
 		private String tracker = null;
 		
@@ -127,7 +128,7 @@ public class Buyer {
 			return this;
 		} 
 		
-		public Builder balance(Double balance){
+		public Builder balance(BigDecimal balance){
 			this.balance = balance;
 			return this;
 		} 
@@ -178,7 +179,7 @@ public class Buyer {
 		this.refCode = refCode;
 	}
 
-	public void setBalance(Double balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
@@ -209,7 +210,7 @@ public class Buyer {
 		return percentCashback;
 	}
 
-	public Double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 

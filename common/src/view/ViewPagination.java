@@ -7,9 +7,10 @@ import utils.PaginationFilter;
 public class ViewPagination {
 
 	private static final int DEFAULT_PAGE_SIZE = 5;
+	public static final String NAME_PAGE_PARAM = "page";
 	private int currentPage;
 	private int countPage;
-	final PaginationFilter dbFilter;
+	private final PaginationFilter dbFilter;
 
 	public ViewPagination(String page, int countAllRecords, int countRecordOnPage) {
 		this.currentPage = 1;
@@ -24,15 +25,8 @@ public class ViewPagination {
 		this(page, countAllRecords, DEFAULT_PAGE_SIZE);
 	}
 
-	// TODO: Kirill на мой взгляд странно передавать сюда запрос. Чтобы подчеркнуть постоянство этого параметра,
+	// TODO: Kirill на мой взгляд странно передавать сюда запрос. Чтобы подчеркнуть постоянство этого параметра, ::: Так и сделал
 	// что тебе он нужен, лучше сделать тут строковую константу с названием параметра который тебе нужен.
-	public ViewPagination(HttpServletRequest request, int countAllRecords, int countRecordOnPage) {
-		this(request.getParameter("page"), countAllRecords, countRecordOnPage);
-	}
-
-	public ViewPagination(HttpServletRequest request, int countAllRecords) {
-		this(request, countAllRecords, DEFAULT_PAGE_SIZE);
-	}
 
 	public PaginationFilter getDBPagination() {
 		return dbFilter;

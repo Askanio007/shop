@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import service.BuyerService;
 import service.SettingsService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -23,12 +24,12 @@ public class CashbackPercent implements Runnable {
     public void run() {
         List<Buyer> buyers = serviceBuyer.list();
         for (Buyer buyer : buyers) {
-            Double profit = serviceBuyer.getProfitByLastMonth(buyer.getId());
-            if (profit > settings.minMonthProfit() && profit < settings.maxMonthProfit())
+            BigDecimal profit = serviceBuyer.getProfitByLastMonth(buyer.getId());
+            if (profit.doubleValue() > settings.minMonthProfit() && profit.doubleValue() < settings.maxMonthProfit())
                 continue;
-            if (profit < settings.minMonthProfit() && buyer.getPercentCashback() > settings.getBaseCashback())
+            if (profit.doubleValue() < settings.minMonthProfit() && buyer.getPercentCashback() > settings.getBaseCashback())
                 buyer.setPercentCashback(buyer.getPercentCashback() - 1);
-            if (profit > settings.maxMonthProfit() && buyer.getPercentCashback() < 100)
+            if (profit.doubleValue() > settings.maxMonthProfit() && buyer.getPercentCashback() < 100)
                 buyer.setPercentCashback(buyer.getPercentCashback() + 1);
             serviceBuyer.edit(buyer);
         }

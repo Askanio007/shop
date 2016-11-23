@@ -37,9 +37,11 @@ public class Basket {
 	public void addExistProduct(ProductBasket product) {
 		for (ProductBasket prod : products) {
 			// TODO: 16.10.2016 что за блажь для лонг переменных использовать equals()? ::: исправил и в других местах
-			// TODO: Kirill прошу прощения, не совсем точно... скорее совсем не точно... выразился. В классе ProductBasket тип id ссылочный Long, не
+			// TODO: Kirill прошу прощения, не совсем точно... скорее совсем не точно... выразился. ::: Исправил id в ProductBasket с Long на long.
+			// В классе ProductBasket тип id ссылочный Long, не
 			// нужен, достаточно обычного примитивного. Для ссылочного, действительно верно сравнивать equals'ом иначе
 			// ты сравниваешь ссылки а не значения.
+
 			if (prod.getId() == product.getId())
 				prod.setAmount(prod.getAmount() + product.getAmount());
 		}
@@ -71,10 +73,9 @@ public class Basket {
 	}
 
 	public BigDecimal cost() {
-		Double totalSum = 0.0;
+		BigDecimal totalSum = BigDecimal.valueOf(0.0);
 		for (ProductBasket prod : products) {
-			double cost = CalculatorDiscount.getCostWithDiscount(prod.getCost(), prod.getDiscount());
-			totalSum += (cost * prod.getAmount());
+			totalSum.add(CalculatorDiscount.getCostWithDiscount(prod.getCost(), prod.getDiscount()).multiply(new BigDecimal(""+prod.getAmount()+"")));
 		}
 		return new BigDecimal(totalSum.toString());
 	}

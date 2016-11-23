@@ -16,31 +16,32 @@ public class DateFilter {
     }
 
     public DateFilter(Date from, Date to) {
-        // TODO: Kirill да хоть null мне передавайте, я все учел!!!  
+        // TODO: Kirill да хоть null мне передавайте, я все учел!!!
         this.from = checkNullFrom(new Date(from.getTime()));
         this.to = checkNullTo(new Date(to.getTime()));
-        this.fromView = getFormatDate(this.from);
-        this.toView = getFormatDate(this.to);
+        this.fromView = formatView(this.from);
+        this.toView = formatView(this.to);
     }
 
     public DateFilter(Date day) {
-        Date reservDay = new Date(day.getTime()); // TODO: Kirill не, ну че вы сразу то....
-        this.from = DateBuilder.getDateWithoutTime(reservDay);
-        this.to = DateBuilder.endDay(reservDay);
-        this.fromView = getFormatDate(this.from);
-        this.toView = getFormatDate(this.to);
+        // TODO: Kirill не, ну че вы сразу то....  
+        this.from = new Date(DateBuilder.startDay(day).getTime());
+        this.to = new Date(DateBuilder.endDay(day).getTime());
+        // TODO: Artyom этот конструктор вызывается 1 раз и в дальнейшем объекту view поля не нужны. Решил, что можно делать так
+        this.fromView = null;
+        this.toView = null;
     }
 
-    private String getFormatDate(Date field) {
-        return DateConverter.getFormatView().format(field);
-    }
-
-    // TODO: Kirill с null все норм, но как насчет создать фильтр с дня рождения Путина до дня рождения Гитлера  
+    // TODO: Kirill с null все норм, но как насчет создать фильтр с дня рождения Путина до дня рождения Гитлера  ::: не очень понял, но сделал чтобы первый день текущего месяца отдавался
     private Date checkNullFrom(Date date) {
-        return date == null ? new Date(1) : date;
+        return date == null ? DateBuilder.firstDayCurrentMonth() : date;
     }
     private Date checkNullTo(Date date) {
         return date == null ? new Date() : date;
+    }
+
+    private String formatView(Date date) {
+        return DateConverter.getFormatView().format(date);
     }
 
     public String getFromWithoutTime() {
@@ -50,16 +51,15 @@ public class DateFilter {
     public String getToWithoutTime() {
         return toView;
     }
-
-    public Date from() {
+    public Date getFrom() {
         return (Date)from.clone();
     }
 
-    public Date to() {
+    public Date getTo() {
         return (Date)to.clone();
     }
 
-    // TODO: Kirill от сеттеров можно избавиться и написать хороший неизменяемый объект.
+    // TODO: Kirill от сеттеров можно избавиться и написать хороший неизменяемый объект. ::: сделал как по книге) усёк, что нужно стараться изолиировать от изменений изменяемые объекты.
     // А чтобы попробовать что то сделать хорошо с первого... ладно, второго раза сначала читаем то,
     // подо что ты засыпал и бросил читать... наверное
     // Joshua Bloch "Effective java 2rd edition" - chapter "Make defensive copies when needed"

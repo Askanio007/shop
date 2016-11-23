@@ -61,13 +61,9 @@ public class SailController {
 
 	}
 
-	@PostConstruct
-	public void anyNameOfMethodAsYouWishButUsually_init_or_initialize() {
-	}
-
 	@RequestMapping("/sail/all")
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countAll());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceSail.countAll());
 		List<SailView> listSailView = serviceSail.listViewSail(viewPagination.getDBPagination());
 		status.setComplete();
 		UserDetails detail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -115,7 +111,7 @@ public class SailController {
 
 	@RequestMapping("/sail/buyer/{buyerId}")
 	public String allSailByBuyer(@PathVariable("buyerId") Long buyerId, Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceSail.countByBuyer(buyerId));
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceSail.countByBuyer(buyerId));
 		List<SailView> listSailView = serviceSail.allViewSailByBuyer(viewPagination.getDBPagination(), buyerId);
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("sailview", listSailView);

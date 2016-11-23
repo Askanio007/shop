@@ -4,28 +4,28 @@ package models;
 import entity.SoldProduct;
 import view.ViewFormat;
 
+import java.math.BigDecimal;
+
 public class ProductProfit {
 
     private SoldProduct product;
-    private Double profit;
-    private final String viewProfit;
+    private BigDecimal profit;
 
     public ProductProfit(SoldProduct product, int cashbackPercent) {
         this.product = product;
-        this.profit = product.getCost() * product.getAmount() * cashbackPercent*1.0/100;
-        viewProfit = ViewFormat.money(this.profit);
+        this.profit = product.getCost().multiply(BigDecimal.valueOf(product.getAmount().doubleValue() * cashbackPercent*1.0/100));
     }
 
     public SoldProduct getProduct() {
         return product;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
     public String getViewProfit()
     {
-        return viewProfit;
+        return profit.toString();
     }
 }

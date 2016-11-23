@@ -13,7 +13,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "Discount")
 @Table(name = "discount")
 public class Discount {
 

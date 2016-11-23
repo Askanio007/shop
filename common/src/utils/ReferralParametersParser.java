@@ -6,12 +6,14 @@ import java.util.List;
 
 public class ReferralParametersParser {
 
-    // TODO: Kirill trim - Returns a string whose value is this string, with any leading and trailing whitespace removed
-    public static String[] trimParameters(String params){
+    private ReferralParametersParser() {}
+
+    // TODO: Kirill trim - Returns a string whose value is this string, with any leading and trailing whitespace removed ::: исправил на split
+    public static String[] splitParameters(String params){
         return params.trim().split("&");
     }
 
-    public static String[] trimParameter(String param){
+    public static String[] splitParameter(String param){
         return param.trim().split("=");
     }
 
@@ -21,9 +23,9 @@ public class ReferralParametersParser {
     }
 
     public static String getTracker(String params) {
-        for(String param : trimParameters(params)) {
-            if (trimParameter(param)[0].equals("tracker")){
-               return trimParameter(param)[1];
+        for(String param : splitParameters(params)) {
+            if (splitParameter(param)[0].equals("tracker")){
+               return splitParameter(param)[1];
             }
         }
         return null;

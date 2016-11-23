@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "Role")
 @Table(name = "user_role")
 public class Role {
 

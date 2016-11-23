@@ -56,7 +56,7 @@ public class ImageServlet extends HttpServlet {
 		}
 
 		if (request.getParameter("tempPic") != null) {
-			// TODO: Kirill если не избежать, то надо делать это на минимальном отрезке
+			// TODO: Kirill если не избежать, то надо делать это на минимальном отрезке ::: прошёлся по коду, исправил их как смог
 			@SuppressWarnings("unchecked")
 			List<PictureProduct> list = (List<PictureProduct>) request.getSession().getAttribute("pics");
 			String path = list.get(Integer.parseInt(request.getParameter("tempPic"))).getPath();
@@ -73,10 +73,6 @@ public class ImageServlet extends HttpServlet {
 		if (request.getParameter("avaPic") != null) {
 			String path = serviceBuyer.getPathAva(getParam(request, "avaPic"));
 			write(path, response);
-			/*if (path.equals(""))
-				write("", response);
-			else
-				write(path, response);*/
 			return;
 		}
 
@@ -91,14 +87,19 @@ public class ImageServlet extends HttpServlet {
 	public void write(String path, HttpServletResponse response) throws IOException {
 		byte[] buffer = new byte[1024];
 		int ch;
-		// TODO: Kirill exception и стрим не закроется.
+		// TODO: Kirill exception и стрим не закроется. ::: сделал отлов исключения
 		BufferedInputStream bin = new BufferedInputStream(new FileInputStream(path));
 		BufferedOutputStream bout = new BufferedOutputStream(response.getOutputStream());
-		while ((ch = bin.read(buffer)) > 0) {
-			bout.write(buffer, 0, ch);
+		try {
+			while ((ch = bin.read(buffer)) > 0) {
+				bout.write(buffer, 0, ch);
+			}
+			bin.close();
+			bout.close();
+		} catch (Exception e) {
+			bin.close();
+			bout.close();
 		}
-		bin.close();
-		bout.close();
 	}
 
 	public Long getParam(HttpServletRequest request, String nameParam) {

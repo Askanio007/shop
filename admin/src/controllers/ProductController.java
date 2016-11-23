@@ -66,7 +66,7 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/all", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request, serviceProduct.countAll());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceProduct.countAll());
 		List<Product> list = serviceProduct.list(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("productList", list);

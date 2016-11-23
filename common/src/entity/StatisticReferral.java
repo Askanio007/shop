@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -28,7 +29,7 @@ public class StatisticReferral {
     private Integer sailAmount;
 
     @Column(name = "profit")
-    private Double profit;
+    private BigDecimal profit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
@@ -62,7 +63,7 @@ public class StatisticReferral {
         private Integer regAmount = 0;
         private Integer enterCodeAmount = 0;
         private Integer sailAmount = 0;
-        private Double profit = 0.0;
+        private BigDecimal profit = BigDecimal.ZERO;
 
         public Builder(Date date, Buyer buyer, String tracker) {
             this.date = date;
@@ -90,7 +91,7 @@ public class StatisticReferral {
             return this;
         }
 
-        public StatisticReferral.Builder profit(Double profit){
+        public StatisticReferral.Builder profit(BigDecimal profit){
             this.profit = profit;
             return this;
         }
@@ -164,11 +165,11 @@ public class StatisticReferral {
         this.regAmount = regAmount;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
-    public void setProfit(Double profit) {
+    public void setProfit(BigDecimal profit) {
         this.profit = profit;
     }
 }

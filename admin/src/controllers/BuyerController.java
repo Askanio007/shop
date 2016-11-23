@@ -27,12 +27,17 @@ import view.ViewPagination;
 public class BuyerController {
 
 	@Autowired
-	private BuyerService serviceBuyer;	
+	private BuyerService serviceBuyer;
 
 	@RequestMapping(value = "/buyer/all", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
+<<<<<<< HEAD
 		ViewPagination viewPagination = new ViewPagination(request, serviceBuyer.countAll());
 		List<BuyerDTO> list = serviceBuyer.list(viewPagination.getDBPagination());
+=======
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceBuyer.countAll());
+		List<Buyer> list = serviceBuyer.list(viewPagination.getDBPagination());
+>>>>>>> 281aec9fdd0eacab9c8c854fa99c39ed3bc3d609
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("buyerList", list);
 		status.setComplete();

@@ -12,7 +12,9 @@ import javax.persistence.Table;
 
 import utils.CalculatorDiscount;
 
-@Entity
+import java.math.BigDecimal;
+
+@Entity(name = "TotalSoldProduct")
 @Table(name = "total_product_report")
 public class TotalSoldProduct {
 
@@ -26,7 +28,7 @@ public class TotalSoldProduct {
 	private Product product;
 
 	@Column(name = "total_cost")
-	private Double totalCost;
+	private BigDecimal totalCost;
 
 	@Column(name = "total_amount")
 	private Integer totalAmount;
@@ -36,15 +38,14 @@ public class TotalSoldProduct {
 
 	public TotalSoldProduct(SoldProduct soldProduct, Product product) {
 		this.product = product;
-		this.totalCost = soldProduct.getAmount()
-				* CalculatorDiscount.getCostWithDiscount(soldProduct.getCost(), soldProduct.getDiscount());
+		this.totalCost = BigDecimal.valueOf(soldProduct.getAmount().doubleValue())
+				.multiply(CalculatorDiscount.getCostWithDiscount(soldProduct.getCost(), soldProduct.getDiscount()));
 		this.totalAmount = soldProduct.getAmount();
 	}
 	
-	public void addData(SoldProduct soldProduct)
-	{
-		this.totalCost += soldProduct.getAmount()
-				* CalculatorDiscount.getCostWithDiscount(soldProduct.getCost(), soldProduct.getDiscount());
+	public void addData(SoldProduct soldProduct) {
+		this.totalCost.add(BigDecimal.valueOf(soldProduct.getAmount().doubleValue())
+				.multiply(CalculatorDiscount.getCostWithDiscount(soldProduct.getCost(), soldProduct.getDiscount())));
 		this.totalAmount += soldProduct.getAmount();
 	}
 
@@ -64,11 +65,11 @@ public class TotalSoldProduct {
 		this.product = product;
 	}
 
-	public Double getTotalCost() {
+	public BigDecimal getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(Double totalCost) {
+	public void setTotalCost(BigDecimal totalCost) {
 		this.totalCost = totalCost;
 	}
 
