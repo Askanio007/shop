@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import dto.BuyerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,7 @@ public class BuyerController {
 	@RequestMapping(value = "/buyer/all", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
 		ViewPagination viewPagination = new ViewPagination(request, serviceBuyer.countAll());
-		List<Buyer> list = serviceBuyer.list(viewPagination.getDBPagination());
+		List<BuyerDTO> list = serviceBuyer.list(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("buyerList", list);
 		status.setComplete();

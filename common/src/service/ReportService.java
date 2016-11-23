@@ -2,6 +2,7 @@ package service;
 
 import java.util.*;
 
+import dto.ReportByDay;
 import models.*;
 import utils.DateFilter;
 import utils.PaginationFilter;
@@ -10,10 +11,6 @@ import utils.SortParameterParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import entity.Buyer;
-import entity.Sail;
-import entity.SoldProduct;
 
 @Service
 public class ReportService {

@@ -4,7 +4,7 @@ import dao.StatisticReferralDAO;
 import entity.Buyer;
 import entity.StatisticReferral;
 import utils.DateFilter;
-import models.ReportByDay;
+import dto.ReportByDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

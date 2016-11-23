@@ -6,8 +6,10 @@ import java.util.Date;
 
 public class DateFilter {
 
-    private Date from;
-    private Date to;
+    private final Date from;
+    private final Date to;
+    private final String fromView;
+    private final String toView;
 
     public DateFilter() {
         this(null, null);
@@ -15,14 +17,22 @@ public class DateFilter {
 
     public DateFilter(Date from, Date to) {
         // TODO: Kirill да хоть null мне передавайте, я все учел!!!  
-        this.from = checkNullFrom(from);
-        this.to = checkNullTo(to);
+        this.from = checkNullFrom(new Date(from.getTime()));
+        this.to = checkNullTo(new Date(to.getTime()));
+        this.fromView = getFormatDate(this.from);
+        this.toView = getFormatDate(this.to);
     }
 
     public DateFilter(Date day) {
-        // TODO: Kirill не, ну че вы сразу то....  
-        this.from = DateBuilder.getDateWithoutTime(day);
-        this.to = DateBuilder.endDay(day);
+        Date reservDay = new Date(day.getTime()); // TODO: Kirill не, ну че вы сразу то....
+        this.from = DateBuilder.getDateWithoutTime(reservDay);
+        this.to = DateBuilder.endDay(reservDay);
+        this.fromView = getFormatDate(this.from);
+        this.toView = getFormatDate(this.to);
+    }
+
+    private String getFormatDate(Date field) {
+        return DateConverter.getFormatView().format(field);
     }
 
     // TODO: Kirill с null все норм, но как насчет создать фильтр с дня рождения Путина до дня рождения Гитлера  
@@ -34,27 +44,19 @@ public class DateFilter {
     }
 
     public String getFromWithoutTime() {
-        return DateConverter.getFormatView().format(this.from);
+        return fromView;
     }
 
     public String getToWithoutTime() {
-        return DateConverter.getFormatView().format(this.to);
+        return toView;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date from() {
+        return (Date)from.clone();
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
-    }
-
-    public Date getTo() {
-        return to;
-    }
-
-    public void setTo(Date to) {
-        this.to = to;
+    public Date to() {
+        return (Date)to.clone();
     }
 
     // TODO: Kirill от сеттеров можно избавиться и написать хороший неизменяемый объект.

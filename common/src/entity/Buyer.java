@@ -47,7 +47,8 @@ public class Buyer {
 	@Column(name = "percent_cashback")
 	private Integer percentCashback;
 	
-	@ManyToMany(mappedBy = "buyers", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "buyers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "buyer_id")
 	private Collection<Sail> sails;
 
 	@OneToMany(fetch = FetchType.LAZY)

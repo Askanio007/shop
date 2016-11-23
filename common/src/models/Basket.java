@@ -1,5 +1,6 @@
 package models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -69,13 +70,13 @@ public class Basket {
 		products.clear();
 	}
 
-	public Double cost() {
+	public BigDecimal cost() {
 		Double totalSum = 0.0;
 		for (ProductBasket prod : products) {
 			double cost = CalculatorDiscount.getCostWithDiscount(prod.getCost(), prod.getDiscount());
 			totalSum += (cost * prod.getAmount());
 		}
-		return totalSum;
+		return new BigDecimal(totalSum.toString());
 	}
 
 }

@@ -2,13 +2,12 @@ package dao;
 
 import entity.Buyer;
 import entity.StatisticReferral;
-import models.ReportByDay;
+import dto.ReportByDay;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.transform.*;
 import org.springframework.stereotype.Repository;
 import utils.DateBuilder;
-import view.DateConverter;
 import utils.DateFilter;
 import utils.PaginationFilter;
 

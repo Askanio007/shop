@@ -4,7 +4,7 @@ import entity.Buyer;
 import service.*;
 import utils.DateFilter;
 import models.Referral;
-import models.ReportByDay;
+import dto.ReportByDay;
 import models.SailProfit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

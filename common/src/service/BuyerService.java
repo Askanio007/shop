@@ -1,6 +1,7 @@
 package service;
 
 import dao.BuyerDAO;
+import dto.BuyerDTO;
 import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
@@ -127,10 +128,14 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public List<Buyer> list(PaginationFilter dbPagination) {
+	public List<BuyerDTO> list(PaginationFilter dbPagination) {
 		List<Buyer> buyers = buyerDao.find(dbPagination);
+		List<BuyerDTO> buyersDTO = new ArrayList<>();
 		initialize(buyers);
-		return buyers;
+		for (Buyer buyer : buyers) {
+			buyersDTO.add(new BuyerDTO(buyer));
+		}
+		return buyersDTO;
 	}
 
 	@Transactional

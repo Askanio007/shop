@@ -2,7 +2,7 @@ package dao;
 
 import entity.Buyer;
 import entity.StatisticReferral;
-import models.ReportByDay;
+import dto.ReportByDay;
 import utils.DateFilter;
 import utils.PaginationFilter;
 
