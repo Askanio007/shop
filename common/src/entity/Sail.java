@@ -42,7 +42,8 @@ public class Sail {
 	private BigDecimal totalsum;
 
 	@Column(name = "state")
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private StateSail state;
 
 	@Column(name = "cashback_percent")
 	private Integer cashbackPercent;
@@ -70,7 +71,7 @@ public class Sail {
 		this.amount = basket.countProducts();
 		this.totalsum = basket.cost();
 		this.date = new Date();
-		setStateWithDate(StateSail.getState(StateSail.State.SENT));
+		setStateWithDate(StateSail.SENT);
 	}
 
 	public void setDate(Date date) {
@@ -93,12 +94,12 @@ public class Sail {
 		this.buyer = buyer;
 	}
 
-	public void setStateWithDate(String state) {
+	public void setStateWithDate(StateSail state) {
 		this.state = state;
 		this.dateChangeState = new Date();
 	}
 
-	public void setState(String state) {
+	public void setState(StateSail state) {
 		this.state = state;
 	}
 
@@ -120,7 +121,7 @@ public class Sail {
 		return dateChangeState;
 	}
 
-	public String getState() {
+	public StateSail getState() {
 		return state;
 	}
 

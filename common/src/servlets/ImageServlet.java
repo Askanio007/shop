@@ -87,16 +87,13 @@ public class ImageServlet extends HttpServlet {
 	public void write(String path, HttpServletResponse response) throws IOException {
 		byte[] buffer = new byte[1024];
 		int ch;
-		// TODO: Kirill exception и стрим не закроется. ::: сделал отлов исключения
+		// TODO: Kirill exception и стрим не закроется. ::: добавил блок finally
 		BufferedInputStream bin = new BufferedInputStream(new FileInputStream(path));
 		BufferedOutputStream bout = new BufferedOutputStream(response.getOutputStream());
 		try {
-			while ((ch = bin.read(buffer)) > 0) {
+			while ((ch = bin.read(buffer)) > 0)
 				bout.write(buffer, 0, ch);
-			}
-			bin.close();
-			bout.close();
-		} catch (Exception e) {
+		} finally {
 			bin.close();
 			bout.close();
 		}

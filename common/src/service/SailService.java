@@ -16,9 +16,8 @@ import entity.Buyer;
 import entity.Sail;
 import utils.DateFilter;
 import utils.PaginationFilter;
-import utils.StateSail.*;
+import utils.StateSail;
 import view.SailView;
-import static utils.StateSail.getState;
 
 @Service
 public class SailService {
@@ -67,7 +66,7 @@ public class SailService {
 		sail.setTotalsum(basket.cost());
 		sail.setAmount(basket.countProducts());
 		sail.setProducts(serviceSold.convertToSoldProduct(basket.getProducts()));
-		sail.setStateWithDate(getState(State.SENT));
+		sail.setStateWithDate(StateSail.SENT);
 		save(sail);
 	}
 
@@ -113,7 +112,7 @@ public class SailService {
 	@Transactional
 	public void sailComplete(Long sailId) {
 		Sail s = find(sailId);
-		s.setStateWithDate(getState(State.COMPLETE));
+		s.setStateWithDate(StateSail.COMPLETE);
 		if (s.getBuyer().getRefId() == null)
 			return;
 		try {
@@ -130,7 +129,7 @@ public class SailService {
 	@Transactional
 	public void sailConflict(Long sailId) {
 		Sail sail = find(sailId);
-		sail.setStateWithDate(getState(State.CONFLICT));
+		sail.setStateWithDate(StateSail.CONFLICT);
 		update(sail);
 	}
 

@@ -5,15 +5,13 @@ import java.util.Map;
 
 public class FilterTotalSoldProduct {
 	
-	private Long id;
+	private long id;
 	
 	private String name;
 
 	private Map<String, Object> params = new HashMap<>();
 
-
-
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -37,13 +35,12 @@ public class FilterTotalSoldProduct {
 
 	public void setId(Long id) {
 		this.id = id;
-		if (id != null)
-			params.put("id", id);
+		params.put("id", id);
 	}
 
 	public void setName(String name) {
 		this.name = name;
-		if (name != "")
+		if ("".equals(name))
 			params.put("product.name", name);
 	}
 }

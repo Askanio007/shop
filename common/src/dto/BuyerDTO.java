@@ -27,7 +27,7 @@ public class BuyerDTO {
 
     private String tracker;
 
-    private double balance;
+    private BigDecimal balance;
 
     private int percentCashback;
 
@@ -41,16 +41,116 @@ public class BuyerDTO {
 
     private BuyerDTO() {}
 
-    public BuyerDTO(Buyer buyer) {
-        this.id = buyer.getId();
-        this.name = buyer.getName();
-        this.password = buyer.getPassword();
-        this.enable = buyer.getEnable();
-        this.dateReg = buyer.getDateReg();
-        this.refId = buyer.getRefId();
-        this.refCode = buyer.getRefCode();
-        this.tracker = buyer.getTracker();
-        this.balance = buyer.getBalance();
-        this.percentCashback = buyer.getPercentCashback();
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public void setDateReg(Date dateReg) {
+        this.dateReg = dateReg;
+    }
+
+    public void setRefId(long refId) {
+        this.refId = refId;
+    }
+
+    public void setRefCode(String refCode) {
+        this.refCode = refCode;
+    }
+
+    public void setTracker(String tracker) {
+        this.tracker = tracker;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void setPercentCashback(int percentCashback) {
+        this.percentCashback = percentCashback;
+    }
+
+    public void setSails(Collection<SailDTO> sails) {
+        this.sails = sails;
+    }
+
+    public void setClicks(Collection<StatisticReferralDTO> clicks) {
+        this.clicks = clicks;
+    }
+
+    public void setInfo(BuyerInfoDTO info) {
+        this.info = info;
+    }
+
+    public void setReferrals(Collection<BuyerDTO> referrals) {
+        this.referrals = referrals;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public Date getDateReg() {
+        return dateReg;
+    }
+
+    public long getRefId() {
+        return refId;
+    }
+
+    public String getRefCode() {
+        return refCode;
+    }
+
+    public String getTracker() {
+        return tracker;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public int getPercentCashback() {
+        return percentCashback;
+    }
+
+    public Collection<SailDTO> getSails() {
+        return sails;
+    }
+
+    public Collection<StatisticReferralDTO> getClicks() {
+        return clicks;
+    }
+
+    public BuyerInfoDTO getInfo() {
+        return info;
+    }
+
+    public Collection<BuyerDTO> getReferrals() {
+        return referrals;
     }
 }

@@ -6,6 +6,7 @@ import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
 import org.hibernate.Hibernate;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,6 @@ public class BuyerService {
 
 	@Autowired
 	private StatisticReferralsService statisticService;
-
 
 	@Transactional
 	public void edit(Buyer buyer) {
@@ -115,13 +115,9 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public List<BuyerDTO> list(PaginationFilter dbPagination) {
+	public List<Buyer> list(PaginationFilter dbPagination) {
 		List<Buyer> buyers = buyerDao.find(dbPagination);
-		List<BuyerDTO> buyersDTO = new ArrayList<>();
-		for (Buyer buyer : buyers) {
-			buyersDTO.add(new BuyerDTO(buyer));
-		}
-		return buyersDTO;
+		return buyers;
 	}
 
 	@Transactional

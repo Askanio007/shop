@@ -1,5 +1,7 @@
 package dto;
 
+import entity.BuyerInfo;
+
 public class BuyerInfoDTO {
 
     private Long id;
@@ -14,4 +16,8 @@ public class BuyerInfoDTO {
 
     private BuyerDTO buyer;
 
+    private BuyerInfoDTO(BuyerInfo info) {
+
+
+    }
 }

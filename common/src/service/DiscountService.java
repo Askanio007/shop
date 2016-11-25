@@ -25,7 +25,7 @@ public class DiscountService {
 	public void save(Discount dsc, String notice) {
 		try {
 			save(dsc);
-			serviceChat.addFromSystem(notice, dsc.getBuyer().getId());
+			serviceChat.sendFromSystem(notice, dsc.getBuyer());
 		}
 		catch(Exception e) {
 			e.printStackTrace();

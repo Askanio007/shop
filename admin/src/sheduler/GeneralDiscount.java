@@ -35,7 +35,7 @@ public class GeneralDiscount implements Runnable {
 				serviceDisc.edit(discount);
 			}
 			String text = discount.getDiscount() + "% discount on the " + product.getName();
-			serviceChat.addFromSystem(text, null);
+			serviceChat.sendAll(text);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

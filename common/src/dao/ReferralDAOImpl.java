@@ -4,7 +4,7 @@ import entity.Buyer;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.*;
 import utils.DateBuilder;
-import view.DateConverter;
+import utils.StateSail;
 import utils.DateFilter;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +12,7 @@ import utils.PaginationFilter;
 
 import java.util.Date;
 import java.util.List;
-
 import static org.hibernate.criterion.Restrictions.*;
-import static utils.StateSail.getState;
-import utils.StateSail.*;
 
 @Repository("referralDao")
 public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDAO {
@@ -23,7 +20,7 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
     @Override
     public Buyer find(Long referId, PaginationFilter pagination, DateFilter sailDate, String sort) {
         Criteria crit = createCriteria()
-                    .add(eq("sail.state", getState(State.COMPLETE)))
+                    .add(eq("sail.state", StateSail.COMPLETE))
                     .add(between("sail.dateChangeState",sailDate.getFrom(), sailDate.getTo()))
                     .add(eq("id", referId));
         associatedLeftJoin(crit, "this.sails", "sail");
@@ -48,7 +45,7 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
     public List<Buyer> findByDateRegistration(Buyer buyer, PaginationFilter pagination, DateFilter sailDate, DateFilter date, String tracker, String sort) {
         Criteria crit = createCriteria()
                     .add(eq("refId", buyer.getId()))
-                    .add(eq("sail.state", getState(State.COMPLETE)))
+                    .add(eq("sail.state", StateSail.COMPLETE))
                     .add(between("sail.dateChangeState",sailDate.getFrom(), sailDate.getTo()))
                     .add(between("dateReg", date.getFrom(), date.getTo()));
         if (!tracker.equals(""))
@@ -68,7 +65,7 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
                                 between("dateReg", day, DateBuilder.endDay(day)),
                                 conjunction(
                                         between("sail.dateChangeState", day, DateBuilder.endDay(day)),
-                                        eq("sail.state", getState(State.COMPLETE))
+                                        eq("sail.state",StateSail.COMPLETE)
                                 ))
                 );
         if (!"".equals(tracker))
@@ -89,7 +86,7 @@ public class ReferralDAOImpl extends GeneralDAOImpl<Buyer> implements ReferralDA
                                 between("dateReg", date, DateBuilder.endDay(date)),
                                 conjunction(
                                         between("sail.dateChangeState", date, DateBuilder.endDay(date)),
-                                        eq("sail.state", getState(State.COMPLETE))
+                                        eq("sail.state", StateSail.COMPLETE)
                                 ))
                 )
                 .setProjection(

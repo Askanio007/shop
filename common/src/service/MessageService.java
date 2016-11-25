@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 
+import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import dao.MessageDAO;
 import entity.Buyer;
 import entity.Message;
 import utils.PaginationFilter;
+import utils.Sender;
 import view.ChatView;
 
 @Service
@@ -34,20 +36,14 @@ public class MessageService {
 			return null;
 		List<ChatView> viewChat = new ArrayList<>();
 		for (Message c : list) {
-			if (c.getFrom() == null) {
-				viewChat.add(new ChatView(c, "SYSTEM"));
-				continue;
+			switch (c.getSender()) {
+				case SUPPORT:
+					viewChat.add(new ChatView(c, "Admin"));
+				case BUYER:
+					viewChat.add(new ChatView(c, buyer.getName()));
+				case SYSTEM:
+					viewChat.add(new ChatView(c, "SYSTEM"));
 			}
-
-			if (c.getFrom() == 0) {
-				viewChat.add(new ChatView(c, "Admin"));
-				continue;
-			}
-			if (c.getFrom() != 0 && c.getFrom() != null) {
-				viewChat.add(new ChatView(c, buyer.getName()));
-				continue;
-			}
-
 		}
 		return viewChat;
 	}
@@ -65,26 +61,31 @@ public class MessageService {
 	// То есть как то непонятно, кто же клиента на хрен послал. Ну это предложение к улучшени твоей системы сообщений
 
 	@Transactional
-	public void addToAdmin(String message, Long from) {
-		create(message, from, (long) 0);
+	public void sendFromBuyer(String message, Buyer buyer) {
+		create(message, buyer, null, Sender.BUYER);
 	}
 
 	@Transactional
-	public void addFromAdmin(String message, Long to) {
-		create(message, (long) 0, to);
+	public void sendFromAdmin(String message, Buyer buyer, User support) {
+		create(message, buyer, support, Sender.SUPPORT);
 	}
 
 	@Transactional
-	public void addFromSystem(String message, Long to) {
-		create(message, null, to);
-	}
-
-	private void create(String message, Long from, Long to) {
-		messageDao.save(new Message(from, to, message, new Date()));
+	public void sendFromSystem(String message, Buyer buyer) {
+		create(message, buyer, null, Sender.SYSTEM);
 	}
 
 	@Transactional
-	public List<Message> getChat(PaginationFilter dbFilter, Buyer buyer) {
+	public void sendAll(String text) {
+		create(text, null, null, Sender.SYSTEM);
+	}
+
+	private void create(String message, Buyer buyer, User support, Sender sender) {
+		messageDao.save(new Message(support, buyer, message, new Date(), sender));
+	}
+
+	@Transactional
+	private List<Message> getChat(PaginationFilter dbFilter, Buyer buyer) {
 		return messageDao.getChat(dbFilter, buyer);
 	}
 

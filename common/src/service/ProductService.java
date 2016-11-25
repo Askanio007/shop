@@ -6,8 +6,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 import javax.transaction.Transactional;
 
 import org.hibernate.Hibernate;
@@ -33,13 +31,13 @@ public class ProductService {
 	@Autowired
 	private SettingsService setting;
 
-	public void deleteFromDisk(List<PictureProduct> pics) {
+	private void deleteFromDisk(List<PictureProduct> pics) {
 		for (PictureProduct pic : pics) {
 			deleteFromDisk(pic);
 		}
 	}
 
-	public void deleteFromDisk(PictureProduct pic) {
+	private void deleteFromDisk(PictureProduct pic) {
 		try {
 			Files.delete(Paths.get(pic.getPath()));
 		} catch (IOException e) {
@@ -47,13 +45,13 @@ public class ProductService {
 		}
 	}
 
-	public void initialize(List<Product> products) {
+	private void initialize(List<Product> products) {
 		for (Product p : products) {
 			initialize(p);
 		}
 	}
 
-	public void initialize(Product product) {
+	private void initialize(Product product) {
 		Hibernate.initialize(product.getPicList());
 	}
 

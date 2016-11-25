@@ -1,6 +1,8 @@
 package service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import dto.ReportByDay;
 import models.*;
@@ -25,27 +27,20 @@ public class ReportService {
 	private StatisticReferralsService serviceReferralStatistic;
 	
 	public List<SailProfit> sortBySailProfit (List<SailProfit> list, final String type){
-		Collections.sort(list, new Comparator<SailProfit>() {
-            @Override
-            public int compare(SailProfit sail1, SailProfit sail2) {
-                if (sail2.getProfit() == sail1.getProfit()) return 0;
-                if (type.equals("desc")) return sail2.getProfit().compareTo(sail1.getProfit()) ;
-                return sail1.getProfit().compareTo(sail2.getProfit());
-            }
-        });
-		return list;
+        Stream<SailProfit> sails = list.stream();
+        return "desc".equals(type) ?
+                sails.sorted((sail1, sail2) -> sail2.getProfit().compareTo(sail1.getProfit())).collect(Collectors.toList()) :
+                sails.sorted((sail1, sail2) -> sail1.getProfit().compareTo(sail2.getProfit())).collect(Collectors.toList());
 	}
 
     public List<ReportByDay> sortByDailyProfit (List<ReportByDay> list, final String type){
-        Collections.sort(list, new Comparator<ReportByDay>() {
-            @Override
-            public int compare(ReportByDay report1, ReportByDay report2) {
-                if (report2.getProfit() == report1.getProfit()) return 0;
-                if (type.equals("desc")) return report2.getProfit().compareTo(report1.getProfit());
-                return report1.getProfit().compareTo(report2.getProfit());
-            }
-        });
-        return list;
+        // Тут нет дублирования Collectors.toList(), но мне нравится верхний вариант
+        Stream<ReportByDay> reports = list.stream();
+        if("desc".equals(type))
+            reports.sorted((rep1, rep2) -> rep2.getProfit().compareTo(rep1.getProfit()));
+        else
+            reports.sorted((rep1, rep2) -> rep1.getProfit().compareTo(rep2.getProfit()));
+        return reports.collect(Collectors.toList());
     }
 
     @Transactional

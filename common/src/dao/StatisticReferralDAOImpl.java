@@ -22,9 +22,9 @@ public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> 
 
     @Override
     public StatisticReferral byDay(Buyer buyer, Date date, String tracker) {
-        Date dateWithoutTime = DateBuilder.getDateWithoutTime(date);
+        Date start = DateBuilder.startDay(date);
         Criteria crit = createCriteria()
-                    .add(between("date", dateWithoutTime, DateBuilder.endDay(date)))
+                    .add(between("date", start, DateBuilder.endDay(date)))
                     .add(eq("buyer", buyer));
 
         if (tracker == null)
@@ -35,7 +35,7 @@ public class StatisticReferralDAOImpl extends GeneralDAOImpl<StatisticReferral> 
         Object stat = crit.uniqueResult();
         if (stat != null)
             return (StatisticReferral) stat;
-        return new StatisticReferral.Builder(dateWithoutTime,buyer,tracker).build();
+        return new StatisticReferral.Builder(start,buyer,tracker).build();
     }
 
     @Override

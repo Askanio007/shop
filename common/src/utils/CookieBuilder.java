@@ -24,10 +24,10 @@ public class CookieBuilder {
     }
 
     private static List<Cookie> referralParams(String params) {
-        String[] parameters = ReferralParametersParser.trimParameters(params);
+        String[] parameters = ReferralParametersParser.splitParameters(params);
         List<Cookie> cookies = new ArrayList<>();
         for (int i = 1; i < parameters.length; i++) {
-            String[] nameAndValue = ReferralParametersParser.trimParameter(parameters[i]);
+            String[] nameAndValue = ReferralParametersParser.splitParameter(parameters[i]);
             cookies.add(new Cookie(nameAndValue[0], nameAndValue[1]));
         }
         return setMaxAge(cookies);

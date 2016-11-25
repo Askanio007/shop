@@ -1,13 +1,10 @@
 package entity;
 
+import utils.Sender;
+
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "Message")
 @Table(name = "chat")
@@ -18,11 +15,13 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "sender")
-	private Long from;
+	@ManyToOne
+	@JoinColumn(name = "support_id")
+	private User user;
 
-	@Column(name = "recipient")
-	private Long to;
+	@ManyToOne
+	@JoinColumn(name = "buyer_id")
+	private Buyer buyer;
 
 	@Column(name = "text")
 	private String text;
@@ -30,22 +29,35 @@ public class Message {
 	@Column(name = "date")
 	private Date date;
 
+	@Column(name = "who_write")
+	@Enumerated(EnumType.STRING)
+	private Sender sender;
+
 	private Message() {
 	}
 
-	public Message(Long from, Long to, String message, Date date) {
-		this.from = from;
-		this.to = to;
+	public Message(User user, Buyer buyer, String message, Date date, Sender sender) {
+		this.user = user;
+		this.buyer = buyer;
 		this.text = message;
 		this.date = date;
+		this.sender = sender;
 	}
 
-	public void setFrom(Long from) {
-		this.from = from;
+	public User getUser() {
+		return user;
 	}
 
-	public void setTo(Long to) {
-		this.to = to;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Buyer getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(Buyer buyer) {
+		this.buyer = buyer;
 	}
 
 	public void setText(String text) {
@@ -60,14 +72,6 @@ public class Message {
 		return id;
 	}
 
-	public Long getFrom() {
-		return from;
-	}
-
-	public Long getTo() {
-		return to;
-	}
-
 	public String getText() {
 		return text;
 	}
@@ -76,4 +80,11 @@ public class Message {
 		return date;
 	}
 
+	public Sender getSender() {
+		return sender;
+	}
+
+	public void setSender(Sender sender) {
+		this.sender = sender;
+	}
 }

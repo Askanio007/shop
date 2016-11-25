@@ -1,18 +1,18 @@
 package utils;
-
-public class StateSail {
-
-    public enum State {
+    public enum StateSail {
         SENT, COMPLETE, CONFLICT
     }
 
     // I know about enum.name()
     // TODO: 16.10.2016 тогда объясни смысл этой невероятной задумки приносящей лишь дополнительный гемморой ::: Если изменится название статусов в базе, то надо будет только тут поменять
     // TODO: Kirill тогда для справки посмотри какие есть варианты работы с енумами для работы с базой через гибернейт
-    public static String getState(State state) {
+
+
+
+/* public static State getState(State state) {
         switch (state) {
             case SENT:
-                return "SENT";
+                return State.SENT;
             case COMPLETE:
                 return "COMPLETE";
             case CONFLICT:
@@ -20,5 +20,5 @@ public class StateSail {
             default:
                 return null;
         }
-    }
-}
+    }*/
+

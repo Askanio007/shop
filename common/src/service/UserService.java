@@ -54,4 +54,9 @@ public class UserService {
 		return userDao.getByRole(r);
 	}
 
+	@Transactional
+	public User find(String name) {
+		return userDao.get(name);
+	}
+
 }

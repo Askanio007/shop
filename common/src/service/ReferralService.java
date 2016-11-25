@@ -12,6 +12,8 @@ import utils.PaginationFilter;
 import utils.SortParameterParser;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ReferralService {
@@ -28,34 +30,26 @@ public class ReferralService {
 
 
     public List<Referral> sortByProfit(List<Referral> referrals, final String typeSort) {
-        // TODO: Kirill и восьмая джава должна тут подкорректировать что-нибудь  
-        Collections.sort(referrals, new Comparator<Referral>() {
-            @Override
-            public int compare(Referral ref1, Referral ref2) {
-                // TODO: Kirill может сочтешь это более читабельным, я например так считаю.
-                // Проверки typeSort на null нет, безопаснее в данном случае сравнить со строкой заведомо, которая заведомо not null
-                // return "desc".equals(typeSort) ?
-                // TODO: Artyom насчёт сравнивания строки с элементом это да, я обратил на это внимание ещё когда сортировку делал. Тут просто ни разу не падало, вот
-                // я и не изменил)) Поправил и в других местах. Насчёт того что, это читабельнее - согласен
-                return "desc".equals(typeSort) ?
-                        ref2.getProfit().compareTo(ref1.getProfit()) : 
-                        ref1.getProfit().compareTo(ref2.getProfit());
-            }
-        });
-        return referrals;
+
+        Stream<Referral> referral = referrals.stream();
+        return "desc".equals(typeSort) ?
+                referral.sorted((refer1, refer2) -> refer2.getProfit().compareTo(refer1.getProfit())).collect(Collectors.toList()) :
+                referral.sorted((refer1, refer2) -> refer1.getProfit().compareTo(refer2.getProfit())).collect(Collectors.toList());
+
+        // TODO: Kirill и восьмая джава должна тут подкорректировать что-нибудь ::: переделал со стримами. В классе ReportService немного по-другому выглядит, хз как лучше.
+        // TODO: Kirill может сочтешь это более читабельным, я например так считаю.
+        // Проверки typeSort на null нет, безопаснее в данном случае сравнить со строкой заведомо, которая заведомо not null
+        // return "desc".equals(typeSort) ?
+        // TODO: Artyom насчёт сравнивания строки с элементом это да, я обратил на это внимание ещё когда сортировку делал. Тут просто ни разу не падало, вот
+        // я и не изменил)) Поправил и в других местах. Насчёт того что, это читабельнее - согласен
     }
 
     public List<Referral> sortByCountSail(List<Referral> referrals, final String typeSort) {
-        Collections.sort(referrals, new Comparator<Referral>() {
-            @Override
-            public int compare(Referral ref1, Referral ref2) {
-                return "desc".equals(typeSort) ?
-                        ref2.getCountSails() > ref1.getCountSails() ? 1 : -1 :
-                        ref1.getCountSails() > ref2.getCountSails() ? 1 : -1;
-            }
 
-        });
-        return referrals;
+        Stream<Referral> referral = referrals.stream();
+        return "desc".equals(typeSort) ?
+                referral.sorted((refer1, refer2) -> Long.compare(refer2.getCountSails(), refer1.getCountSails())).collect(Collectors.toList()) :
+                referral.sorted((refer1, refer2) -> Long.compare(refer1.getCountSails(), refer2.getCountSails())).collect(Collectors.toList());
     }
 
     public List<Referral> convertToReferral(List<Buyer> buyers) {

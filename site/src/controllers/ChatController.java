@@ -39,7 +39,7 @@ public class ChatController {
 
 	@RequestMapping(value = "/user/addMessage", method = RequestMethod.POST)
 	public String addMessage(@RequestParam("message") String text) {
-		serviceChat.addToAdmin(text, serviceBuyer.get(CurrentUser.getName()).getId());
+		serviceChat.sendFromBuyer(text, serviceBuyer.get(CurrentUser.getName()));
 		return "redirect:/user/chat";
 	}
 

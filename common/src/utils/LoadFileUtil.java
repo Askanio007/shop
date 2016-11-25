@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import entity.PictureProduct;
 import org.apache.commons.io.FilenameUtils;
@@ -19,26 +16,18 @@ public class LoadFileUtil {
 		IMAGE, ARCHIVE
 	}
 
-	private static List<String> acceptedImageExts;
-	private static List<String> acceptedArchiveExts;
-	private static List<String> acceptedExts;
+	private static Set<String> acceptedImageExts;
+	private static Set<String> acceptedArchiveExts;
+	private static Set<String> acceptedExts;
 
 	static {
 		// TODO: Kirill вот тебе еще варианты конструкций
-		/*List<String> imageExts = new ArrayList<>();
-		imageExts.add("jpg");
-		imageExts.add("png");
-		acceptedImageExts = Collections.unmodifiableList(imageExts);*/
-		acceptedImageExts = Collections.unmodifiableList(Arrays.asList("jpg", "png"));
 
-		List<String> archiveExts = new ArrayList<>();
-		archiveExts.add("zip");
-		acceptedArchiveExts = Collections.unmodifiableList(archiveExts);
-
-		List<String> exts = new ArrayList<>();
-		exts.addAll(acceptedImageExts);
-		exts.addAll(acceptedArchiveExts);
-		acceptedExts = Collections.unmodifiableList(exts);
+		acceptedImageExts = new HashSet<>(Arrays.asList("png", "jpg"));
+		acceptedArchiveExts = new HashSet<>(Arrays.asList("zip"));
+		acceptedExts = new HashSet<>();
+		acceptedExts.addAll(acceptedImageExts);
+		acceptedExts.addAll(acceptedArchiveExts);
 
 		// TODO: Kirill а вообще погляди как используются эти списки, е для этих цедей есть более подходящая конструкция
 	}
@@ -66,7 +55,7 @@ public class LoadFileUtil {
 		return directoryToSave + "\\" + file.getOriginalFilename();
 	}
 
-	private static boolean checkExtension(String fileName, List<String> extsList) {
+	private static boolean checkExtension(String fileName, Set<String> extsList) {
 		return extsList.contains(fileName);
 	}
 

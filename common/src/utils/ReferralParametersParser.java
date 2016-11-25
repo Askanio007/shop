@@ -1,14 +1,10 @@
 package utils;
 
-import javax.servlet.http.Cookie;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ReferralParametersParser {
 
     private ReferralParametersParser() {}
 
-    // TODO: Kirill trim - Returns a string whose value is this string, with any leading and trailing whitespace removed ::: исправил на split
+    // TODO: Kirill trim - Returns a string whose value is this string, with any leading and trailing whitespace removed ::: исправил имена методов на split
     public static String[] splitParameters(String params){
         return params.trim().split("&");
     }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import entity.Buyer;
 import utils.DateBuilder;
+import utils.StateSail;
 import view.DateConverter;
 
 import static utils.StateSail.*;
@@ -36,9 +37,9 @@ public class BuyerDAOImpl extends GeneralDAOImpl<Buyer>implements BuyerDAO {
 	@Override
 	public List<Buyer> getActiveByDate(Date date) {
 		return createQuery("from Buyer as buyer left join fetch buyer.sails as sail where sail.dateChangeState between :dateFrom and :dateTo and sail.state = :state")
-				.setTimestamp("dateFrom", DateBuilder.getDateWithoutTime(date))
+				.setTimestamp("dateFrom", DateBuilder.startDay(date))
 				.setTimestamp("dateTo", DateBuilder.endDay(date))
-				.setString("state", getState(State.COMPLETE))
+				.setParameter("state", StateSail.COMPLETE)
 				.list();
 	}
 }

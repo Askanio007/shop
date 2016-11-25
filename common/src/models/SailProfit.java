@@ -32,7 +32,7 @@ public class SailProfit {
 
     private String buildListProductsToStr(List<ProductProfit> products) {
         StringBuilder str = new StringBuilder();
-        // TODO: Kirill к сведению - такая еще штука есть String.join() и вообще для работы
+        // TODO: Kirill к сведению - такая еще штука есть String.join() и вообще для работы ::: А стоит ли использовать сторонние библотеки, если для моих целей хватает и этой?
         // со строками есть всякие либы типа apache StringUtils
         for (ProductProfit product : products) {
             str.append(product.getProduct().getName())

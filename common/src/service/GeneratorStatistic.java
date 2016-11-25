@@ -110,7 +110,7 @@ public class GeneratorStatistic {
     @Transactional
     public void addGenericUserSail(Buyer buyer, Basket basket, Date date) {
         Sail sail = new Sail(buyer, soldProductService.convertToSoldProduct(basket.getProducts()), basket);
-        sail.setState(StateSail.getState(StateSail.State.COMPLETE));
+        sail.setState(StateSail.COMPLETE);
         sail.setDate(date);
         Calendar c = Calendar.getInstance();
         c.setTime(date);

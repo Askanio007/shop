@@ -22,11 +22,7 @@ public class Basket {
 	}
 
 	public int countProducts() {
-		int count = 0;
-		for (ProductBasket product : products) {
-			count = count + product.getAmount();
-		}
-		return count;
+		return products.stream().mapToInt((p) -> p.getAmount()).sum();
 	}
 
 

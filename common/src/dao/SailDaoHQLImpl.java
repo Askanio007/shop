@@ -56,7 +56,7 @@ public class SailDaoHQLImpl extends GeneralDAOImpl<Sail>implements SailDaoInterf
 		Criteria crit = createCriteria()
 				.createAlias("this.buyers", "buyer")
 				.add(eq("buyer.id", buyerId))
-				.add(eq("state", StateSail.getState(StateSail.State.COMPLETE)))
+				.add(eq("state", StateSail.COMPLETE))
 				.add(between("dateChangeState",sailDate.getFrom(), sailDate.getTo()));
 		if (filter != null)
 			addPagination(crit, filter);

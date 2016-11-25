@@ -17,8 +17,8 @@ public class DateFilter {
 
     public DateFilter(Date from, Date to) {
         // TODO: Kirill да хоть null мне передавайте, я все учел!!!
-        this.from = checkNullFrom(new Date(from.getTime()));
-        this.to = checkNullTo(new Date(to.getTime()));
+        this.from = new Date(checkNullFrom(from).getTime());
+        this.to = new Date(checkNullTo(to).getTime());
         this.fromView = formatView(this.from);
         this.toView = formatView(this.to);
     }
@@ -47,14 +47,12 @@ public class DateFilter {
     public String getFromWithoutTime() {
         return fromView;
     }
-
     public String getToWithoutTime() {
         return toView;
     }
     public Date getFrom() {
         return (Date)from.clone();
     }
-
     public Date getTo() {
         return (Date)to.clone();
     }
