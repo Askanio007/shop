@@ -7,7 +7,7 @@ import utils.PaginationFilter;
 public class ViewPagination {
 
 	private static final int DEFAULT_PAGE_SIZE = 5;
-	public static final String NAME_PAGE_PARAM = "page";
+	public static final String NAME_PARAM_PAGE = "page";
 	private int currentPage;
 	private int countPage;
 	private final PaginationFilter dbFilter;

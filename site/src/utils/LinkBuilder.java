@@ -1,12 +1,12 @@
 package utils;
 
-import entity.Buyer;
+import dto.BuyerDto;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class LinkBuilder {
 
-    public static String buildReferralLink(Buyer buyer, String tracker, String ancor, HttpServletRequest request) {
+    public static String buildReferralLink(BuyerDto buyer, String tracker, String ancor, HttpServletRequest request) {
         StringBuffer str = new StringBuffer(20);
         str.append(buildRootDomain(request));
         str.append("/site/reg/");

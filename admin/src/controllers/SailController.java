@@ -2,9 +2,12 @@ package controllers;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import dto.ProductDto;
+import dto.RoleDto;
+import dto.SailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,9 +26,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import converter.JsonConverter;
-import entity.Product;
-import entity.Role;
-import entity.Sail;
 import models.Basket;
 import service.BuyerService;
 import service.DiscountService;
@@ -63,27 +63,27 @@ public class SailController {
 
 	@RequestMapping("/sail/all")
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceSail.countAll());
-		List<SailView> listSailView = serviceSail.listViewSail(viewPagination.getDBPagination());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceSail.countAll());
+		List<SailDto> sails = serviceSail.listDto(viewPagination.getDBPagination());
 		status.setComplete();
 		UserDetails detail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Role role = serviceRole.getByUserName(detail.getUsername());
+		RoleDto role = serviceRole.getDtoByUserName(detail.getUsername());
 		model.addAttribute("role", role);
 		model.addAttribute("pagination", viewPagination);
-		model.addAttribute("sailView", listSailView);
+		model.addAttribute("sailView", SailView.convertSail(sails));
 		return "sail/allsail";
 	}
 
 	@RequestMapping(value = "/sail/add", method = RequestMethod.GET)
 	public String add(Model model) {
-		model.addAttribute("buyerList", serviceBuyer.list());
-		model.addAttribute("productList", serviceProduct.list());
-		model.addAttribute("sail", new Sail());
+		model.addAttribute("buyerList", serviceBuyer.listDto());
+		model.addAttribute("productList", serviceProduct.listDto());
+		model.addAttribute("sail", new SailDto());
 		return "sail/addsail";
 	}
 
 	@RequestMapping(value = "/sail/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("sail") @Valid Sail sail, BindingResult result, HttpServletRequest request) {
+	public String add(@ModelAttribute("sail") @Valid SailDto sail, BindingResult result, HttpServletRequest request) {
 		if (result.hasErrors()) {
 			return "redirect:/sail/add";
 		}
@@ -111,11 +111,11 @@ public class SailController {
 
 	@RequestMapping("/sail/buyer/{buyerId}")
 	public String allSailByBuyer(@PathVariable("buyerId") Long buyerId, Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceSail.countByBuyer(buyerId));
-		List<SailView> listSailView = serviceSail.allViewSailByBuyer(viewPagination.getDBPagination(), buyerId);
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceSail.countByBuyer(buyerId));
+		List<SailDto> listDto = serviceSail.allDtoByBuyer(viewPagination.getDBPagination(), buyerId);
 		model.addAttribute("pagination", viewPagination);
-		model.addAttribute("sailview", listSailView);
-		model.addAttribute("buyer", serviceBuyer.get(buyerId));
+		model.addAttribute("sailview", SailView.convertSail(listDto));
+		model.addAttribute("buyer", serviceBuyer.getDto(buyerId));
 		return "sail/sailbybuyer";
 	}
 
@@ -124,7 +124,7 @@ public class SailController {
 	public @ResponseBody List<String> addProductInSail(@RequestParam(value = "amount") String count,
 													   @RequestParam(value = "idprod") String idprod,
 													   HttpServletRequest request) throws JsonProcessingException {
-		Product newProd = serviceProduct.get(Long.parseLong(idprod));
+		ProductDto newProd = serviceProduct.getDto(Long.parseLong(idprod));
 		int amount = Integer.parseInt(count);
 		Basket basket = (Basket)request.getSession().getAttribute("buyerProdList");
 		if (basket == null)

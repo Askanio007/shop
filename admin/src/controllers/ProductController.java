@@ -1,11 +1,14 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import dto.BuyerDto;
+import dto.DiscountDto;
+import dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import entity.Buyer;
 import entity.Discount;
-import entity.PictureProduct;
-import entity.Product;
 import service.BuyerService;
 import service.DiscountService;
 import service.ProductService;
-import service.SettingsService;
 import utils.LoadFileUtil;
-import utils.LoadFileUtil.FileType;
 import view.ViewPagination;
-import utils.UploadZip;
 
 @Controller
 @SessionAttributes({ "pics", "infoMessage" })
@@ -66,40 +64,38 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/all", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceProduct.countAll());
-		List<Product> list = serviceProduct.list(viewPagination.getDBPagination());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceProduct.countAll());
+		List<ProductDto> list = serviceProduct.listDto(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("productList", list);
-		model.addAttribute("product", new Product());
 		status.setComplete();
 		return "product/allproduct";
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
 	public String add(Model model) {
-		model.addAttribute("product", new Product());
+		model.addAttribute("product", new ProductDto());
 		return "product/addproduct";
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
+	public String add(@ModelAttribute("product") @Valid ProductDto product, BindingResult result, HttpServletRequest request) {
 		if (result.hasErrors())
 			return "product/addproduct";
 
 		Object listPics =  request.getSession().getAttribute("pics");
 		if (listPics != null) {
-			product.setPicList((List<PictureProduct>) listPics);
+			product.setPicPath((List<String>) listPics);
 		}
-		serviceProduct.save(product);
+		serviceProduct.save(product.convertToEntity());
 		request.getSession().setAttribute("infoMessage", "Add succes!");
 		return "redirect:/product/all";
 	}
 
 	@RequestMapping("/product/delete")
 	public String delete(HttpServletRequest request) {
-		Product prod = serviceProduct.get(Long.parseLong(request.getParameter("id")));
-		serviceProduct.remove(prod);
+		serviceProduct.remove(Long.parseLong(request.getParameter("id")));
 		request.getSession().setAttribute("infoMessage", "Delete succes!");
 		return "redirect:/product/all";
 	}
@@ -107,10 +103,10 @@ public class ProductController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/edit/{productId}", method = RequestMethod.GET)
 	public String edit(@PathVariable("productId") Long productId, Model model, HttpServletRequest request) {
-		Product prod = serviceProduct.get(productId);
+		ProductDto prod = serviceProduct.getDto(productId);
 		Object pics = request.getSession().getAttribute("pics");
 		if (pics != null) {
-			prod.setPicList((List<PictureProduct>) pics);
+			prod.setPicPath((List<String>) pics);
 			model.addAttribute("pic", pics);
 		}
 		model.addAttribute("product", prod);
@@ -119,12 +115,12 @@ public class ProductController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/product/edit/{productId}", method = RequestMethod.POST)
-	public String edit(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
+	public String edit(@ModelAttribute("product") @Valid ProductDto product, BindingResult result, HttpServletRequest request) {
 		if (result.hasErrors())
 			return "product/edit";
 		Object pics = request.getSession().getAttribute("pics");
 		if (pics != null) {
-			product.setPicList((List<PictureProduct>) pics);
+			product.setPicPath((List<String>) pics);
 		}
 		serviceProduct.edit(product);
 		request.getSession().setAttribute("infoMessage", "Edit success!");
@@ -133,18 +129,17 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/addDiscount", method = RequestMethod.GET)
 	public String addDiscount(Model model, HttpServletRequest request) {
-		model.addAttribute("buyers", serviceBuyer.list());
+		model.addAttribute("buyers", serviceBuyer.listDto());
 		model.addAttribute("product", Long.parseLong(request.getParameter("id")));
-		model.addAttribute("disc", new Discount());
+		model.addAttribute("disc", new DiscountDto());
 		return "product/addDiscount";
 	}
 
 	@RequestMapping(value = "/product/addDiscount", method = RequestMethod.POST)
-	public String addDiscount(@ModelAttribute("disc") Discount disc, @RequestParam("buyerName") String name) {
-		Buyer buyer = serviceBuyer.get(name);
-		disc.setBuyer(buyer);
-		String text = disc.getDiscount() + "% discount on the " + serviceProduct.get(disc.getProductId()).getName() + " special for you, Mr. "
-				+ buyer.getName();
+	public String addDiscount(@ModelAttribute("disc") DiscountDto disc, @RequestParam("buyerName") String name) {
+		disc.setNameBuyer(name);
+		String text = disc.getDiscount() + "% discount on the " + serviceProduct.getDto(disc.getProductId()).getName() + " special for you, Mr. "
+				+ name;
 		serviceDisc.save(disc, text);
 		return "redirect:/product/all";
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import dto.BuyerDTO;
+import dto.BuyerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +31,8 @@ public class BuyerController {
 
 	@RequestMapping(value = "/buyer/all", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model, SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceBuyer.countAll());
-		List<Buyer> list = serviceBuyer.list(viewPagination.getDBPagination());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceBuyer.countAll());
+		List<BuyerDto> list = serviceBuyer.listDto(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("buyerList", list);
 		status.setComplete();
@@ -48,17 +48,16 @@ public class BuyerController {
 
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.GET)
 	public String edit(@PathVariable("buyerId") Long buyerId, Model model) {
-		Buyer buyer = serviceBuyer.get(buyerId);
+		BuyerDto buyer = serviceBuyer.getDto(buyerId);
 		model.addAttribute("buyer", buyer);
-		model.addAttribute("buyerInfo", buyer.getInfo());
 		return "buyer/edit";
 	}
 
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.POST)
-	public String edit(@ModelAttribute("buyerInfo") @Valid BuyerInfo buyerInfo,@PathVariable("buyerId") Long buyerId, HttpServletRequest request, BindingResult result, Model model) {
+	public String edit(@ModelAttribute("buyerEdit") @Valid BuyerDto buyerDto, BindingResult result, Model model) {
 		if (result.hasErrors())
 			return "buyer/edit";
-		serviceBuyer.edit(buyerId, buyerInfo, request.getParameter("active") == null);
+		serviceBuyer.edit(buyerDto);
 		model.addAttribute("infoMessage", "Edit success");
 		return "redirect:/buyer/all";
 	}

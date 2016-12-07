@@ -15,7 +15,7 @@ import entity.PictureProduct;
 public class UploadZip {
 
 	// TODO: Kirill серьезно, шеф, завязывай ::: завязываю
-	public static List<PictureProduct> getPicFromArchive(List<PictureProduct> newListPic, String dir, MultipartFile file)
+	public static List<String> getPicFromArchive(List<String> newListPic, String dir, MultipartFile file)
 	{
 		byte[] buffer = new byte[1024];
 		int len;
@@ -29,7 +29,7 @@ public class UploadZip {
 				while ((len = zis.read(buffer)) > 0)
 					fos.write(buffer, 0, len);
 				fos.close();
-				newListPic.add(new PictureProduct(dir+"\\"+ze.getName()));
+				newListPic.add(dir+"\\"+ze.getName());
 				ze = zis.getNextEntry();
 			}
 			zis.closeEntry();

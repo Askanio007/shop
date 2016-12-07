@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collection;
 
+import dto.SailDto;
 import entity.Buyer;
 import entity.Sail;
 import entity.SoldProduct;
@@ -15,16 +16,14 @@ public class SailView {
 	private String date;
 	private Integer amount;
 	private BigDecimal totalSum;
-	private Collection <SoldProduct> products;
-	private Buyer buyer;
+	private String buyerName;
 
 
-	public SailView(Sail sail) {
+	public SailView(SailDto sail) {
 		this.date = DateConverter.getFormatView().format(sail.getDate());
 		this.id = sail.getId();
 		this.amount = sail.getAmount();
-		this.buyer = sail.getBuyer();
-		this.products = sail.getProducts();
+		this.buyerName = sail.getBuyerName();
 		this.totalSum = sail.getTotalsum();
 	}
 
@@ -44,19 +43,14 @@ public class SailView {
 		return totalSum;
 	}
 
-	// TODO: Kirill это коллекция ентитей
-	public Collection<SoldProduct> getProducts() {
-		return products;
-	}
-
-	// TODO: Kirill и это
-	public Buyer getBuyer() {
-		return buyer;
+	// TODO: Kirill и это ::: Убрал отсюда энтити
+	public String getBuyerName() {
+		return buyerName;
 	}
 	
-	public static List<SailView> convertSail(List<Sail> sails) {
+	public static List<SailView> convertSail(List<SailDto> sails) {
 		List<SailView> list = new ArrayList<>();
-		for (Sail s : sails) {
+		for (SailDto s : sails) {
 			list.add(new SailView(s));
 		}
 		return list;

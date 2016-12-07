@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.transaction.Transactional;
 
+import dto.BuyerDto;
+import dto.SailDto;
 import models.*;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +64,8 @@ public class SailService {
 	}
 
 	@Transactional
-	public void save(Sail sail, Basket basket) {
+	public void save(SailDto sailDto, Basket basket) {
+		Sail sail = convertToEntity(sailDto);
 		sail.setTotalsum(basket.cost());
 		sail.setAmount(basket.countProducts());
 		sail.setProducts(serviceSold.convertToSoldProduct(basket.getProducts()));
@@ -71,8 +74,23 @@ public class SailService {
 	}
 
 	@Transactional
-	public void save(Buyer buyer, Basket basket) {
-		buyer.setBalance(buyer.getBalance().subtract(basket.cost()));
+	public Sail convertToEntity(SailDto sailDto) {
+		Sail sail = new Sail();
+		sail.setDate(sailDto.getDate());
+		sail.setDateChangeState(sailDto.getDateChangeState());
+		sail.setBuyer(serviceBuyer.get(sailDto.getBuyerName()));
+		sail.setAmount(sailDto.getAmount());
+		sail.setCashbackPercent(sailDto.getCashbackPercent());
+		sail.setStateWithDate(sailDto.getState());
+		sail.setTotalsum(sailDto.getTotalsum());
+		return sail;
+	}
+
+
+	@Transactional
+	public void save(BuyerDto buyerDto, Basket basket) {
+		Buyer buyer = serviceBuyer.get(buyerDto.getId());
+		buyer.setBalance(buyerDto.getBalance().subtract(basket.cost()));
 		Sail sail = new Sail(buyer, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
 		serviceBuyer.edit(buyer);
 		save(sail);
@@ -85,13 +103,13 @@ public class SailService {
 	}
 
 	@Transactional
-	public List<Sail> list(PaginationFilter dbFilter) {
+	private List<Sail> list(PaginationFilter dbFilter) {
 		return sailDao.find(dbFilter);
 	}
 
 	@Transactional
-	public List<SailView> listViewSail(PaginationFilter dbFilter) {
-		return SailView.convertSail(list(dbFilter));
+	public List<SailDto> listDto(PaginationFilter dbFilter) {
+		return SailDto.convertToDto(list(dbFilter));
 	}
 
 	@Transactional
@@ -100,13 +118,15 @@ public class SailService {
 	}
 
 	@Transactional
-	public List<SailView> allViewSailByBuyer(PaginationFilter dbFilter, Long buyerid) {
-		return SailView.convertSail(allByBuyer(dbFilter, buyerid));
+	public List<SailDto> allDtoByBuyer(PaginationFilter dbFilter, Long buyerid) {
+		return SailDto.convertToDto(allByBuyer(dbFilter, buyerid));
 	}
 
 	@Transactional
 	public Sail find(Long sailId) {
-		return sailDao.find(sailId);
+		Sail sail = sailDao.find(sailId);
+		Hibernate.initialize(sail.getBuyer());
+		return sail;
 	}
 
 	@Transactional

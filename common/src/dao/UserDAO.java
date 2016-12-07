@@ -8,6 +8,6 @@ import entity.User;
 public interface UserDAO extends GeneralDAO<User>  {
 	
 	User get(String name);
-	List<User> getByRole(Role role);
+	List<User> getByRole(long roleId);
 
 }

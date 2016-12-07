@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import dto.ProductDto;
 import entity.Product;
 import utils.CalculatorDiscount;
 
@@ -43,7 +45,7 @@ public class Basket {
 		}
 	}
 
-	public void addProduct(Product product, int amount, byte discount) {
+	public void addProduct(ProductDto product, int amount, byte discount) {
 		ProductBasket prod = new ProductBasket(product, amount, discount);
 		if (isProductInBasket(prod)) {
 			addExistProduct(prod);
@@ -60,7 +62,7 @@ public class Basket {
 		}
 	}
 
-	public void addProduct(Product product, int amount) {
+	public void addProduct(ProductDto product, int amount) {
 		products.add(new ProductBasket(product, amount, (byte)0));
 	}
 

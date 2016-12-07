@@ -37,7 +37,7 @@
 				<c:when test="${user.enable eq true }"><td>Active</td></c:when>
 				<c:otherwise><td>Disable</td></c:otherwise>
 				</c:choose>				
-				<td>${user.role.role}</td>
+				<td>${user.role}</td>
 				<td><a href="delete?id=${user.id}">Delete</a></td>
 			</tr>
 		</c:forEach>	

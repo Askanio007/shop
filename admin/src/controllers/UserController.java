@@ -1,10 +1,11 @@
 package controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.RoleDto;
+import dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import entity.Role;
-import entity.User;
 import service.*;
-import sheduler.StartShedulerHandler;
 import view.ViewPagination;
 
 @Controller
@@ -46,21 +44,20 @@ public class UserController {
 			return "info";
 		}
 		UserDetails detail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Role role = serviceRole.getByUserName(detail.getUsername());
+		RoleDto role = serviceRole.getDtoByUserName(detail.getUsername());
 		model.addAttribute("user", role.getInfo());
 		return "info";
 	}
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
 	public String add(Model model) {
-		model.addAttribute("user", new User());
-		List<Role> list = serviceRole.getAll();
-		model.addAttribute("roles",list);
+		model.addAttribute("user", new UserDto());
+		model.addAttribute("roles",serviceRole.getAllDto());
 	return "user/add";
 	}
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("user") User user,HttpServletRequest request) {
+	public String add(@ModelAttribute("user") UserDto user,HttpServletRequest request) {
 		Long roleId = Long.parseLong(request.getParameter("role"));
 		serviceUser.save(user, roleId);
 	return "redirect:/user/list";
@@ -68,8 +65,8 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model,SessionStatus status) {
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceUser.countAll());
-		List<User> list = serviceUser.list(viewPagination.getDBPagination());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceUser.countAll());
+		List<UserDto> list = serviceUser.listDto(viewPagination.getDBPagination());
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("userList", list);
 		status.setComplete();
@@ -84,29 +81,28 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/listRole", method = RequestMethod.GET)
-	public String edit(Model model) {
-		List<Role> roles = serviceRole.getAll();
+	public String list(Model model) {
+		List<RoleDto> roles = serviceRole.getAllDto();
 		model.addAttribute("roles", roles);
 	return "user/listRole";
 	}
 	
 	@RequestMapping(value = "/user/editRole", method = RequestMethod.GET)
 	public String edit(@RequestParam("id") Long id, Model model) {
-		model.addAttribute("role", serviceRole.get(id));
-	return "user/editRole";
+		model.addAttribute("role", serviceRole.getDto(id));
+		return "user/editRole";
 	}
 	
 	@RequestMapping(value = "/user/editRole", method = RequestMethod.POST)
-	public String edit(@ModelAttribute("role") Role role) {
-	role.setUsers(serviceUser.allByRole(role));
-	serviceRole.edit(role);
-	return "redirect:/user/listRole";
+	public String edit(@ModelAttribute("role") RoleDto role) {
+		serviceRole.edit(role);
+		return "redirect:/user/listRole";
 	}
 
 	@RequestMapping(value = "/generateBuyer", method = RequestMethod.GET)
 	public String generateBuyer() {
 		generatorService.generateBuyer();
-	return "redirect:/info";
+		return "redirect:/info";
 	}
 
 	@RequestMapping(value = "/generateRef", method = RequestMethod.GET)

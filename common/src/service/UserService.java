@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,19 +25,31 @@ public class UserService {
 	private RoleService serviceRole;
 
 	@Transactional
-	public void save(User user, Long roleId) {
-		Role r = serviceRole.get(roleId);
-		user.setRole(r);
-		user.setEnable(true);
-		user.setPassword(HashString.toMD5(user.getPassword()));
-		r.setUser(user);
+	public void save(UserDto userDto, Long roleId) {
+		Role role = serviceRole.get(roleId);
+		User user = convertToEntity(userDto, role);
+		role.setUser(user);
 		userDao.save(user);
+	}
+
+	private User convertToEntity(UserDto dto, Role role) {
+		User user = new User();
+		user.setEnable(true);
+		user.setName(dto.getName());
+		user.setPassword(HashString.toMD5(dto.getPassword()));
+		user.setRole(role);
+		return user;
 	}
 
 	@Transactional
 	public List<User> list(PaginationFilter pagination) {
 		// TODO: Kirill чтоб уж наверняка, а то вдруг Гибернейт не подтянет eager с первого раза сам ::: затуп) убрал инициализацию связей
 		return userDao.find(pagination);
+	}
+
+	@Transactional
+	public List<UserDto> listDto(PaginationFilter pagination) {
+		return UserDto.convertToDto(list(pagination));
 	}
 
 	@Transactional
@@ -50,8 +63,8 @@ public class UserService {
 	}
 	
 	@Transactional
-	public List<User> allByRole(Role r) {
-		return userDao.getByRole(r);
+	public List<User> allByRole(long roleId) {
+		return userDao.getByRole(roleId);
 	}
 
 	@Transactional

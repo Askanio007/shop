@@ -35,9 +35,9 @@
 			</tr>
 			<tr>
 				<c:if test="${empty pic}">
-					<c:forEach items="${product.picList}" var="pic">
+					<c:forEach items="${product.picPath}" var="pic">
 						<th><img
-							src="<%=request.getContextPath()%>/img?pic=${pic.picId}"
+							src="<%=request.getContextPath()%>/img?pic=${pic}"
 							width="120" height="120" /></th>
 					</c:forEach>
 				</c:if>

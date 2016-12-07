@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import dto.ProductDto;
 import entity.Product;
 
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class ProductBasket{
 
 	}
 
-	public ProductBasket(Product product, int amount, byte discount) {
+	public ProductBasket(ProductDto product, int amount, byte discount) {
 		this.id = product.getId();
 		this.name = product.getName();
 		this.cost = product.getCost();

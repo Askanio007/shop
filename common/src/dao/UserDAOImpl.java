@@ -18,9 +18,9 @@ public class UserDAOImpl extends GeneralDAOImpl<User> implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getByRole(Role role) {
+	public List<User> getByRole(long roleId) {
 		return createQuery("from User where role.id = :id")
-					.setLong("id", role.getId())
+					.setLong("id",roleId)
 					.list();
 	}
 }

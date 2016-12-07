@@ -26,10 +26,8 @@ public class CashController {
     }
 
     @RequestMapping(value = "/user/deposit", method = RequestMethod.POST)
-    public String deposit(@RequestParam("sum") Integer sum) {
-        Buyer b = serviceBuyer.get(CurrentUser.getName());
-        b.setBalance(b.getBalance().add(BigDecimal.valueOf(sum.doubleValue())));
-        serviceBuyer.edit(b);
+    public String deposit(@RequestParam("sum") BigDecimal sum) {
+        serviceBuyer.changeBalance(CurrentUser.getName(), sum);
         return "redirect:/user/profile";
     }
 }

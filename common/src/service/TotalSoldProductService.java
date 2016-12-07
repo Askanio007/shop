@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import dto.TotalSoldProductDto;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,10 +46,12 @@ public class TotalSoldProductService {
 	@Transactional
 	public List<TotalSoldProduct> list(PaginationFilter pagination, String sort, FilterTotalSoldProduct paramFilter) {
 		List<TotalSoldProduct> list = totalProductDao.find(pagination,paramFilter,sort);
-		for (TotalSoldProduct t : list) {
-			Hibernate.initialize(t.getProduct());
-		}
 		return list;
+	}
+
+	@Transactional
+	public List<TotalSoldProductDto> listDto(PaginationFilter pagination, String sort, FilterTotalSoldProduct paramFilter) {
+		return TotalSoldProductDto.convertToDto(totalProductDao.find(pagination,paramFilter,sort));
 	}
 
 	@Transactional

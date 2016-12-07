@@ -23,7 +23,7 @@ public class SailDaoHQLImpl extends GeneralDAOImpl<Sail>implements SailDaoInterf
 	private static final String COUNT_COMPLETE_SAIL_BY_DATE =
 			"select count(sail) " +
 					"from Sail sail inner join " +
-					"sail.buyers buyer " +
+					"sail.buyer buyer " +
 					"where " +
 					"buyer.id = :id and " +
 					"sail.state = 'COMPLETE' and " +
@@ -31,16 +31,16 @@ public class SailDaoHQLImpl extends GeneralDAOImpl<Sail>implements SailDaoInterf
 
 	@Override
 	public int countByBuyer(Long buyerId) {
-		return asInt(createQuery("select count(*) from Sail sail inner join sail.buyers as buy where buy.id = :buyerid")
-					.setLong("buyerid", buyerId)
+		return asInt(createQuery("select count(*) from Sail sail inner join sail.buyer as buy where buy.id = :buyerId")
+					.setLong("buyerId", buyerId)
 					.uniqueResult());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sail> getByBuyer(PaginationFilter filter, Long buyerId) {
-		Query q = createQuery("from Sail as sail inner join fetch sail.buyers as buy where buy.id = :buyerid")
-				.setLong("buyerid", buyerId);
+		Query q = createQuery("from Sail as sail inner join fetch sail.buyer as buy where buy.id = :buyerId")
+				.setLong("buyerId", buyerId);
 		return addPagination(q, filter).list();
 	}
 
@@ -54,7 +54,7 @@ public class SailDaoHQLImpl extends GeneralDAOImpl<Sail>implements SailDaoInterf
 	@Override
 	public List<Sail> completedByDate(Long buyerId, PaginationFilter filter, DateFilter sailDate, String sort) {
 		Criteria crit = createCriteria()
-				.createAlias("this.buyers", "buyer")
+				.createAlias("this.buyer", "buyer")
 				.add(eq("buyer.id", buyerId))
 				.add(eq("state", StateSail.COMPLETE))
 				.add(between("dateChangeState",sailDate.getFrom(), sailDate.getTo()));

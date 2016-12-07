@@ -40,15 +40,15 @@
 			</tr>
 			<tr>
 				<td>Second Name</td>
-				<td>${user.info.secondName}</td>
+				<td>${user.secondName}</td>
 			</tr>
 			<tr>
 				<td>Age</td>
-				<td>${user.info.age}</td>
+				<td>${user.age}</td>
 			</tr>
 			<tr>
 				<td>Phone</td>
-				<td>${user.info.phone}</td>
+				<td>${user.phone}</td>
 			</tr>
 			<tr>
 				<td>who invited</td>
@@ -79,15 +79,10 @@
 				<th colspan="2" >Action</th>
 			</tr>
 			<c:forEach items="${sails}" var="sails">
-				<tr>
-					<td width="100"><c:forEach items="${sails.products}"
-							var="productList">
-							<c:out value="${productList.name}" />
-							<br>
-						</c:forEach></td>
+				<tr><a href="#">view</a> </td>
 					<td>${sails.date}</td>
 					<td>${sails.amount}</td>
-					<td>${sails.viewTotalsum}</td>
+					<td>${sails.totalsum}</td>
 					<td>${sails.state}</td>
 					<c:if test="${sails.state eq 'SENT'}">
 					<td><a href="deliveredSail?id=${sails.id}">Delivered</a></td>

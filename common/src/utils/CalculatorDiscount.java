@@ -1,5 +1,7 @@
 package utils;
 
+import dto.DiscountDto;
+import dto.ProductDto;
 import entity.Discount;
 import entity.Product;
 
@@ -13,30 +15,30 @@ public class CalculatorDiscount {
 		return cost.subtract(cost.multiply(disc));
 	}
 
-	public static void setNewCost(Product product, Discount discount) {
-		if (product.getId().equals(discount.getProductId()))
+	public static void setNewCost(ProductDto product, DiscountDto discount) {
+		if (product.getId() == discount.getProductId())
 			product.setCost(getCostWithDiscount(product.getCost(), discount.getDiscount()));
 	}
 	
-	public static void calculateGeneralDiscount(List<Product> products, Discount discount) {
+	public static void calculateGeneralDiscount(List<ProductDto> products, DiscountDto discount) {
 		if (discount != null) {
-			if (discount.getProductId() != null) {
+			if (discount.getProductId() != 0) {
 				calculate(products, discount);
 			}
 		}
 	}
 
-	public static void calculatePrivateDiscount(List<Product> products, List<Discount> discounts) {
+	public static void calculatePrivateDiscount(List<ProductDto> products, List<DiscountDto> discounts) {
 		if (discounts.isEmpty())
 			return;
-		for (Discount discount : discounts) {
+		for (DiscountDto discount : discounts) {
 			calculate(products, discount);
 		}
 	}
 
-	private static void calculate(List<Product> products, Discount discount) {
-		for (Product product : products) {
-			if (product.getId().equals(discount.getProductId())) {
+	private static void calculate(List<ProductDto> products, DiscountDto discount) {
+		for (ProductDto product : products) {
+			if (product.getId() == discount.getProductId()) {
 				setNewCost(product, discount);
 				break;
 			}

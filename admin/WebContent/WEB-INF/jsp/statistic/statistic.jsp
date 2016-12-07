@@ -101,10 +101,10 @@
 					<c:forEach items="${soldProducts}" var="soldProduct">
 			<tr>
 				<td>${soldProduct.id}</td>
-				<td>${soldProduct.product.name}</td>
+				<td>${soldProduct.productName}</td>
 				<td>${soldProduct.totalCost}</td>
 				<td>${soldProduct.totalAmount}</td>
-				<td><a href="#" onclick="viewBuyer(${soldProduct.product.id})">buyer list</a>
+				<td><a href="#" onclick="viewBuyer(${soldProduct.productId})">buyer list</a>
 				</td>
 					</tr>
 		</c:forEach>

@@ -34,17 +34,9 @@
 				<tr>
 					<td>${sail.id}</td>
 					<td><c:out value="${sail.dateStr}" /></td>
-					<td>
-						<c:forEach items="${sail.products}" var="productList">
-							<c:out value="${productList.name}" /><br>
-						</c:forEach>
-					</td>
 					<td>${sail.amount}</td>
 					<td>${sail.totalSum}</td>
-					<td><c:forEach items="${sail.buyers}" var="buyer">
-				${buyer.name}
-				</c:forEach>
-					</td>
+					<td>${sail.buyerName}</td>
 					<td><a href="delete?id=${sail.id}">Delete</a></td>
 				</tr>
 			</c:forEach>

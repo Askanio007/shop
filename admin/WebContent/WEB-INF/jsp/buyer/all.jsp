@@ -23,27 +23,22 @@
 			<th>Name</th>
 			<th>SecondName</th>			
 			<th>Age</th>
-			<th>Phone</th>
 			<th>Count sails</th>
-			<th colspan="2">Action</th>
+			<th>Percent cashback</th>
+			<th>Balance</th>
+			<th colspan="3">Action</th>
 		</tr>
 		<c:forEach items="${buyerList}" var="buyer">
 		 <c:set value="0" var="i" />
 			<tr>
 				<td><a href="../sail/buyer/${buyer.id}">${buyer.id}</a></td> 
 				<td>${buyer.name}</td>				
-				<td>${buyer.info.secondName}</td>
-				<td>${buyer.info.age}</td>
-			  	<td>${buyer.info.phone}</td>
-				<td><c:forEach items="${buyer.sails}" var="sails" varStatus="sailCount">
-				<c:set value="${sailCount.count}" var="i" />
-				</c:forEach>
-				<c:choose>
-				   <c:when test="${!empty i}">${i}</c:when>
-   				   <c:otherwise>0</c:otherwise>
-   				 </c:choose>
-   				
-				</td>
+				<td>${buyer.secondName}</td>
+				<td>${buyer.age}</td>
+			  	<td>${buyer.phone}</td>
+				<td>${buyer.countSails}</td>
+				<td>${buyer.percentCashback}</td>
+				<td>${buyer.balance}</td>
 				<td><a href="edit/${buyer.id}">Edit</a></td>
 				<td><a href="delete?id=${buyer.id}">Delete</a></td>
 				<td><a href="chat/${buyer.name}">Chat</a></td>

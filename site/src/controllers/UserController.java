@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import dto.BuyerDto;
+import dto.BuyerInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import entity.Buyer;
-import entity.BuyerInfo;
 import models.Password;
 import service.BuyerService;
 import service.SailService;
@@ -51,31 +50,32 @@ public class UserController {
 
 	@RequestMapping(value = "/user/edit", method = RequestMethod.GET)
 	public String editBuyerPage(Model model) {
-		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
-		model.addAttribute("info", buyer.getInfo());
-		model.addAttribute("newInfo", new BuyerInfo());
+		BuyerDto buyer = serviceBuyer.getDto(CurrentUser.getName());
+		model.addAttribute("info", buyer);
+		model.addAttribute("newInfo", new BuyerInfoDto());
 		return "user/editPrivateData";
+	}
+
+	@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+	public String editBuyer(@ModelAttribute("newInfo") @Valid BuyerInfoDto info, BindingResult result) {
+		if (result.hasErrors()) {
+			return "user/editPrivateData";
+		}
+		serviceBuyer.edit(CurrentUser.getName(), info);
+		return "redirect:/user/profile";
 	}
 
 	@RequestMapping(value = "/user/profile", method = RequestMethod.GET)
 	public String cabinetUser(Model model, HttpServletRequest request) {
-		Buyer user = serviceBuyer.getFullInfo(CurrentUser.getName());
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceSail.countByBuyer(user.getId()), COUNT_RECORD_ON_PAGE);
+		BuyerDto user = serviceBuyer.getDto(CurrentUser.getName());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceSail.countByBuyer(user.getId()), COUNT_RECORD_ON_PAGE);
 		model.addAttribute("user", user);
 		model.addAttribute("pagination", viewPagination);
-		model.addAttribute("sails", serviceSail.allByBuyer(viewPagination.getDBPagination(), user.getId()));
+		model.addAttribute("sails", serviceSail.allDtoByBuyer(viewPagination.getDBPagination(), user.getId()));
 		BuyController.setCountProductBasketInModel(request, model);
 		return "user/cabinet";
 	}
 
-	@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
-	public String editBuyer(@ModelAttribute("newInfo") @Valid BuyerInfo info, BindingResult result) {
-		if (result.hasErrors()) {
-			return "user/editPrivateData";
-		}
-		serviceBuyer.edit(serviceBuyer.get(CurrentUser.getName()), info);
-		return "redirect:/user/profile";
-	}
 
 	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
 	public String changePassword(Model model) {
@@ -90,7 +90,7 @@ public class UserController {
 		valid.validate(password, result);
 		if (result.hasErrors())
 			return "user/changePassword";
-		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+		BuyerDto buyer = serviceBuyer.getDto(CurrentUser.getName());
 		if (!serviceBuyer.checkOldPasswords(buyer.getPassword(), oldPass)) {
 			request.setAttribute("validEq", "Not correct old password");
 			return "user/changePassword";
@@ -108,7 +108,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/uploadAva", method = RequestMethod.GET)
 	public String uploadAva(Model model) {
-		model.addAttribute("user", serviceBuyer.get(CurrentUser.getName()));
+		model.addAttribute("user", serviceBuyer.getDto(CurrentUser.getName()));
 		return "user/uploadAva";
 	}
 
@@ -132,7 +132,7 @@ public class UserController {
 							   @RequestParam("tracker") String tracker,
 							   Model model, HttpServletRequest request) {
 		BuyController.setCountProductBasketInModel(request, model);
-		model.addAttribute("inviteLink", LinkBuilder.buildReferralLink(serviceBuyer.get(CurrentUser.getName()), tracker, ancor,request));
+		model.addAttribute("inviteLink", LinkBuilder.buildReferralLink(serviceBuyer.getDto(CurrentUser.getName()), tracker, ancor,request));
 		return "user/inviteLink";
 	}
 }

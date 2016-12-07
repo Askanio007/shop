@@ -1,6 +1,6 @@
 package controllers;
 
-import entity.Buyer;
+import dto.BuyerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +28,8 @@ public class ChatController {
 
 	@RequestMapping(value = "/user/chat", method = RequestMethod.GET)
 	public String chat(Model model, HttpServletRequest request) {
-		Buyer buyer = serviceBuyer.get(CurrentUser.getName());
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceChat.count(buyer));
+		BuyerDto buyer = serviceBuyer.getDto(CurrentUser.getName());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceChat.count(buyer));
 		List<ChatView> list = serviceChat.getViewChat(viewPagination.getDBPagination(), buyer);
 		model.addAttribute("chat", list);
 		model.addAttribute("pagination", viewPagination);

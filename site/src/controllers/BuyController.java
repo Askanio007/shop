@@ -1,10 +1,9 @@
 package controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import entity.Buyer;
-import entity.Discount;
-import entity.Product;
-import entity.Sail;
+import dto.BuyerDto;
+import dto.DiscountDto;
+import dto.ProductDto;
 import models.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import service.*;
 import utils.CalculatorDiscount;
 import utils.CurrentUser;
-import utils.StateSail;
 import view.ViewPagination;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,7 +65,7 @@ public class BuyController {
 	@RequestMapping(value = "/user/order", method = RequestMethod.GET)
 	public String order(HttpServletRequest request) {
 		Basket basket = (Basket) request.getSession().getAttribute("basket");
-		Buyer b = serviceBuyer.get(CurrentUser.getName());
+		BuyerDto b = serviceBuyer.getDto(CurrentUser.getName());
 		if (b.getBalance().compareTo(basket.cost()) == -1)
 			return "redirect:/user/deposit";
 		try {
@@ -97,13 +95,13 @@ public class BuyController {
 	@RequestMapping(value = "/user/buy", method = RequestMethod.POST)
 	public String addProductInSailForUser(@RequestParam("amount") String count, HttpServletRequest request)
 			throws JsonProcessingException {
-		Product newProd = serviceProduct.get(Long.parseLong(request.getParameter("id")));
+		ProductDto newProd = serviceProduct.getDto(Long.parseLong(request.getParameter("id")));
 		int amount = Integer.parseInt(count);
 		Basket basket = (Basket)request.getSession().getAttribute("basket");
 		if (basket == null)
 			basket = new Basket();
 		byte discount = 0;
-		Discount disc = serviceDisc.availableDiscount(newProd, serviceBuyer.get(CurrentUser.getName()).getId());
+		DiscountDto disc = serviceDisc.availableDiscount(newProd, serviceBuyer.get(CurrentUser.getName()).getId());
 		if (disc != null)
 			discount = disc.getDiscount();				
 		basket.addProduct(newProd, amount, discount);
@@ -113,10 +111,10 @@ public class BuyController {
 	
 	@RequestMapping(value = "/user/products", method = RequestMethod.GET)
 	public String productList(Model model, HttpServletRequest request) {
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceProduct.countAll(), COUNT_RECORD_ON_PAGE);
-		List<Product> productList = serviceProduct.list(viewPagination.getDBPagination());
-		Discount discount = serviceDisc.getGeneral();
-		List<Discount> activeUserDiscount = serviceDisc.listActivePrivateByBuyerId(serviceBuyer.get(CurrentUser.getName()).getId());
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceProduct.countAll(), COUNT_RECORD_ON_PAGE);
+		List<ProductDto> productList = serviceProduct.listDto(viewPagination.getDBPagination());
+		DiscountDto discount = serviceDisc.getGeneralDto();
+		List<DiscountDto> activeUserDiscount = serviceDisc.listActivePrivateDtoByBuyerId(serviceBuyer.get(CurrentUser.getName()).getId());
 		CalculatorDiscount.calculateGeneralDiscount(productList, discount);
 		CalculatorDiscount.calculatePrivateDiscount(productList, activeUserDiscount);
 		model.addAttribute("discount", discount);

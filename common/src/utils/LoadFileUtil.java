@@ -59,8 +59,8 @@ public class LoadFileUtil {
 		return extsList.contains(fileName);
 	}
 
-	public static void addPictureInList(MultipartFile file, List<PictureProduct> list, String dir)  throws IOException {
-		list.add(new PictureProduct(LoadFileUtil.storeToFileWithOriginalName(file, dir)));
+	public static void addPictureInList(MultipartFile file, List<String> list, String dir)  throws IOException {
+		list.add(storeToFileWithOriginalName(file, dir));
 	}
 
 	public static boolean isCorrectFormat(MultipartFile file) {

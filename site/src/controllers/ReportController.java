@@ -1,6 +1,6 @@
 package controllers;
 
-import entity.Buyer;
+import dto.BuyerDto;
 import models.Referral;
 import service.*;
 import utils.DateFilter;
@@ -140,7 +140,7 @@ public class ReportController {
                                       @RequestParam(required = false, value = "tracker") String tracker,
                                       Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
-        Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+        BuyerDto buyer = serviceBuyer.getDto(CurrentUser.getName());
         ViewPagination viewPagination = new ViewPagination("1", serviceReferal.countActiveByDay(buyer.getId(), date, tracker));
         model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker, ""));
         model.addAttribute("tracker", tracker);
@@ -156,7 +156,7 @@ public class ReportController {
                                       @RequestParam(required = false, value = "page", defaultValue = "1") String page,
                                       Model model, HttpServletRequest request)  {
         BuyController.setCountProductBasketInModel(request, model);
-        Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+        BuyerDto buyer = serviceBuyer.getDto(CurrentUser.getName());
         ViewPagination viewPagination = new ViewPagination(page,serviceReferal.countActiveByDay(buyer.getId(), date, tracker));
         model.addAttribute("referrals",serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker, sort));
         model.addAttribute("sort", sort);

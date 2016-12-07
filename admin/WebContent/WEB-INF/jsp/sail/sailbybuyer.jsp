@@ -31,9 +31,6 @@
 				<td><c:out value="${allsail.dateStr}" /></td>
 				<td>${allsail.amount}</td>
 				<td>${allsail.totalSum}</td>
-				<td><c:forEach items="${allsail.products}" var="productList">
-							<c:out value="${productList.name}" /><br>
-					</c:forEach></td>
 				<td><a href="../delete?buy=${buyer.id}&id=${allsail.id}">Delete</a></td>
 			</tr>
 		</c:forEach>

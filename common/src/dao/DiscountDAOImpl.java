@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import dto.ProductDto;
 import org.springframework.stereotype.Repository;
 
 import entity.Discount;
@@ -32,10 +33,10 @@ public class DiscountDAOImpl extends GeneralDAOImpl<Discount>implements Discount
 	}
 
 	@Override
-	public Discount getPrivate(Product product, Long id) {
+	public Discount getPrivate(long productId, long buyerId) {
 		return (Discount) createQuery("select disc from Discount disc inner join disc.buyer buyer where active = true and buyer.id = :id and disc.productId = :product")
-				.setLong("id", id)
-				.setLong("product",product.getId())
+				.setLong("id", buyerId)
+				.setLong("product",productId)
 				.uniqueResult();
 	}
 }

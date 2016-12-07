@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.BuyerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,8 +38,8 @@ public class ChatController {
 	
 	@RequestMapping(value = "/buyer/chat/{buyerName}", method = RequestMethod.GET)
 	public String chat(@PathVariable("buyerName") String name, Model model, HttpServletRequest request) {
-		Buyer buyer = serviceBuyer.get(name);
-		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PAGE_PARAM), serviceChat.count(buyer));
+		BuyerDto buyer = serviceBuyer.getDto(name);
+		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceChat.count(buyer));
 		List<ChatView> list = serviceChat.getViewChat(viewPagination.getDBPagination(), buyer);
 		model.addAttribute("chatView", list);
 		model.addAttribute("pagination", viewPagination);

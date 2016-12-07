@@ -30,7 +30,7 @@
     <bytecodeTargetLevel>
       <module name="admin" target="1.8" />
       <module name="common" target="1.8" />
-      <module name="shop" target="1.8" />
+      <module name="shop" target="1.5" />
       <module name="site" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -33,11 +33,7 @@
 				<td>${soldProduct.cost}</td>
 				<td>${soldProduct.amount}</td>
 				<td>${soldProduct.discount}</td>
-				<td><c:forEach items="${soldProduct.sail.buyers}" var="buyer">
-				${buyer.name}
-				</c:forEach>
-				
-				</td>
+				<td>${soldProduct.buyerName}</td>
 					</tr>
 		</c:forEach>
 	</table>

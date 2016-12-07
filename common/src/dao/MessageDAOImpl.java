@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import dto.BuyerDto;
 import entity.Message;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -16,19 +17,19 @@ import utils.PaginationFilter;
 public class MessageDAOImpl extends GeneralDAOImpl<Message> implements MessageDAO {
 
 	@SuppressWarnings("unchecked")
-	public List<Message> getChat(PaginationFilter filter, Buyer buyer) {
+	public List<Message> getChat(PaginationFilter filter, BuyerDto buyer) {
 		Criteria crit = messagesByBuyer(buyer);
 		addPagination(crit, filter);
 		return crit.list();
 	}
 
-	public int count(Buyer buyer) {
+	public int count(BuyerDto buyer) {
 		Criteria crit = messagesByBuyer(buyer);
 		return asInt(crit.setProjection(Projections.rowCount()).uniqueResult());
 	}
 
 	// Не было идей как назвать его
-	private Criteria messagesByBuyer(Buyer buyer) {
+	private Criteria messagesByBuyer(BuyerDto buyer) {
 		return 	createCriteria().createAlias("this.user", "user").createAlias("this.buyer", "buyer")
 				.add(Restrictions.disjunction()
 						.add(Restrictions.eq("buyer.id", buyer.getId()))

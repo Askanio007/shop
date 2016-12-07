@@ -74,9 +74,9 @@
 		<table>
 			<tr>
 				<td>User</td>
-				<td><form:select path="buyers" items="${buyerList}"
-						itemValue="id" itemLabel="name" /></td>
-				<td><form:errors path="buyers" /></td>
+				<td><form:select path="buyerName" items="${buyerList}"
+						itemValue="id" itemLabel="name" multiple="false" /></td>
+				<td><form:errors path="buyerName" /></td>
 			</tr>
 			<tr>
 				<td>Product</td>

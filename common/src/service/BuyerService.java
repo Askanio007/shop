@@ -1,12 +1,12 @@
 package service;
 
 import dao.BuyerDAO;
-import dto.BuyerDTO;
+import dto.BuyerDto;
+import dto.BuyerInfoDto;
 import entity.Buyer;
 import entity.BuyerInfo;
 import entity.Sail;
 import org.hibernate.Hibernate;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -114,40 +114,61 @@ public class BuyerService {
 		save(buyer);
 	}
 
+	// use in generic statistic
 	@Transactional
 	public List<Buyer> list(PaginationFilter dbPagination) {
-		List<Buyer> buyers = buyerDao.find(dbPagination);
-		return buyers;
+		return buyerDao.find(dbPagination);
+	}
+
+	@Transactional
+	public List<BuyerDto> listDto(PaginationFilter dbPagination) {
+		return BuyerDto.convertToDTO(buyerDao.find(dbPagination));
+	}
+
+	@Transactional
+	public List<BuyerDto> listDto() {
+		return BuyerDto.convertToDTO(buyerDao.find());
 	}
 
 	@Transactional
 	public List<Buyer> list() {
-		List<Buyer> buyers = buyerDao.find();
-		return buyers;
+		return buyerDao.find();
 	}
 
 	@Transactional
 	public Buyer get(Long buyerId) {
-		Buyer buyer = buyerDao.find(buyerId);
-		return buyer;
+		return buyerDao.find(buyerId);
 	}
 
 	@Transactional
-	public void edit(Long buyerId, BuyerInfo buyerInfo, boolean active) {
-		Buyer buyer = get(buyerId);
-		buyer.setEnable(active);
-		edit(buyer, buyerInfo);
+	public BuyerDto getDto(Long buyerId) {
+		return BuyerDto.convertToDTO(get(buyerId));
 	}
 
 	@Transactional
-	public void editPassword(Buyer buyer, String newPass) {
+	public BuyerDto getDto(String buyerName) {
+		return BuyerDto.convertToDTO(get(buyerName));
+	}
+
+	@Transactional
+	public void edit(BuyerDto buyerDto) {
+		Buyer buyer = get(buyerDto.getId());
+		edit(buyerDto.transferDataToEntity(buyer));
+	}
+
+	@Transactional
+	public void editPassword(BuyerDto buyerDto, String newPass) {
+		Buyer buyer = get(buyerDto.getId());
 		buyer.setPassword(HashString.toMD5(newPass));
 		edit(buyer);
 	}
 
 	@Transactional
-	public void edit(Buyer buyer, BuyerInfo info) {
-		buyer.setInfo(info);
+	public void edit(String nameBuyer, BuyerInfoDto buyerInfo) {
+		Buyer buyer = get(nameBuyer);
+		buyer.getInfo().setAge(buyerInfo.getAge());
+		buyer.getInfo().setPhone(buyerInfo.getPhone());
+		buyer.getInfo().setSecondName(buyerInfo.getSecondName());
 		edit(buyer);
 	}
 
@@ -193,6 +214,13 @@ public class BuyerService {
 			}
 			statisticService.saveProfit(parent, buyer.getTracker(), profit);
 		}
+	}
+
+	@Transactional
+	public void changeBalance(String nameBuyer, BigDecimal sum) {
+		Buyer b = get(nameBuyer);
+		b.setBalance(b.getBalance().add(BigDecimal.valueOf(sum.doubleValue())));
+		edit(b);
 	}
 
 }

@@ -8,8 +8,8 @@ import utils.PaginationFilter;
 
 public interface SoldProductDAO extends GeneralDAO<SoldProduct> {
 	
-	List<SoldProduct> list(Product product, PaginationFilter pagination);
+	List<SoldProduct> list(String productName, PaginationFilter pagination);
 	
-	Integer count(Product product);
+	Integer count(String productName);
 
 }

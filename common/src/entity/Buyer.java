@@ -97,11 +97,11 @@ public class Buyer {
 		private Integer percentCashback = 50;
 		private String tracker = null;
 		
-		public Builder(String name, String pass, String code) {
+		public Builder(String name, String pass, String refCode) {
 		      this.name = name;
 		      this.password = pass;
 		      this.dateReg = new Date();
-		      this.refCode = code;
+		      this.refCode = refCode;
 		      this.info = new BuyerInfo();
 		    }
 
@@ -136,8 +136,15 @@ public class Buyer {
 		public Builder enable(boolean enable){
 			this.enable = enable;
 			return this;
-		} 
-		
+		}
+
+		public Builder info(String secondName, String phone, int age){
+			this.info.setSecondName(secondName);
+			this.info.setPhone(phone);
+			this.info.setAge(age);
+			return this;
+		}
+
 		public Buyer build() {
 			return new Buyer(this);
 		}

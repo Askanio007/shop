@@ -13,13 +13,13 @@ public class SoldProductDAOImpl extends GeneralDAOImpl<SoldProduct> implements S
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<SoldProduct> list(Product product, PaginationFilter pagination) {
-		return addPagination(createQuery("from SoldProduct where name = :name").setString("name", product.getName()) ,pagination).list();
+	public List<SoldProduct> list(String productName, PaginationFilter pagination) {
+		return addPagination(createQuery("from SoldProduct where name = :name").setString("name", productName) ,pagination).list();
 	}
 
 	@Override
-	public Integer count(Product product) {
-		return asInt(createQuery("select count(*) from SoldProduct where name = :name").setString("name", product.getName()).uniqueResult());
+	public Integer count(String productName) {
+		return asInt(createQuery("select count(*) from SoldProduct where name = :name").setString("name", productName).uniqueResult());
 	}
 	
 	

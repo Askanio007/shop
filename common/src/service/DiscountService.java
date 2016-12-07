@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 import javax.transaction.Transactional;
 
+import dto.DiscountDto;
+import dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,24 @@ public class DiscountService {
 	@Autowired
 	private MessageService serviceChat;
 
+	@Autowired
+	private BuyerService serviceBuyer;
+
+	private Discount convertToEntity(DiscountDto dto) {
+		Discount discount = new Discount();
+		discount.setActive(dto.getActive());
+		discount.setBuyer(serviceBuyer.get(dto.getNameBuyer()));
+		discount.setDiscount(dto.getDiscount());
+		discount.setProductId(dto.getProductId());
+		return discount;
+	}
+
 	@Transactional
-	public void save(Discount dsc, String notice) {
+	public void save(DiscountDto dsc, String notice) {
+		Discount discount = convertToEntity(dsc);
 		try {
-			save(dsc);
-			serviceChat.sendFromSystem(notice, dsc.getBuyer());
+			save(discount);
+			serviceChat.sendFromSystem(notice, discount.getBuyer());
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -39,13 +54,13 @@ public class DiscountService {
 	}
 	
 	@Transactional
-	public Discount availableDiscount(Product product, Long buyerId) {
+	public DiscountDto availableDiscount(ProductDto product, Long buyerId) {
 		Discount privateDiscount =  getPrivate(product, buyerId);
 		if (privateDiscount != null)
-			return privateDiscount;
+			return DiscountDto.convertToDto(privateDiscount);
 		Discount generalDiscount =  getGeneral();
 		if (generalDiscount.getProductId() == product.getId())
-			return generalDiscount;
+			return DiscountDto.convertToDto(generalDiscount);
 		return null;
 	}
 
@@ -58,8 +73,8 @@ public class DiscountService {
 	}
 
 	@Transactional
-	public Discount getPrivate(Product product, Long buyerId) {
-		return discountDao.getPrivate(product, buyerId);
+	public Discount getPrivate(ProductDto product, Long buyerId) {
+		return discountDao.getPrivate(product.getId(), buyerId);
 	}
 	
 	@Transactional
@@ -68,8 +83,18 @@ public class DiscountService {
 	}
 
 	@Transactional
+	public List<DiscountDto> listActivePrivateDtoByBuyerId(Long id) {
+		return DiscountDto.convertToDto(listActivePrivateByBuyerId(id));
+	}
+
+	@Transactional
 	public Discount getGeneral() {
 		return discountDao.getGeneral();
+	}
+
+	@Transactional
+	public DiscountDto getGeneralDto() {
+		return DiscountDto.convertToDto(discountDao.getGeneral());
 	}
 
 	@Transactional

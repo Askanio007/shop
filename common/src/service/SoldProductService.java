@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import dto.ProductDto;
+import dto.SoldProductDto;
 import models.ProductBasket;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +26,18 @@ public class SoldProductService {
 	private SoldProductDAO soldProduct;
 
 	@Transactional
-	public List<SoldProduct> list(Product product, PaginationFilter dbPagination) {
-		List<SoldProduct> list = soldProduct.list(product,dbPagination);
-		return list;
+	public List<SoldProduct> list(ProductDto product, PaginationFilter dbPagination) {
+		return soldProduct.list(product.getName(),dbPagination);
 	}
 
 	@Transactional
-	public Integer count(Product product) {
-		return soldProduct.count(product);
+	public List<SoldProductDto> listDto(ProductDto product, PaginationFilter dbPagination) {
+		return SoldProductDto.convertToDto(list(product,dbPagination));
+	}
+
+	@Transactional
+	public Integer count(ProductDto product) {
+		return soldProduct.count(product.getName());
 	}
 
 

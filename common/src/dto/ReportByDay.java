@@ -1,8 +1,5 @@
 package dto;
-
 import view.DateConverter;
-import view.ViewFormat;
-
 import java.math.BigDecimal;
 import java.util.Date;
 

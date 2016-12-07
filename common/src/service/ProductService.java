@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import javax.transaction.Transactional;
 
+import dto.ProductDto;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,12 +46,6 @@ public class ProductService {
 		}
 	}
 
-	private void initialize(List<Product> products) {
-		for (Product p : products) {
-			initialize(p);
-		}
-	}
-
 	private void initialize(Product product) {
 		Hibernate.initialize(product.getPicList());
 	}
@@ -58,8 +53,17 @@ public class ProductService {
 	@Transactional
 	public List<Product> list(PaginationFilter dbPagination) {
 		List<Product> products = productDao.find(dbPagination);
-		initialize(products);
 		return products;
+	}
+
+	@Transactional
+	public List<ProductDto> listDto(PaginationFilter dbPagination) {
+		return ProductDto.convertToDto(productDao.find(dbPagination));
+	}
+
+	@Transactional
+	public List<ProductDto> listDto() {
+		return ProductDto.convertToDto(productDao.find());
 	}
 
 	@Transactional
@@ -68,21 +72,26 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void remove(Product prod) {
-		deleteFromDisk(prod.getPicList());
-		productDao.delete(prod.getId());
+	public void remove(Long productId) {
+		Product product = get(productId);
+		deleteFromDisk(product.getPicList());
+		productDao.delete(product.getId());
 	}
 
 	@Transactional
 	public Product get(Long id) {
-		Product product = productDao.find(id);
-		Hibernate.initialize(product.getPicList());
-		return product;
+		return productDao.find(id);
 	}
 
 	@Transactional
-	public void edit(Product product) {
-		productDao.update(product);
+	public ProductDto getDto(Long id) {
+		return ProductDto.convertToDto(get(id));
+	}
+
+	@Transactional
+	public void edit(ProductDto productDto) {
+		Product prod = get(productDto.getId());
+		productDao.update(productDto.transferDataToEntity(prod));
 		List<PictureProduct> list = getPicWithoutProductId();
 		for (PictureProduct pic : list) {
 			deleteFromDisk(pic);
@@ -117,12 +126,13 @@ public class ProductService {
 		productDao.save(product);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<PictureProduct> addPicture(Object list, MultipartFile file) throws IOException  {
-		List<PictureProduct> newListPic = new ArrayList<>();
+	public List<String> addPicture(Object list, MultipartFile file) throws IOException  {
+		List<String> newListPic = new ArrayList<>();
 
 		if (list != null)
-			newListPic = (List<PictureProduct>) list;
+			newListPic = (List<String>) list;
 		String dir = setting.getPathUploadPicProduct();
 
 		if (LoadFileUtil.checkExtension(file, LoadFileUtil.FileType.IMAGE)) {

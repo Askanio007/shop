@@ -1,5 +1,6 @@
 package service;
 
+import dto.ProductDto;
 import entity.Buyer;
 import entity.Product;
 import entity.Sail;
@@ -96,7 +97,7 @@ public class GeneratorStatistic {
             int amountProduct = r.nextInt(5);
             Random c = new Random();
             for (int i = 1; i < amountProduct+1; i++) {
-                list.add(new ProductBasket(serviceProduct.getByNumber(r.nextInt(countProduct)), c.nextInt(10)+1, (byte) 0));
+                list.add(new ProductBasket(ProductDto.convertToDto(serviceProduct.getByNumber(r.nextInt(countProduct))), c.nextInt(10)+1, (byte) 0));
             }
             Basket basket = new Basket(list);
             PaginationFilter filter = new PaginationFilter(r.nextInt(countBuyer), 1);

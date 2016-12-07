@@ -58,8 +58,8 @@ public class ImageServlet extends HttpServlet {
 		if (request.getParameter("tempPic") != null) {
 			// TODO: Kirill если не избежать, то надо делать это на минимальном отрезке ::: прошёлся по коду, исправил их как смог
 			@SuppressWarnings("unchecked")
-			List<PictureProduct> list = (List<PictureProduct>) request.getSession().getAttribute("pics");
-			String path = list.get(Integer.parseInt(request.getParameter("tempPic"))).getPath();
+			List<String> list = (List<String>) request.getSession().getAttribute("pics");
+			String path = list.get(Integer.parseInt(request.getParameter("tempPic")));
 
 			/* еще вариант, но это хуже гораздо, хоть и работает без супресов
 			List list = (List) request.getSession().getAttribute("pics");

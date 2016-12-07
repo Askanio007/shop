@@ -25,12 +25,12 @@
 	<c:forEach items="${productList}" var="product">
 	<form:form action="buy?id=${product.id}" method="post">
 			<tr>
-			<td><c:forEach items="${product.picList}" var="pic">
-				<img src="<%=request.getContextPath()%>/img?pic=${pic.picId}" width="120" height="120" />
+			<td><c:forEach items="${product.picPath}" var="pic">
+				<img src="<%=request.getContextPath()%>/img?pic=${pic}" width="120" height="120" />
 			</c:forEach>
 			</td>
 			<td>${product.name}</td>
-			<td>${product.viewCost}</td>
+			<td>${product.cost}</td>
 			<td><input name="amount" size="20" type="text" value="1" /></td>
 			<td><input type = "submit" value="In basket"/></td>
 			<c:if test="${discount.productId eq product.id}">

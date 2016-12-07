@@ -1,6 +1,6 @@
 package controllers;
 
-import entity.Buyer;
+import dto.BuyerDto;
 import service.*;
 import utils.DateFilter;
 import models.Referral;
@@ -70,7 +70,7 @@ public class ExcelReportController {
                                             @RequestParam(required = false, value = "tracker", defaultValue = "") String tracker,
                                             @RequestParam(required = false, value = "sort", defaultValue = "") String sort,
                                             @RequestParam(required = false, value = "page", defaultValue = "1") String page)  {
-        Buyer buyer = serviceBuyer.get(CurrentUser.getName());
+        BuyerDto buyer = serviceBuyer.getDto(CurrentUser.getName());
         ViewPagination viewPagination = new ViewPagination(page, serviceReferal.countActiveByDay(buyer.getId(), date, tracker));
         List<Referral> referrals = serviceReferal.findDailyActive(buyer.getId(), viewPagination.getDBPagination(), date, tracker,sort);
         return new ModelAndView("byDayDetailExcel","ByDayDetail", referrals);

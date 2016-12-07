@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 
+import dto.BuyerDto;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,13 +26,13 @@ public class MessageService {
 	private MessageDAO messageDao;
 	
 	@Transactional
-	public List<ChatView> getViewChat(PaginationFilter dbFilter, Buyer buyer) {
+	public List<ChatView> getViewChat(PaginationFilter dbFilter, BuyerDto buyer) {
 		List<Message> chats = getChat(dbFilter, buyer);
 		return getViewChat(chats, buyer);
 	}
 
 	// TODO: 16.10.2016 почему это публичный метод? ::: исправил здесь и в других классах
-	private List<ChatView> getViewChat(List<Message> list, Buyer buyer) {
+	private List<ChatView> getViewChat(List<Message> list, BuyerDto buyer) {
 		if (list == null)
 			return null;
 		List<ChatView> viewChat = new ArrayList<>();
@@ -49,7 +50,7 @@ public class MessageService {
 	}
 
 	@Transactional
-	public int count(Buyer buyer) {
+	public int count(BuyerDto buyer) {
 		return messageDao.count(buyer);
 	}
 
@@ -85,7 +86,7 @@ public class MessageService {
 	}
 
 	@Transactional
-	private List<Message> getChat(PaginationFilter dbFilter, Buyer buyer) {
+	private List<Message> getChat(PaginationFilter dbFilter, BuyerDto buyer) {
 		return messageDao.getChat(dbFilter, buyer);
 	}
 
