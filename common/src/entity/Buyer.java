@@ -64,7 +64,7 @@ public class Buyer {
 	@JoinColumn(name = "buyer_id")
 	private Collection<Buyer> referrals;
 
-	private Buyer()
+	public Buyer()
 	{}
 
 	// TODO: 16.10.2016 в паттерне билдер конструктор с билдером обычно приватный ::: Исправил для этого и других классов

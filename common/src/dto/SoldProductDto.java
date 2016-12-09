@@ -40,9 +40,7 @@ public class SoldProductDto {
 
     public static List<SoldProductDto> convertToDto(List<SoldProduct> entities) {
         List<SoldProductDto> list = new ArrayList<>();
-        for (SoldProduct product : entities) {
-            list.add(convertToDto(product));
-        }
+        entities.stream().forEach((p) -> list.add(convertToDto(p)));
         return list;
     }
 

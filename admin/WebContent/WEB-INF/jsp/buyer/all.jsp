@@ -23,6 +23,7 @@
 			<th>Name</th>
 			<th>SecondName</th>			
 			<th>Age</th>
+			<th>Phone</th>
 			<th>Count sails</th>
 			<th>Percent cashback</th>
 			<th>Balance</th>

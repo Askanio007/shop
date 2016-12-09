@@ -33,9 +33,7 @@ public class ProductService {
 	private SettingsService setting;
 
 	private void deleteFromDisk(List<PictureProduct> pics) {
-		for (PictureProduct pic : pics) {
-			deleteFromDisk(pic);
-		}
+		pics.stream().forEach((pic) -> deleteFromDisk(pic));
 	}
 
 	private void deleteFromDisk(PictureProduct pic) {

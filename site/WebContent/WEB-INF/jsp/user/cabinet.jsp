@@ -79,7 +79,8 @@
 				<th colspan="2" >Action</th>
 			</tr>
 			<c:forEach items="${sails}" var="sails">
-				<tr><a href="#">view</a> </td>
+				<tr>
+					<td><a href="#">view</a> </td>
 					<td>${sails.date}</td>
 					<td>${sails.amount}</td>
 					<td>${sails.totalsum}</td>

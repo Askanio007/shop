@@ -20,8 +20,6 @@ public class AutoCompletionDelivery implements Runnable {
     @Override
     public void run() {
         List<Sail> sails = sailService.getOverDueSails(settings.deliveredCompleteTime());
-        for (Sail s : sails) {
-            sailService.sailComplete(s.getId());
-        }
+        sails.stream().forEach((sail) ->sailService.sailComplete(sail.getId()) );
     }
 }

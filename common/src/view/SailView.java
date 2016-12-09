@@ -50,9 +50,7 @@ public class SailView {
 	
 	public static List<SailView> convertSail(List<SailDto> sails) {
 		List<SailView> list = new ArrayList<>();
-		for (SailDto s : sails) {
-			list.add(new SailView(s));
-		}
+		sails.stream().forEach((sail) -> new SailView(sail));
 		return list;
 	}
 }

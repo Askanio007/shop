@@ -24,10 +24,9 @@
 		<tr>
 			<th>ID</th>
 			<th>Date</th>
-			<th>Product</th>
 			<th>Count</th>
 			<th>Price, $</th>
-			<th>Buyers</th>
+			<th>Buyer</th>
 			<th>Action</th>
 		</tr>
 		<c:forEach items="${sailView}" var="sail">

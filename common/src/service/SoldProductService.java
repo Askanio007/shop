@@ -43,9 +43,7 @@ public class SoldProductService {
 
 	public List<SoldProduct> convertToSoldProduct(List<ProductBasket> products) {
 		List<SoldProduct> soldProducts = new ArrayList<>();
-		for (ProductBasket prod : products) {
-			soldProducts.add(new SoldProduct(prod));
-		}
+		products.stream().forEach((product) -> soldProducts.add(new SoldProduct((product))));
 		return soldProducts;
 	}
 

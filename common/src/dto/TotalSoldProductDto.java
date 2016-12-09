@@ -34,9 +34,7 @@ public class TotalSoldProductDto {
 
     public static List<TotalSoldProductDto> convertToDto(List<TotalSoldProduct> entities) {
         List<TotalSoldProductDto> list = new ArrayList<>();
-        for (TotalSoldProduct product : entities) {
-            list.add(convertToDto(product));
-        }
+        entities.stream().forEach((p) -> list.add(convertToDto(p)));
         return list;
     }
 

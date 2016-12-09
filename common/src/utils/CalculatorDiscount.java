@@ -31,9 +31,7 @@ public class CalculatorDiscount {
 	public static void calculatePrivateDiscount(List<ProductDto> products, List<DiscountDto> discounts) {
 		if (discounts.isEmpty())
 			return;
-		for (DiscountDto discount : discounts) {
-			calculate(products, discount);
-		}
+		discounts.stream().forEach((discount) -> calculate(products, discount));
 	}
 
 	private static void calculate(List<ProductDto> products, DiscountDto discount) {

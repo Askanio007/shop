@@ -34,7 +34,7 @@ public class ReportService {
 	}
 
     public List<ReportByDay> sortByDailyProfit (List<ReportByDay> list, final String type){
-        // Тут нет дублирования Collectors.toList(), но мне нравится верхний вариант
+        // TODO: Artyom Тут нет дублирования Collectors.toList(), но мне нравится верхний вариант
         Stream<ReportByDay> reports = list.stream();
         if("desc".equals(type))
             reports.sorted((rep1, rep2) -> rep2.getProfit().compareTo(rep1.getProfit()));

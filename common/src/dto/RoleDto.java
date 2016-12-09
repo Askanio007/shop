@@ -30,9 +30,7 @@ public class RoleDto {
 
     public static List<RoleDto> convertToDto(List<Role> roles) {
         List<RoleDto> rolesDto = new ArrayList<>();
-        for (Role role : roles) {
-            rolesDto.add(convertToDto(role));
-        }
+        roles.stream().forEach((p) -> rolesDto.add(convertToDto(p)));
         return rolesDto;
     }
 

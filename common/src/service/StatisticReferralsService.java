@@ -94,7 +94,7 @@ public class StatisticReferralsService {
     @Transactional
     public int countByDate(String nameBuyer, DateFilter date, String tracker) {
         Buyer b = serviceBuyer.get(nameBuyer);
-            return statDao.count(b, date, tracker);
+        return statDao.count(b, date, tracker);
     }
 
 }

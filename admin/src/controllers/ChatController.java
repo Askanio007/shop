@@ -41,6 +41,7 @@ public class ChatController {
 		BuyerDto buyer = serviceBuyer.getDto(name);
 		ViewPagination viewPagination = new ViewPagination(request.getParameter(ViewPagination.NAME_PARAM_PAGE), serviceChat.count(buyer));
 		List<ChatView> list = serviceChat.getViewChat(viewPagination.getDBPagination(), buyer);
+		serviceChat.assignedAdmin(CurrentUser.getName(),buyer);
 		model.addAttribute("chatView", list);
 		model.addAttribute("pagination", viewPagination);
 		model.addAttribute("nameBuyer", name);

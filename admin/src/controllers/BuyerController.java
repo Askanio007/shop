@@ -49,7 +49,7 @@ public class BuyerController {
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.GET)
 	public String edit(@PathVariable("buyerId") Long buyerId, Model model) {
 		BuyerDto buyer = serviceBuyer.getDto(buyerId);
-		model.addAttribute("buyer", buyer);
+		model.addAttribute("buyerEdit", buyer);
 		return "buyer/edit";
 	}
 

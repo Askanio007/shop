@@ -34,9 +34,7 @@ public class DiscountDto {
 
     public static List<DiscountDto> convertToDto(List<Discount> discounts) {
         List<DiscountDto> list = new ArrayList<>();
-        for (Discount discount : discounts) {
-            list.add(convertToDto(discount));
-        }
+        discounts.stream().forEach((p) -> list.add(convertToDto(p)));
         return list;
     }
 

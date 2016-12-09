@@ -7,14 +7,14 @@ import java.util.List;
 
 public class CookieBuilder {
 
+    private CookieBuilder() {}
+
     private static Cookie parentCode(String params) {
         return setMaxAge(new Cookie("partnerCode", ReferralParametersParser.getParentCode(params)));
     }
 
     private static List<Cookie> setMaxAge(List<Cookie> cookies) {
-        for (Cookie cookie : cookies) {
-            setMaxAge(cookie);
-        }
+        cookies.stream().forEach((cookie) -> setMaxAge(cookie));
         return cookies;
     }
 
@@ -36,9 +36,7 @@ public class CookieBuilder {
     public static void addCookie(HttpServletResponse response, String param) {
         List<Cookie> cookies = referralParams(param);
         cookies.add(parentCode(param));
-        for (Cookie cookie : cookies) {
-            response.addCookie(cookie);
-        }
+        cookies.stream().forEach((cookie) -> response.addCookie(cookie));
     }
 
 }

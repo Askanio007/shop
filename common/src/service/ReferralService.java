@@ -54,9 +54,7 @@ public class ReferralService {
 
     public List<Referral> convertToReferral(List<Buyer> buyers) {
         List<Referral> refers = new ArrayList<>();
-        for (Buyer b : buyers) {
-            refers.add(convertToReferral(b));
-        }
+        buyers.stream().forEach((buyer) -> refers.add(convertToReferral(buyer)) );
         return refers;
     }
 
@@ -74,8 +72,7 @@ public class ReferralService {
     @Transactional
     private List<Referral> getDailyActive(Long buyerId, PaginationFilter pagination, Date date, String tracker, String sort) {
         List<Buyer> buyers = referralDao.findActiveByDay(buyerId, pagination, date, tracker, sort);
-        for (Buyer buyer : buyers)
-            sailService.initializeProducts(buyer.getSails());
+        buyers.stream().forEach((buyer) -> sailService.initializeProducts(buyer.getSails()));
         return convertToReferral(buyers);
     }
 

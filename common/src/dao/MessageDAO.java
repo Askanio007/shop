@@ -12,4 +12,6 @@ public interface MessageDAO extends GeneralDAO<Message> {
 	List<Message> getChat(PaginationFilter filter, BuyerDto buyer);
 	
 	int count(BuyerDto buyer);
+
+	List<Message> notReadMessages(BuyerDto buyer);
 }

@@ -24,6 +24,9 @@ public class MessageService {
 	@Autowired
 	@Qualifier("messageDao")
 	private MessageDAO messageDao;
+
+	@Autowired
+	private UserService userService;
 	
 	@Transactional
 	public List<ChatView> getViewChat(PaginationFilter dbFilter, BuyerDto buyer) {
@@ -88,6 +91,21 @@ public class MessageService {
 	@Transactional
 	private List<Message> getChat(PaginationFilter dbFilter, BuyerDto buyer) {
 		return messageDao.getChat(dbFilter, buyer);
+	}
+
+	@Transactional
+	public void assignedAdmin(String adminName, BuyerDto buyer) {
+		List<Message> notReadMessage = messageDao.notReadMessages(buyer);
+		User user = userService.find(adminName);
+		for (Message message : notReadMessage) {
+			message.setUser(user);
+			update(message);
+		}
+	}
+
+	@Transactional
+	private void update(Message message) {
+		messageDao.update(message);
 	}
 
 }

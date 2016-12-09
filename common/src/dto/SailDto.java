@@ -45,9 +45,7 @@ public class SailDto {
 
     public static List<SailDto> convertToDto(List<Sail> sails) {
         List<SailDto> sailDtos = new ArrayList<>();
-        for (Sail sail : sails) {
-            sailDtos.add(convertToDto(sail));
-        }
+        sails.stream().forEach((p) -> sailDtos.add(convertToDto(p)));
         return sailDtos;
     }
 

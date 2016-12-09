@@ -65,9 +65,7 @@ public class BuyerDto {
 
     public static List<BuyerDto> convertToDTO(List<Buyer> buyers) {
         List<BuyerDto> dtos = new ArrayList<>();
-        for (Buyer buyer : buyers) {
-            dtos.add(convertToDTO(buyer));
-        }
+        buyers.stream().forEach((p) -> dtos.add(convertToDTO(p)));
         return dtos;
     }
 

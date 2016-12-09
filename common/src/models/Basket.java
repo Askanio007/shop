@@ -71,9 +71,11 @@ public class Basket {
 	}
 
 	public BigDecimal cost() {
-		BigDecimal totalSum = BigDecimal.valueOf(0.0);
+		BigDecimal totalSum = new BigDecimal("0.0");
 		for (ProductBasket prod : products) {
-			totalSum.add(CalculatorDiscount.getCostWithDiscount(prod.getCost(), prod.getDiscount()).multiply(new BigDecimal(""+prod.getAmount()+"")));
+			BigDecimal costDiscount = CalculatorDiscount.getCostWithDiscount(prod.getCost(), prod.getDiscount());
+			BigDecimal amount = new BigDecimal(""+prod.getAmount()+"");
+			totalSum = totalSum.add(costDiscount.multiply(amount));
 		}
 		return new BigDecimal(totalSum.toString());
 	}

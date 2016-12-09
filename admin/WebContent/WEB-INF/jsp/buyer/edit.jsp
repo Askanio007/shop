@@ -16,7 +16,7 @@
 	<table>
 	<tr>
 			<td>Active</td>
-			<td><form:input type="checkbox" path="${buyer.enable}" value = "true" checked="true"/></td>
+			<td><form:checkbox path="${buyer.enable}" value = "true" /></td>
 		</tr>
 	<tr>
 			<td>Id</td>

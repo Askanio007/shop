@@ -33,9 +33,7 @@ public class UserDto {
 
     public static List<UserDto> convertToDto(List<User> entities) {
         List<UserDto> dtos = new ArrayList<>();
-        for (User user : entities) {
-            dtos.add(convertToDto(user));
-        }
+        entities.stream().forEach((p) -> dtos.add(convertToDto(p)));
         return dtos;
     }
 
@@ -57,5 +55,25 @@ public class UserDto {
 
     public String getRole() {
         return role;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

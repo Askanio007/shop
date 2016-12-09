@@ -34,9 +34,7 @@ public class ProductDto {
 
     public static List<ProductDto> convertToDto(List<Product> products) {
         List<ProductDto> dtos = new ArrayList<>();
-        for (Product product : products) {
-            dtos.add(convertToDto(product));
-        }
+        products.stream().forEach((p) -> dtos.add(convertToDto(p)));
         return dtos;
     }
 

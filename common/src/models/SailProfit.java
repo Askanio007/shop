@@ -23,9 +23,9 @@ public class SailProfit {
     }
 
     private BigDecimal calculateProfit(List<ProductProfit> products) {
-        BigDecimal profitTemp = BigDecimal.ZERO;
+        BigDecimal profitTemp = new BigDecimal("0.0");
         for (ProductProfit prod : products) {
-            profitTemp.add(prod.getProfit());
+            profitTemp = profitTemp.add(prod.getProfit());
         }
         return profitTemp;
     }
@@ -65,9 +65,7 @@ public class SailProfit {
         List<SailProfit> sailProfit = new ArrayList<>();
         for (Sail sail : sails) {
             List<ProductProfit> productProfit = new ArrayList<>();
-            for (SoldProduct product : sail.getProducts()) {
-                productProfit.add(new ProductProfit(product, sail.getCashbackPercent()));
-            }
+            sail.getProducts().stream().forEach((product) -> productProfit.add(new ProductProfit(product, sail.getCashbackPercent())));
             sailProfit.add(new SailProfit(sail, productProfit));
         }
         return sailProfit;

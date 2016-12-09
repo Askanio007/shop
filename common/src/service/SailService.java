@@ -43,9 +43,7 @@ public class SailService {
 	// TODO: Kirill а тебе действительно нужно явно инициализировать коллекции, вроде бы во всех этих :: убрал все подобные инициализации
 	// случаях прокси что заменяют ленивые коллекции до первого вызова вполне должны справится
 	public List<Sail> initializeProducts(Collection<Sail> sails) {
-		for (Sail s : sails) {
-			Hibernate.initialize(s.getProducts());
-		}
+		sails.stream().forEach((sail) -> Hibernate.initialize(sail.getProducts()));
 		return (List<Sail>) sails;
 	}
 
@@ -56,9 +54,9 @@ public class SailService {
 
 	public BigDecimal profitFromSail(Collection<Sail> sails){ // TODO: Kirill может как вариант их все туда сразу передать? ::: создал дополнительный метод.
 		// Тот используется в других местах, где не передаётся коллекция
-		BigDecimal profit = BigDecimal.ZERO;
+		BigDecimal profit = new BigDecimal("0.0");
 		for (Sail s : sails){
-			profit.add(profitFromSail(s, s.getCashbackPercent()));
+			profit = profit.add(profitFromSail(s, s.getCashbackPercent()));
 		}
 		return profit;
 	}
@@ -90,7 +88,10 @@ public class SailService {
 	@Transactional
 	public void save(BuyerDto buyerDto, Basket basket) {
 		Buyer buyer = serviceBuyer.get(buyerDto.getId());
-		buyer.setBalance(buyerDto.getBalance().subtract(basket.cost()));
+		BigDecimal balance = buyerDto.getBalance();
+		BigDecimal cost = basket.cost();
+		BigDecimal all = balance.subtract(cost);
+		buyer.setBalance(all);
 		Sail sail = new Sail(buyer, serviceSold.convertToSoldProduct(basket.getProducts()), basket);
 		serviceBuyer.edit(buyer);
 		save(sail);
