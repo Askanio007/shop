@@ -29,7 +29,7 @@ public class LoadFileUtil {
 		acceptedExts.addAll(acceptedImageExts);
 		acceptedExts.addAll(acceptedArchiveExts);
 
-		// TODO: Kirill а вообще погляди как используются эти списки, е для этих цедей есть более подходящая конструкция
+		// TODO: Kirill а вообще погляди как используются эти списки, е для этих цедей есть более подходящая конструкция ::: исправил на сеты
 	}
 
 	public static boolean checkExtension(String fileName, FileType fileType) {

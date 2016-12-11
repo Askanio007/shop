@@ -129,16 +129,6 @@ public class BuyerDto {
         return age;
     }
 
-    public Buyer convertToEntity() {
-        return new Buyer.Builder(this.name, this.password, this.refCode, this.dateReg)
-                .balance(this.balance)
-                .enable(this.enable)
-                .percentCashback(this.percentCashback)
-                .tracker(this.tracker)
-                .info(this.secondName, this.phone, this.age)
-                .refId(this.refId).build();
-    }
-
     public Buyer transferDataToEntity(Buyer buyer) {
         buyer.getInfo().setAge(this.age);
         buyer.getInfo().setPhone(this.phone);

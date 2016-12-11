@@ -43,7 +43,7 @@ public class SailView {
 		return totalSum;
 	}
 
-	// TODO: Kirill и это ::: Убрал отсюда энтити
+	// TODO: Kirill и это (речь шла об энтити) ::: Убрал отсюда энтити
 	public String getBuyerName() {
 		return buyerName;
 	}

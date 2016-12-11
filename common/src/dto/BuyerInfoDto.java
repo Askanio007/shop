@@ -14,23 +14,6 @@ public class BuyerInfoDto {
 
     public BuyerInfoDto() {}
 
-    private BuyerInfoDto(BuyerInfo info) {
-        this.id = info.getId();
-        this.age = info.getAge();
-        this.secondName = info.getSecondName();
-        this.phone = info.getPhone();
-    }
-
-    public BuyerInfo transferDataToEntity(BuyerInfo info) {
-        info.setSecondName(this.secondName);
-        info.setAge(this.age);
-        return info;
-    }
-
-    public static BuyerInfoDto converToDto(BuyerInfo entity) {
-        return new BuyerInfoDto(entity);
-    }
-
     public Long getId() {
         return id;
     }

@@ -42,6 +42,8 @@ public class ReferralService {
         // return "desc".equals(typeSort) ?
         // TODO: Artyom насчёт сравнивания строки с элементом это да, я обратил на это внимание ещё когда сортировку делал. Тут просто ни разу не падало, вот
         // я и не изменил)) Поправил и в других местах. Насчёт того что, это читабельнее - согласен
+
+        // TODO: Artyom стал кое-где использовать стримы
     }
 
     public List<Referral> sortByCountSail(List<Referral> referrals, final String typeSort) {
