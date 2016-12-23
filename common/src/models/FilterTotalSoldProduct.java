@@ -33,14 +33,19 @@ public class FilterTotalSoldProduct {
 		return params;
 	}
 
+	public FilterTotalSoldProduct() {
+
+	}
+
 	public void setId(Long id) {
 		this.id = id;
-		params.put("id", id);
+		if (id != null )
+			params.put("id", id);
 	}
 
 	public void setName(String name) {
 		this.name = name;
-		if ("".equals(name))
+		if (!"".equals(name))
 			params.put("product.name", name);
 	}
 }

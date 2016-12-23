@@ -56,7 +56,7 @@ public class BuyerController {
 	@RequestMapping(value = "/buyer/edit/{buyerId}", method = RequestMethod.POST)
 	public String edit(@ModelAttribute("buyerEdit") @Valid BuyerDto buyerDto, BindingResult result, Model model) {
 		if (result.hasErrors())
-			return "buyer/edit";
+			return "buyer/edit/" + buyerDto.getId();
 		serviceBuyer.edit(buyerDto);
 		model.addAttribute("infoMessage", "Edit success");
 		return "redirect:/buyer/all";
