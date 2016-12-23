@@ -66,7 +66,6 @@ public class ReportByDay {
         this.sailAmount = sailAmount;
     }
 
-
     public String getDateView() {
         return viewDate;
     }

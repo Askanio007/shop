@@ -43,6 +43,8 @@ public class Product {
 	// однако и там можно рассмотреть конкретные случаи и скорее всего можно будет обойтись DTO объектами.
 	// Если не понятно чокак, можешь спросить поподробнее
 
+	// TODO: Artyom добавил классы дто, теперь в контроллерах вся работа происходит с ними.
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
 	private List<PictureProduct> picList;

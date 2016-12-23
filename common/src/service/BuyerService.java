@@ -80,6 +80,7 @@ public class BuyerService {
 
 	// TODO: Kirill будь я придирчивым и говнистым, мне бы название не понравилось. ::: исправил название метода и переменных. Я подразумевал, что
 	// сравниваются две строки, а хеш это или нет это уже не важно
+
 	// Говорят сравни, пароль старый с новым равны? А сравнивают не хеш одного пароля с хешем другого
 	public boolean checkOldPasswords(String oldPassword, String enteredOldPassword) {
 		return oldPassword.equals(HashString.toMD5(enteredOldPassword));
@@ -122,7 +123,7 @@ public class BuyerService {
 
 	@Transactional
 	public List<BuyerDto> listDto(PaginationFilter dbPagination) {
-		return BuyerDto.convertToDTO(buyerDao.find(dbPagination));
+		return BuyerDto.convertToDTO(list(dbPagination));
 	}
 
 	@Transactional
