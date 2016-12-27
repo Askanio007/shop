@@ -19,7 +19,7 @@ public class SailView {
 	private String buyerName;
 
 
-	public SailView(SailDto sail) {
+	private SailView(SailDto sail) {
 		this.date = DateConverter.getFormatView().format(sail.getDate());
 		this.id = sail.getId();
 		this.amount = sail.getAmount();
@@ -50,7 +50,7 @@ public class SailView {
 	
 	public static List<SailView> convertSail(List<SailDto> sails) {
 		List<SailView> list = new ArrayList<>();
-		sails.stream().forEach((sail) -> new SailView(sail));
+		sails.stream().forEach((sail) -> list.add(new SailView(sail)));
 		return list;
 	}
 }

@@ -55,7 +55,7 @@ public class ReportByDay {
     }
 
     public void setProfit(BigDecimal profit) {
-        this.profit = profit;
+        this.profit = profit.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public Long getSailAmount() {

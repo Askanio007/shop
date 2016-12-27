@@ -33,7 +33,7 @@ public class SailDto {
         this.date = sail.getDate();
         this.dateChangeState = sail.getDateChangeState();
         this.amount = sail.getAmount();
-        this.totalsum = sail.getTotalsum();
+        this.totalsum = sail.getTotalsum().setScale(2, BigDecimal.ROUND_HALF_UP);
         this.state = sail.getState();
         this.cashbackPercent = sail.getCashbackPercent();
         this.buyerName = sail.getBuyer().getName();

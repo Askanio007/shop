@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import dto.BuyerDto;
 import dto.DiscountDto;
 import dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import entity.Buyer;
-import entity.Discount;
 import service.BuyerService;
 import service.DiscountService;
 import service.ProductService;

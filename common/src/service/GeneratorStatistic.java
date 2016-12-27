@@ -92,8 +92,7 @@ public class GeneratorStatistic {
         int countProduct = serviceProduct.countAll();
         int countBuyer = serviceBuyer.countAll();
         List<ProductBasket> list = new ArrayList<>();
-        for(int j = 0; j<500;j++)
-        {
+        for(int j = 0; j<500;j++) {
             int amountProduct = r.nextInt(5);
             Random c = new Random();
             for (int i = 1; i < amountProduct+1; i++) {

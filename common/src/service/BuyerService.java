@@ -61,13 +61,6 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public Buyer getFullInfo(String buyerName) {
-		Buyer buyer = buyerDao.findByName(buyerName);
-		Hibernate.initialize(buyer.getInfo());
-		return buyer;
-	}
-
-	@Transactional
 	public String getPathAva(Long buyerId) {
 		return buyerDao.getAvaPathById(buyerId);
 	}
@@ -81,6 +74,7 @@ public class BuyerService {
 	// TODO: Kirill будь я придирчивым и говнистым, мне бы название не понравилось. ::: исправил название метода и переменных. Я подразумевал, что
 	// сравниваются две строки, а хеш это или нет это уже не важно
 
+	// TODO: Artyom а ещё, какая разница, хеш в переменной или не хеш? Ты дал методу две строки пароля, а что он там с ними делает это его проблемы. Или я всё не так понимаю?)
 	// Говорят сравни, пароль старый с новым равны? А сравнивают не хеш одного пароля с хешем другого
 	public boolean checkOldPasswords(String oldPassword, String enteredOldPassword) {
 		return oldPassword.equals(HashString.toMD5(enteredOldPassword));
@@ -128,7 +122,7 @@ public class BuyerService {
 
 	@Transactional
 	public List<BuyerDto> listDto() {
-		return BuyerDto.convertToDTO(buyerDao.find());
+		return BuyerDto.convertToDTO(list());
 	}
 
 	@Transactional

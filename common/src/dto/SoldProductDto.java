@@ -29,7 +29,7 @@ public class SoldProductDto {
         this.productId = entity.getProductId();
         this.name = entity.getName();
         this.amount = entity.getAmount();
-        this.cost = entity.getCost();
+        this.cost = entity.getCost().setScale(2, BigDecimal.ROUND_HALF_UP);
         this.discount = entity.getDiscount();
         this.buyerName = entity.getSail().getBuyer().getName();
     }

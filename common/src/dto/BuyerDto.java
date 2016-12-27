@@ -48,7 +48,7 @@ public class BuyerDto {
         this.enable = buyer.getEnable();
         this.dateReg = buyer.getDateReg();
         this.refId = buyer.getRefId();
-        this.balance = buyer.getBalance();
+        this.balance = buyer.getBalance().setScale(2, BigDecimal.ROUND_HALF_UP);
         this.refCode = buyer.getRefCode();
         this.tracker = buyer.getTracker();
         this.percentCashback = buyer.getPercentCashback();

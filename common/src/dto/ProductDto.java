@@ -22,7 +22,7 @@ public class ProductDto {
     private ProductDto(Product product) {
         this.id = product.getId();
         this.name = product.getName();
-        this.cost = product.getCost();
+        this.cost = product.getCost().setScale(2, BigDecimal.ROUND_HALF_UP);
         for(PictureProduct pic : product.getPicList()) {
             this.picPath.add(pic.getPath());
         }

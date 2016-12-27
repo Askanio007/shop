@@ -83,7 +83,7 @@
             <td>${sail.sail.id}</td>
             <td>${sail.sail.date}</td>
             <td>${sail.products}></td>
-            <td>${sail.sail.viewTotalsum}</td>
+            <td>${sail.sail.totalsum}</td>
             <td>${sail.sail.cashbackPercent}</td>
             <td>${sail.viewProfit}</td>
         </tr>

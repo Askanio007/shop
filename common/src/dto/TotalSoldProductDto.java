@@ -24,7 +24,7 @@ public class TotalSoldProductDto {
         this.id = entity.getId();
         this.productId = entity.getProduct().getId();
         this.productName = entity.getProduct().getName();
-        this.totalCost = entity.getTotalCost();
+        this.totalCost = entity.getTotalCost().setScale(2, BigDecimal.ROUND_HALF_UP);
         this.totalAmount = entity.getTotalAmount();
     }
 
