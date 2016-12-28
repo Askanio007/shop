@@ -1,17 +1,12 @@
 package view;
 
-import entity.Sail;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class DateConverter {
 
-    private static ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>();
-    private static ThreadLocal<DateFormat> dfRequest = new ThreadLocal<DateFormat>();
+    private static ThreadLocal<DateFormat> df = new ThreadLocal<>();
+    private static ThreadLocal<DateFormat> dfRequest = new ThreadLocal<>();
 
     public static DateFormat getFormatView() {
         DateFormat format = df.get();

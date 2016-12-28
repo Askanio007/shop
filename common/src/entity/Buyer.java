@@ -19,9 +19,9 @@ public class Buyer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false, length = 30)
 	@Length(min = 2, max=30)
-	@NotNull 				// TODO: 16.10.2016 как соотносится с ограничениями в базе?
+	@NotNull 				// TODO: 16.10.2016 как соотносится с ограничениями в базе? :: поправил. Аннотации из javax оставил, они валидируют бины.
 	private String name;// TODO: Kirill поправил? я так понял что нет
 
 	@Column(name = "password")

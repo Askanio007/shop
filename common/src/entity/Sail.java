@@ -30,7 +30,7 @@ public class Sail {
 	private Date date;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
-	@Column(name = "date_change_state")
+	@Column(name = "date_change_state", nullable = false)
 	@NotNull
 	private Date dateChangeState;
 

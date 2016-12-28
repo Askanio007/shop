@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -29,6 +30,7 @@ public class BuyerInfo {
 	private String ava;
 
 	@Column(name = "age")
+	@Check(constraints = "age >= 1 AND age <= 100")
 	@Max(100)
 	private Integer age;
 
@@ -37,16 +39,6 @@ public class BuyerInfo {
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "info")
 	private Buyer buyer;
-
-	public BuyerInfo(String secondName, Integer age, String phone) {
-		this.secondName = secondName;
-		this.age = age;
-		this.phone = phone;
-	}
-
-	public BuyerInfo(Buyer buyer) {
-		this.buyer = buyer;
-	}
 
 	public BuyerInfo() {
 	}

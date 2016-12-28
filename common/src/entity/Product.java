@@ -1,6 +1,6 @@
 package entity;
 
-import view.ViewFormat;
+import org.hibernate.annotations.Check;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "product")
@@ -28,11 +27,11 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name")
-	@Size(min = 1, max = 400)
+	@Column(name = "name", length = 100)
 	private String name;
 
-	@Column(name = "cost")
+	@Column(name = "cost", nullable = false)
+	@Check(constraints = "cost >= 1")
 	@NotNull
 	@Min(1)
 	private BigDecimal cost;

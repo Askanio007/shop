@@ -7,13 +7,12 @@ public class DateBuilder {
 
     private DateBuilder() {}
 
-    private static Calendar calendar;
-
-    static {
-        calendar = Calendar.getInstance();
+    private static Calendar getCurrentTime() {
+        return (Calendar) Calendar.getInstance().clone();
     }
 
     public static Date endDay(Date date) {
+        Calendar calendar = getCurrentTime();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, 1);
         calendar.setTime(startDay(calendar.getTime()));
@@ -24,6 +23,7 @@ public class DateBuilder {
     // TODO: Kirill это метод "конец дня".. ::: убрал лишнее
     // а это "дата без времени"...
     public static Date startDay(Date date) {
+        Calendar calendar = getCurrentTime();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -33,15 +33,15 @@ public class DateBuilder {
     }
 
     public static Date firstDayCurrentMonth() {
-        calendar.setTime(new Date());
+        Calendar calendar = getCurrentTime();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         return calendar.getTime();
     }
 
     public static DateFilter getLastMonth() {        
         // TODO: 16.10.2016 вообще создаешь в методе календарь один и давай сним работать. ::: исправил
-        // TODO: Kirill я плакаю, подумай хорошо и приходи расскажи, что ты сделал.
-        calendar.setTime(new Date());
+        // TODO: Kirill я плакаю, подумай хорошо и приходи расскажи, что ты сделал. ::: ту реализацию я подчерпнул из блоха )) чтобы не создавать копии на каждый вызов методов. Пока сделал так, была мысль ещё сделать через ThreadLocal, но я бы это обсудил
+        Calendar calendar = getCurrentTime();
         calendar.add(Calendar.MONTH, - 1);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         Date from = new Date(calendar.getTime().getTime());

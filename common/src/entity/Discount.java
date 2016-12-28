@@ -1,24 +1,15 @@
 package entity;
 
-import dto.DiscountDto;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Check;
+
 @Entity(name = "Discount")
 @Table(name = "discount")
 public class Discount {
-
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +22,8 @@ public class Discount {
 	@Column(name = "active")
 	private boolean active;
 
-	@Column(name = "discount")
+	@Column(name = "discount", nullable = false)
+	@Check(constraints = "discount >= 0 AND discount <= 100")
 	@NotNull
 	@Min(0)
 	@Max(100)
