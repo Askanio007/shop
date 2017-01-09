@@ -7,9 +7,13 @@
                           <artifactId>shop</artifactId>
                           <version>0.0.1-SNAPSHOT</version>
                         <packaging>pom</packaging>
+	 <modules>
+	 	<module>admin</module>
+	 	<module>site</module>
+	 	<module>common</module>
+	 </modules>
 
-						<dependencies>
-
+	 <dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -151,8 +155,5 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
-
-
-
 	</dependencies>
                   </project>
